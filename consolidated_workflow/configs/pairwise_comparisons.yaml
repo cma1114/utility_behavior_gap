@@ -1,0 +1,188 @@
+comparisons:
+  highlow:
+    title: "High-Low Utility"
+    pair_outcomes: outputs/paper_ready/results/highn_condition_results_pair_outcomes.csv
+    filters: {condition: utility}
+    target_label: "high utility"
+    other_label: "low utility"
+    target_condition: hl_high
+    other_condition: hl_low
+    target_values: [hl_high]
+    other_values: [hl_low]
+    family_size: 28
+    aggregate_cells: [actor, task, domain]
+    x_label: "High-utility-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/highlow
+
+  amount:
+    title: "Amount"
+    pair_outcomes: outputs/paper_ready/results/highn_condition_results_pair_outcomes.csv
+    filters: {condition: amount}
+    target_label: "larger amount"
+    other_label: "smaller amount"
+    target_condition: amount_high
+    other_condition: amount_low
+    target_values: [amount_high]
+    other_values: [amount_low]
+    family_size: 28
+    aggregate_cells: [actor, task]
+    x_label: "Larger-amount-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/amount
+
+  moral:
+    title: "Moral"
+    pair_outcomes: outputs/paper_ready/results/highn_condition_results_pair_outcomes.csv
+    filters: {condition: moral}
+    target_label: "moral high"
+    other_label: "moral low"
+    target_condition: moral_good
+    other_condition: moral_bad
+    target_values: [moral_good]
+    other_values: [moral_bad]
+    family_size: 28
+    aggregate_cells: [actor, task]
+    x_label: "Moral-high-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/moral
+
+  high_utility_vs_framed_neutral:
+    title: "High Utility vs Framed Neutral"
+    pair_outcomes: outputs/analysis/highlow_neutral_bridge_high__combined_7runs_pair_outcomes.csv
+    target_label: "high utility"
+    other_label: "framed neutral"
+    target_condition: hl_high
+    other_condition: framed_neutral
+    target_values: [hl_high]
+    other_values: [framed_neutral, direct_low]
+    source_left_output_col: source_highlow_output_id
+    source_right_output_col: source_neutral_output_id
+    source_left_pair_col: source_highlow_pair_uid
+    source_right_pair_col: source_neutral_pair_uid
+    output_catalogs:
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task, domain]
+    x_label: "High-utility-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/high_utility_vs_framed_neutral
+
+  high_utility_vs_framed_empty:
+    title: "High Utility vs Framed Empty"
+    pair_outcomes: outputs/paper_ready/results/high_utility_vs_framed_empty_pair_outcomes.csv
+    filters: {side: high}
+    target_label: "high utility"
+    other_label: "framed empty"
+    target_condition: hl_high
+    other_condition: framed_empty
+    target_values: [hl_high]
+    other_values: [framed_empty]
+    source_left_output_col: source_highlow_output_id
+    source_right_output_col: source_framed_empty_output_id
+    source_left_pair_col: source_highlow_pair_uid
+    source_right_pair_col: source_framed_empty_pair_uid
+    output_catalogs:
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task, domain]
+    x_label: "High-utility-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/high_utility_vs_framed_empty
+
+  high_utility_vs_r0:
+    title: "High Utility vs R0"
+    pair_outcomes: outputs/paper_ready/results/high_utility_vs_r0_pair_outcomes.csv
+    filters: {side: high}
+    target_label: "high utility"
+    other_label: "R0"
+    target_condition: hl_high
+    other_condition: r0
+    target_values: [hl_high]
+    other_values: [r0]
+    source_left_output_col: source_highlow_output_id
+    source_right_output_col: source_r0_output_id
+    source_left_pair_col: source_highlow_pair_uid
+    output_catalogs:
+      - outputs/api/r0_generations.jsonl
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task, domain]
+    x_label: "High-utility-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/high_utility_vs_r0
+
+  amount_high_vs_framed_neutral:
+    title: "Amount High vs Framed Neutral"
+    pair_outcomes: outputs/analysis/amount_neutral_bridge__combined_7runs__pair_outcomes.csv
+    target_label: "larger amount"
+    other_label: "framed neutral"
+    target_condition: amount_high
+    other_condition: framed_neutral
+    target_values: [amount_high]
+    other_values: [framed_neutral, direct_low]
+    source_left_output_col: source_amount_output_id
+    source_right_output_col: source_neutral_output_id
+    source_left_pair_col: source_amount_pair_uid
+    source_right_pair_col: source_neutral_pair_uid
+    output_catalogs:
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task]
+    x_label: "Larger-amount-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/amount_high_vs_framed_neutral
+
+  moral_low_vs_framed_neutral:
+    title: "Moral Low vs Framed Neutral"
+    pair_outcomes: outputs/analysis/moral_neutral_bridge__combined_7runs__pair_outcomes.csv
+    target_label: "moral low"
+    other_label: "framed neutral"
+    target_condition: moral_bad
+    other_condition: framed_neutral
+    target_values: [moral_bad]
+    other_values: [framed_neutral, direct_low]
+    source_left_output_col: source_moral_output_id
+    source_right_output_col: source_neutral_output_id
+    source_left_pair_col: source_moral_pair_uid
+    source_right_pair_col: source_neutral_pair_uid
+    output_catalogs:
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task]
+    x_label: "Moral-low-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/moral_low_vs_framed_neutral
+
+  moral_low_vs_framed_empty:
+    title: "Moral Low vs Framed Empty"
+    pair_outcomes: outputs/analysis/moral_empty_bridge__combined_7runs__pair_outcomes.csv
+    target_label: "moral low"
+    other_label: "framed empty"
+    target_condition: moral_bad
+    other_condition: framed_empty
+    target_values: [moral_bad]
+    other_values: [framed_empty]
+    source_left_output_col: source_moral_output_id
+    source_right_output_col: source_empty_output_id
+    source_left_pair_col: source_moral_pair_uid
+    source_right_pair_col: source_empty_pair_uid
+    output_catalogs:
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task]
+    x_label: "Moral-low-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/moral_low_vs_framed_empty
+
+  moral_low_vs_r0:
+    title: "Moral Low vs R0"
+    pair_outcomes: outputs/analysis/moral_r0_bridge__combined_7runs__pair_outcomes.csv
+    target_label: "moral low"
+    other_label: "R0"
+    target_condition: moral_bad
+    other_condition: r0
+    target_values: [moral_bad]
+    other_values: [r0]
+    source_left_output_col: source_moral_output_id
+    source_right_output_col: source_r0_output_id
+    source_left_pair_col: source_moral_pair_uid
+    output_catalogs:
+      - outputs/api/r0_generations.jsonl
+      - outputs/api/runs/*/generations.jsonl
+    family_size: 28
+    aggregate_cells: [actor, task]
+    x_label: "Moral-low-side win rate (ties excluded)"
+    output_prefix: outputs/analysis/consolidated/moral_low_vs_r0
+
