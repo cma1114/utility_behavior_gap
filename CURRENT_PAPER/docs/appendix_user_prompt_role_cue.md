@@ -1,21 +1,21 @@
 # User-Prompt Role Cue Finding
 
-Status: paper-relevant result. This file records the role-cue analysis that should be carried forward into the paper and public repository.
+Status: paper-relevant result. This file records the framed role-cue analysis that should be carried forward into the paper and public repository.
 
 ## Contrast
 
-The experiment compares two user-prompt role cues while holding the task request fixed:
+The experiment compares two user-prompt role cues while holding the competition-framed task wrapper fixed:
 
 - Strong role cue: world-class task-specific professional.
 - Control role cue: skilled task-specific professional.
 
-The cue is placed in the user prompt, not the system prompt. The system prompt is blank.
+The cue is placed in the user prompt, not the system prompt. The system prompt is blank. The task wrapper is the same framed-neutral competition wrapper used in the current paradigm.
 
 ## Primary Figure
 
-- `CURRENT_PAPER/figures/user_prompt_role_model_task_lollipop.png`
+- `CURRENT_PAPER/figures/framed_user_prompt_role_model_task_lollipop.png`
 
-The figure uses the same model-by-task lollipop format as the primary direct-instruction and high-low figures. Each plotted cell reports the strong-role-side win rate with ties excluded. Model-task confidence intervals are exact binomial intervals Bonferroni-adjusted over the planned 28 cells.
+The figure uses the same model-by-task lollipop format as the primary direct-instruction and high-low figures. Each plotted cell reports the world-class-role-side win rate with ties excluded. Model-task confidence intervals are exact binomial intervals Bonferroni-adjusted over the planned 28 cells.
 
 ## Aggregate Estimand
 
@@ -31,24 +31,28 @@ The primary aggregate estimate is the equal-cell mean win rate.
 
 The world-class role cue improved judged output quality overall.
 
-- Overall equal-cell mean: 63.3% [53.0%, 75.7%].
-- Overall pooled win rate: 1275 / 1996 non-tied decisions = 63.9%.
-- FWER-positive model-task cells: 11 / 28.
+- Overall equal-cell mean: 61.2% [53.2%, 70.9%].
+- Overall pooled win rate: 2280 / 3755 non-tied decisions = 60.7% [59.1%, 62.3%].
+- FWER-positive model-task cells: 10 / 28.
 
 By task:
 
-- Essay writing: 78.5% [65.0%, 90.0%].
-- Grant abstract: 63.2% [54.6%, 70.6%].
-- Incident postmortem: 59.4% [50.4%, 68.0%].
-- Translation: 52.1% [46.2%, 57.9%].
+- Essay writing: 74.4% [65.5%, 82.7%].
+- Grant abstract: 60.8% [57.1%, 64.5%].
+- Incident postmortem: 55.1% [49.7%, 60.3%].
+- Translation: 54.4% [48.8%, 60.7%].
 
-Interpretation: role cues are another explicit cue that can make models produce higher-quality outputs, especially in open-ended generation tasks. The effect is strongest for essays, positive for grants and incident postmortems, and near-null for translation.
+Interpretation: role cues are another explicit cue that can make models produce higher-quality outputs. The effect is strongest for essays and positive for grant abstracts; incident postmortems and translation are weaker under the equal-cell task-level CIs.
 
 ## Primary Result Files
 
-- `CURRENT_PAPER/results/user_prompt_role_aggregate.md`
-- `CURRENT_PAPER/results/user_prompt_role_aggregate.csv`
-- `CURRENT_PAPER/results/user_prompt_role_model_task_summary.md`
-- `CURRENT_PAPER/results/user_prompt_role_model_task_plot_data.csv`
-- `CURRENT_PAPER/results/user_prompt_role_pair_outcomes.csv`
-- `CURRENT_PAPER/results/user_prompt_role_run_audit.csv`
+- `CURRENT_PAPER/results/framed_user_prompt_role_aggregate.md`
+- `CURRENT_PAPER/results/framed_user_prompt_role_aggregate.csv`
+- `CURRENT_PAPER/results/framed_user_prompt_role_model_task_summary.md`
+- `CURRENT_PAPER/results/framed_user_prompt_role_model_task_plot_data.csv`
+- `CURRENT_PAPER/results/framed_user_prompt_role_pair_outcomes.csv`
+- `CURRENT_PAPER/results/framed_user_prompt_role_run_audit.csv`
+
+## Reproduction Notes
+
+The extension to 300 planned pairs per actor-task used the existing 30 task items with repeats 5-9 added to the original repeats 0-4. The combined figure is generated with `plot_model_task_lollipop.py --combine-runs`, which merges the base and extension run blocks per actor-task and de-duplicates by pair id.

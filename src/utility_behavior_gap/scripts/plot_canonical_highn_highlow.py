@@ -30,8 +30,11 @@ SUBTLE = "#6B7280"
 GRID = "#E9EDF5"
 CHANCE_LINE = "#9CA3AF"
 CI_POS_BAND = "#E8F4ED"
+CI_NEG_BAND = "#FDE8E8"
 CI_POS_PILL_BG = "#DDF1E3"
 CI_POS_PILL_INK = "#2F7A4F"
+CI_NEG_PILL_BG = "#FDE2E2"
+CI_NEG_PILL_INK = "#9F1D1D"
 NEUTRAL_PILL_BG = "#F1F2F5"
 NEUTRAL_PILL_INK = "#4B5563"
 
@@ -169,6 +172,7 @@ def build_cell_rows(pairs: pd.DataFrame, *, domain: str | None = None) -> pd.Dat
                     "familywise_ci_lo": lo,
                     "familywise_ci_hi": hi,
                     "familywise_ci_positive": bool(np.isfinite(lo) and lo > 0.5),
+                    "familywise_ci_negative": bool(np.isfinite(hi) and hi < 0.5),
                     "p_two_sided_exact": p_value,
                 }
             )
@@ -176,6 +180,7 @@ def build_cell_rows(pairs: pd.DataFrame, *, domain: str | None = None) -> pd.Dat
     adjusted = holm_adjust(out["p_two_sided_exact"].fillna(1.0).tolist())
     out["holm_p_two_sided"] = adjusted
     out["holm_positive"] = out["target_win_rate_excluding_ties"].gt(0.5) & out["holm_p_two_sided"].lt(0.05)
+    out["holm_negative"] = out["target_win_rate_excluding_ties"].lt(0.5) & out["holm_p_two_sided"].lt(0.05)
     return out
 
 
@@ -198,6 +203,10 @@ def render_panel(ax, df_task: pd.DataFrame, task_label: str, panel_letter: str, 
             ax.add_patch(
                 mpatches.Rectangle((0.005, y - 0.42), 0.99, 0.84, facecolor=CI_POS_BAND, edgecolor="none", zorder=0)
             )
+        elif bool(row.get("familywise_ci_negative", False)):
+            ax.add_patch(
+                mpatches.Rectangle((0.005, y - 0.42), 0.99, 0.84, facecolor=CI_NEG_BAND, edgecolor="none", zorder=0)
+            )
     ax.axvline(0.50, color=CHANCE_LINE, lw=1.2, ls=(0, (4, 3)), alpha=0.9, zorder=1)
 
     for i, row in df_task.iterrows():
@@ -209,10 +218,28 @@ def render_panel(ax, df_task: pd.DataFrame, task_label: str, panel_letter: str, 
         hi = float(row["familywise_ci_hi"]) if np.isfinite(row["familywise_ci_hi"]) else math.nan
         if not np.isfinite(rate):
             continue
-        ax.hlines(y, lo, hi, color=color, lw=4.0, alpha=0.34, capstyle="round", zorder=2)
-        ax.vlines([lo, hi], y - 0.16, y + 0.16, color=color, lw=1.2, alpha=0.45, zorder=2)
-        ax.scatter(rate, y, s=135, color=color, edgecolor="white", linewidth=1.5, zorder=4)
-        ax.text(min(hi + 0.025, 1.02), y, f"{rate:.2f}", ha="left", va="center", fontsize=9.7, color=color, fontweight="semibold")
+        adjusted_diff = bool(row.get("familywise_ci_positive", False)) or bool(row.get("familywise_ci_negative", False))
+        ax.hlines(
+            y,
+            lo,
+            hi,
+            color=color,
+            lw=4.0,
+            alpha=0.42 if adjusted_diff else 0.30,
+            capstyle="round",
+            zorder=2,
+        )
+        ax.vlines(
+            [lo, hi],
+            y - 0.16,
+            y + 0.16,
+            color=color,
+            lw=1.3,
+            alpha=0.55 if adjusted_diff else 0.40,
+            zorder=2,
+        )
+        ax.scatter(rate, y, s=145, color=color, edgecolor="white", linewidth=1.6, zorder=4)
+        ax.text(min(hi + 0.025, 1.02), y, f"{rate:.2f}", ha="left", va="center", fontsize=10.0, color=color, fontweight="semibold")
 
     ax.set_yticks([n - 1 - i for i in range(n)])
     ax.set_yticklabels(actor_labels, fontsize=10.2)
@@ -230,18 +257,33 @@ def render_panel(ax, df_task: pd.DataFrame, task_label: str, panel_letter: str, 
     ax.set_xlabel("High-utility-side win rate (ties excluded)" if show_xlabel else "", color=INK, labelpad=4, fontsize=11)
     ax.text(-0.005, 1.20, task_label, transform=ax.transAxes, ha="left", va="top", fontsize=13, color=INK, fontweight="bold")
     n_pos = int(df_task["familywise_ci_positive"].sum())
-    chip_bg = CI_POS_PILL_BG if n_pos else NEUTRAL_PILL_BG
-    chip_fg = CI_POS_PILL_INK if n_pos else NEUTRAL_PILL_INK
-    ax.text(1.0, 1.20, f"{n_pos} / {len(df_task)} CI-positive", transform=ax.transAxes, ha="right", va="top", fontsize=10.2, color=chip_fg, fontweight="semibold", bbox=dict(boxstyle="round,pad=0.30", facecolor=chip_bg, edgecolor="none"))
+    n_neg = int(df_task["familywise_ci_negative"].sum())
+    if n_neg and n_pos:
+        chip_bg = NEUTRAL_PILL_BG
+        chip_fg = NEUTRAL_PILL_INK
+        chip_text = f"{n_neg} adj-CI < 0.5; {n_pos} adj-CI > 0.5"
+    elif n_neg:
+        chip_bg = CI_NEG_PILL_BG
+        chip_fg = CI_NEG_PILL_INK
+        chip_text = f"{n_neg} / {len(df_task)} adj-CI < 0.5"
+    elif n_pos:
+        chip_bg = CI_POS_PILL_BG
+        chip_fg = CI_POS_PILL_INK
+        chip_text = f"{n_pos} / {len(df_task)} adj-CI > 0.5"
+    else:
+        chip_bg = NEUTRAL_PILL_BG
+        chip_fg = NEUTRAL_PILL_INK
+        chip_text = f"0 / {len(df_task)} adj-CI != 0.5"
+    ax.text(1.0, 1.20, chip_text, transform=ax.transAxes, ha="right", va="top", fontsize=10.5, color=chip_fg, fontweight="semibold", bbox=dict(boxstyle="round,pad=0.30", facecolor=chip_bg, edgecolor="none"))
     n_excl = df_task["resolved_n"].dropna().astype(int)
     if len(n_excl):
         n_lo, n_hi = int(n_excl.min()), int(n_excl.max())
         note = f"n = {n_lo} pairs / actor" if n_lo == n_hi else f"n = {n_lo}-{n_hi} pairs / actor"
-        ax.text(-0.005, 1.06, f"{note}; FWER 95% CIs", transform=ax.transAxes, ha="left", va="top", fontsize=9, color=SUBTLE)
+        ax.text(-0.005, 1.06, f"{note}; FWER-adjusted 95% CIs", transform=ax.transAxes, ha="left", va="top", fontsize=9, color=SUBTLE)
     ax.text(-0.30, 1.18, panel_letter, transform=ax.transAxes, fontsize=13, fontweight="bold", color=INK, va="top", ha="left")
 
 
-def plot_lollipop(cells: pd.DataFrame, path_stem: Path, *, title: str, write_pdf: bool = True) -> None:
+def plot_lollipop(cells: pd.DataFrame, path_stem: Path, *, title: str, write_pdf: bool = False) -> None:
     plt.rcParams.update({
         "font.family": "DejaVu Sans",
         "figure.dpi": 200,
@@ -249,15 +291,17 @@ def plot_lollipop(cells: pd.DataFrame, path_stem: Path, *, title: str, write_pdf
         "ps.fonttype": 42,
     })
     fig = plt.figure(figsize=(12.8, 7.0), facecolor=PAPER_BG)
-    gs = fig.add_gridspec(2, 2, top=0.88, bottom=0.10, left=0.10, right=0.985, hspace=0.55, wspace=0.55)
-    fig.suptitle(title, fontsize=14, fontweight="bold", color=INK, y=0.975)
+    top = 0.88 if title else 0.94
+    gs = fig.add_gridspec(2, 2, top=top, bottom=0.10, left=0.10, right=0.985, hspace=0.55, wspace=0.55)
+    if title:
+        fig.suptitle(title, fontsize=14, fontweight="bold", color=INK, y=0.975)
     letters = ["A", "B", "C", "D"]
     for idx, task in enumerate(TASK_ORDER):
         ax = fig.add_subplot(gs[idx // 2, idx % 2])
         render_panel(ax, cells[cells["task"].eq(task)].copy(), TASK_LABEL.get(task, task), letters[idx], show_xlabel=(idx // 2 == 1))
-    fig.savefig(path_stem.with_suffix(".png"), dpi=240)
+    fig.savefig(path_stem.with_suffix(".png"), dpi=240, bbox_inches="tight", facecolor=PAPER_BG)
     if write_pdf:
-        fig.savefig(path_stem.with_suffix(".pdf"), facecolor=PAPER_BG)
+        fig.savefig(path_stem.with_suffix(".pdf"), bbox_inches="tight", facecolor=PAPER_BG)
     plt.close(fig)
 
 
@@ -326,8 +370,8 @@ def main() -> None:
     all_cells.to_csv(ANALYSIS / f"{OUT_PREFIX}_model_task_cells.csv", index=False)
     figure_paths: list[Path] = []
     overall_stem = FIGURES / f"{OUT_PREFIX}_model_task_lollipop"
-    plot_lollipop(all_cells, overall_stem, title="High-Low Utility: All Domains")
-    figure_paths += [overall_stem.with_suffix(".png"), overall_stem.with_suffix(".pdf")]
+    plot_lollipop(all_cells, overall_stem, title="High-Low Utility")
+    figure_paths += [overall_stem.with_suffix(".png")]
 
     domain_frames = []
     for domain in DOMAIN_ORDER:
@@ -335,7 +379,7 @@ def main() -> None:
         domain_frames.append(cells)
         stem = FIGURES / f"{OUT_PREFIX}_{domain}_model_task_lollipop"
         plot_lollipop(cells, stem, title=f"High-Low Utility: {domain.capitalize()} Domain")
-        figure_paths += [stem.with_suffix(".png"), stem.with_suffix(".pdf")]
+        figure_paths += [stem.with_suffix(".png")]
     pd.concat(domain_frames, ignore_index=True).to_csv(ANALYSIS / f"{OUT_PREFIX}_domain_model_task_cells.csv", index=False)
     write_summary_md(aggregate, figure_paths)
     print(f"summary: {ANALYSIS / f'{OUT_PREFIX}_summary.md'}")

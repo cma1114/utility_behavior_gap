@@ -127,10 +127,19 @@ STRONG_SYSTEM_PROMPTS = {
 }
 
 ROLE_ONLY_STRONG_SYSTEM_PROMPTS = {
-    "essay": "You are a world-class essayist",
-    "translation": "You are a world-class literary translator.",
-    "incident_postmortem": "You are a world-class site reliability leader.",
-    "grant_proposal_abstract": "You are a world-class expert writer.",
+    "essay": "You are a world-class essayist.",
+    "translation": "You are a world-class translator.",
+    "incident_postmortem": "You are a world-class site reliability engineer.",
+    "grant_proposal_abstract": "You are a world-class grant writer.",
+}
+
+USER_ROLE_STRONG_INSTRUCTIONS = ROLE_ONLY_STRONG_SYSTEM_PROMPTS
+
+USER_ROLE_WEAK_INSTRUCTIONS = {
+    **NORMAL_SYSTEM_PROMPTS,
+    "translation": "You are a skilled translator.",
+    "incident_postmortem": "You are a skilled site reliability engineer.",
+    "grant_proposal_abstract": "You are a skilled grant writer.",
 }
 
 INCENTIVE_STRONG_SYSTEM_PROMPTS = {

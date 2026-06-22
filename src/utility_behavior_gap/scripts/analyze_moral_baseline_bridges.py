@@ -9,8 +9,14 @@ from __future__ import annotations
 
 import argparse
 import math
+import os
 from pathlib import Path
 
+os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
+
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
@@ -145,6 +151,156 @@ def build_cells(by_actor_task: pd.DataFrame, *, comparison: str) -> pd.DataFrame
     return out
 
 
+def pct(value: float) -> str:
+    if value is None or not math.isfinite(float(value)):
+        return ""
+    return f"{100 * float(value):.1f}%"
+
+
+def wilson_ci(wins: int, total: int, z: float = 1.959963984540054) -> tuple[float, float]:
+    if total <= 0:
+        return math.nan, math.nan
+    p = wins / total
+    denom = 1 + z * z / total
+    center = (p + z * z / (2 * total)) / denom
+    half = z * math.sqrt(p * (1 - p) / total + z * z / (4 * total * total)) / denom
+    return center - half, center + half
+
+
+def bootstrap_equal_cell_mean(
+    outcomes: pd.DataFrame,
+    *,
+    task: str | None,
+    iterations: int,
+    seed: int,
+) -> tuple[float, float, float, str]:
+    work = outcomes.copy()
+    if task is not None:
+        work = work[work["task"].eq(task)].copy()
+    work = work[work["outcome"].isin(["moral_bad", "framed_empty"])].copy()
+    if work.empty:
+        return math.nan, math.nan, math.nan, "no non-tied pairs"
+    work["target_win"] = work["outcome"].eq("moral_bad").astype(float)
+
+    arrays: dict[tuple[str, str], np.ndarray] = {}
+    for key, group in work.groupby(["actor", "task"], sort=True):
+        arrays[(str(key[0]), str(key[1]))] = group["target_win"].to_numpy(dtype=float)
+
+    point = float(np.mean([array.mean() for array in arrays.values()]))
+    rng = np.random.default_rng(seed)
+    actors = sorted(work["actor"].dropna().astype(str).unique().tolist())
+    tasks = [task] if task is not None else sorted(work["task"].dropna().astype(str).unique().tolist())
+    estimates = np.empty(iterations, dtype=float)
+
+    for index in range(iterations):
+        sampled_actors = rng.choice(actors, size=len(actors), replace=True) if len(actors) > 1 else np.asarray(actors)
+        sampled_tasks = rng.choice(tasks, size=len(tasks), replace=True) if task is None and len(tasks) > 1 else np.asarray(tasks)
+        cell_rates: list[float] = []
+        for actor in sampled_actors:
+            for task_key in sampled_tasks:
+                array = arrays.get((str(actor), str(task_key)))
+                if array is None or len(array) == 0:
+                    continue
+                sampled = rng.choice(array, size=len(array), replace=True)
+                cell_rates.append(float(sampled.mean()))
+        estimates[index] = float(np.mean(cell_rates)) if cell_rates else math.nan
+
+    estimates = estimates[np.isfinite(estimates)]
+    if len(estimates) == 0:
+        return point, math.nan, math.nan, "bootstrap failed"
+    if task is None:
+        method = (
+            f"equal actor-task-cell mean; crossed bootstrap over actors and tasks; "
+            f"raw non-tied trials resampled within cells; B={iterations}"
+        )
+    else:
+        method = (
+            f"equal actor-cell mean within fixed task; bootstrap over actors; "
+            f"raw non-tied trials resampled within actor-task cells; B={iterations}"
+        )
+    lo, hi = np.quantile(estimates, [0.025, 0.975])
+    return point, float(lo), float(hi), method
+
+
+def standard_aggregate_rows(outcomes: pd.DataFrame, *, iterations: int = 5000, seed: int = 20260621) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    scopes: list[tuple[str, str, str | None]] = [("overall", "All tasks", None)]
+    scopes.extend(("task", TASK_LABEL.get(task, task), task) for task in TASK_ORDER)
+
+    for offset, (scope, label, task) in enumerate(scopes):
+        sub = outcomes.copy()
+        if task is not None:
+            sub = sub[sub["task"].eq(task)].copy()
+        resolved = sub[sub["outcome"].isin(["moral_bad", "framed_empty"])].copy()
+        moral_wins = int(resolved["outcome"].eq("moral_bad").sum())
+        baseline_wins = int(resolved["outcome"].eq("framed_empty").sum())
+        ties = int(sub["outcome"].eq("tie").sum())
+        unresolved = int(sub["outcome"].eq("unresolved").sum())
+        n = moral_wins + baseline_wins
+        pooled = moral_wins / n if n else math.nan
+        pooled_lo, pooled_hi = wilson_ci(moral_wins, n)
+        mean, ci_lo, ci_hi, method = bootstrap_equal_cell_mean(
+            sub,
+            task=task,
+            iterations=iterations,
+            seed=seed + offset,
+        )
+        rows.append(
+            {
+                "scope": scope,
+                "task": task or "all",
+                "task_label": label,
+                "moral_low_wins": moral_wins,
+                "framed_empty_wins": baseline_wins,
+                "ties": ties,
+                "unresolved": unresolved,
+                "n_excluding_ties": n,
+                "pooled_win_rate": pooled,
+                "pooled_wilson_ci_lo": pooled_lo,
+                "pooled_wilson_ci_hi": pooled_hi,
+                "equal_cell_mean_win_rate": mean,
+                "equal_cell_bootstrap_ci_lo": ci_lo,
+                "equal_cell_bootstrap_ci_hi": ci_hi,
+                "ci_method": method,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def write_standard_aggregate_markdown(aggregate: pd.DataFrame, path: Path) -> None:
+    show = aggregate.copy()
+    show["pooled"] = [
+        f"{pct(row.pooled_win_rate)} [{pct(row.pooled_wilson_ci_lo)}, {pct(row.pooled_wilson_ci_hi)}]"
+        for row in show.itertuples()
+    ]
+    show["equal_cell"] = [
+        f"{pct(row.equal_cell_mean_win_rate)} [{pct(row.equal_cell_bootstrap_ci_lo)}, {pct(row.equal_cell_bootstrap_ci_hi)}]"
+        for row in show.itertuples()
+    ]
+    show = show[
+        [
+            "scope",
+            "task_label",
+            "moral_low_wins",
+            "framed_empty_wins",
+            "ties",
+            "n_excluding_ties",
+            "pooled",
+            "equal_cell",
+        ]
+    ]
+    lines = [
+        "# Moral Low Versus Framed Empty: Aggregate Analysis",
+        "",
+        "Primary estimate: equal-cell mean moral-low win rate. For the overall row, cells are actor x task. For task rows, cells are actors within that fixed task.",
+        "Panel ties are excluded from win-rate denominators and reported separately. Pooled Wilson intervals are descriptive checks.",
+        "",
+        markdown_table(show),
+        "",
+    ]
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
 def strip_spines(ax) -> None:
     for spine in ("top", "right", "left"):
         ax.spines[spine].set_visible(False)
@@ -193,35 +349,42 @@ def render_panel(ax, df_task: pd.DataFrame, task_label: str, panel_letter: str, 
     ax.grid(axis="x", color=GRID, lw=0.6, zorder=0)
     ax.set_axisbelow(True)
     strip_spines(ax)
-    ax.set_xlabel("Moral-low-side win rate (ties excluded)" if show_xlabel else "", color=INK, labelpad=4, fontsize=11)
+    ax.set_xlabel("Harmful-side win rate (ties excluded)" if show_xlabel else "", color=INK, labelpad=4, fontsize=11)
     ax.text(-0.005, 1.20, task_label, transform=ax.transAxes, ha="left", va="top", fontsize=13, color=INK, fontweight="bold")
     n_below = int(df_task["familywise_ci_below"].sum())
     n_above = int(df_task["familywise_ci_above"].sum())
-    if n_below:
+    if n_below and n_above:
+        chip_bg, chip_fg, chip_text = NEUTRAL_PILL_BG, NEUTRAL_PILL_INK, f"{n_below} adj-CI < 0.5; {n_above} adj-CI > 0.5"
+    elif n_below:
         chip_bg, chip_fg, chip_text = CI_LOW_PILL_BG, CI_LOW_PILL_INK, f"{n_below} / {len(df_task)} CI-below"
     elif n_above:
         chip_bg, chip_fg, chip_text = CI_HIGH_PILL_BG, CI_HIGH_PILL_INK, f"{n_above} / {len(df_task)} CI-above"
     else:
         chip_bg, chip_fg, chip_text = NEUTRAL_PILL_BG, NEUTRAL_PILL_INK, f"0 / {len(df_task)} CI-different"
+    if n_below and not n_above:
+        chip_text = f"{n_below} / {len(df_task)} adj-CI < 0.5"
+    elif n_above and not n_below:
+        chip_text = f"{n_above} / {len(df_task)} adj-CI > 0.5"
+    elif not n_below and not n_above:
+        chip_text = f"0 / {len(df_task)} adj-CI != 0.5"
     ax.text(1.0, 1.20, chip_text, transform=ax.transAxes, ha="right", va="top", fontsize=10.2, color=chip_fg, fontweight="semibold", bbox=dict(boxstyle="round,pad=0.30", facecolor=chip_bg, edgecolor="none"))
     n_excl = df_task["resolved_n_excluding_ties"].dropna().astype(int)
     if len(n_excl):
         n_lo, n_hi = int(n_excl.min()), int(n_excl.max())
         note = f"n = {n_lo} pairs / actor" if n_lo == n_hi else f"n = {n_lo}-{n_hi} pairs / actor"
-        ax.text(-0.005, 1.06, f"{note}; FWER 95% CIs", transform=ax.transAxes, ha="left", va="top", fontsize=9, color=SUBTLE)
-    ax.text(-0.30, 1.18, panel_letter, transform=ax.transAxes, fontsize=13, fontweight="bold", color=INK, va="top", ha="left")
+        ax.text(-0.005, 1.06, f"{note}; FWER-adjusted 95% CIs", transform=ax.transAxes, ha="left", va="top", fontsize=9, color=SUBTLE)
+    ax.text(-0.22, 1.18, panel_letter, transform=ax.transAxes, fontsize=13, fontweight="bold", color=INK, va="top", ha="left")
 
 
 def plot_lollipop(cells: pd.DataFrame, path: Path, *, title: str) -> None:
     plt.rcParams.update({"font.family": "DejaVu Sans", "figure.dpi": 200})
-    fig = plt.figure(figsize=(12.8, 7.0), facecolor=PAPER_BG)
-    gs = fig.add_gridspec(2, 2, top=0.88, bottom=0.10, left=0.10, right=0.985, hspace=0.55, wspace=0.55)
-    fig.suptitle(title, fontsize=14, fontweight="bold", color=INK, y=0.975)
+    fig = plt.figure(figsize=(13.2, 7.0), facecolor=PAPER_BG)
+    gs = fig.add_gridspec(2, 2, top=0.94, bottom=0.10, left=0.125, right=0.985, hspace=0.55, wspace=0.55)
     for idx, task in enumerate(TASK_ORDER):
         ax = fig.add_subplot(gs[idx // 2, idx % 2])
         render_panel(ax, cells[cells["task"].eq(task)].copy(), TASK_LABEL.get(task, task), "ABCD"[idx], show_xlabel=(idx // 2 == 1))
     path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=240)
+    fig.savefig(path, dpi=360, bbox_inches="tight", facecolor=PAPER_BG)
     plt.close(fig)
 
 
@@ -416,6 +579,11 @@ def main() -> None:
             cells = build_cells(by_actor_task, comparison=comparison)
             cells_path = ANALYSIS / f"{comparison}_model_task_cells.csv"
             cells.to_csv(cells_path, index=False)
+            aggregate = standard_aggregate_rows(outcomes)
+            aggregate_path = ANALYSIS / f"{comparison}_aggregate.csv"
+            aggregate_summary_path = ANALYSIS / f"{comparison}_aggregate.md"
+            aggregate.to_csv(aggregate_path, index=False)
+            write_standard_aggregate_markdown(aggregate, aggregate_summary_path)
             figure_path = FIGURES / f"{comparison}_model_task_lollipop.png"
             plot_lollipop(cells, figure_path, title=cfg["label"])
             length_data = outcomes_with_delta_words(comparison, outcomes, args.feature_catalog)
@@ -425,6 +593,8 @@ def main() -> None:
             sig.to_csv(ANALYSIS / f"{comparison}_significant_model_task_cells.csv", index=False)
             print(f"{comparison}: figure {figure_path}")
             print(f"{comparison}: cells {cells_path}")
+            print(f"{comparison}: aggregate {aggregate_path}")
+            print(f"{comparison}: aggregate summary {aggregate_summary_path}")
             print(f"{comparison}: length control {ANALYSIS / f'{comparison}_word_count_control.csv'}")
         summary_lines.append(summarize_outputs(comparison, cells, adjusted, missing_reason))
     summary_path = ANALYSIS / "moral_baseline_bridge_figures_and_length_controls.md"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analyze whether absolute high-side utility predicts beating framed neutral."""
+"""Analyze whether absolute high-side utility predicts beating a baseline."""
 
 from __future__ import annotations
 
@@ -10,6 +10,9 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -17,10 +20,9 @@ import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from scipy.stats import beta, pearsonr, spearmanr
 
-from utility_behavior_gap.paths import ANALYSIS
+from utility_behavior_gap.paths import ANALYSIS, ROOT
 
 
-DEFAULT_PAIR_OUTCOMES = ANALYSIS / "highlow_neutral_bridge__combined_7runs__pair_outcomes.csv"
 FIGURES = ANALYSIS / "figures"
 TASK_ORDER = ["essay", "grant_proposal_abstract", "incident_postmortem", "translation"]
 DOMAIN_ORDER = ["animals", "countries", "political", "religions"]
@@ -28,6 +30,35 @@ UTILITY_COLUMNS = {
     "raw": "high_utility",
     "actor_z": "high_utility_actor_z",
     "actor_percentile": "high_utility_actor_percentile",
+}
+BRIDGES = {
+    "framed_neutral": {
+        "label": "Framed Neutral",
+        "baseline": "framed-neutral",
+        "pair_outcomes": ANALYSIS / "highlow_neutral_bridge__combined_7runs__pair_outcomes.csv",
+        "outcome_col": "outcome_vs_neutral",
+        "loss_value": "neutral",
+        "prefix": "high_utility_neutral_trend",
+        "paper_prefix": "high_utility_vs_neutral_trend",
+    },
+    "r0": {
+        "label": "R0",
+        "baseline": "R0",
+        "pair_outcomes": ANALYSIS / "highlow_r0_bridge__combined_7runs__pair_outcomes.csv",
+        "outcome_col": "outcome_vs_r0",
+        "loss_value": "r0",
+        "prefix": "high_utility_r0_trend",
+        "paper_prefix": "high_utility_vs_r0_trend",
+    },
+    "framed_empty": {
+        "label": "Framed Empty",
+        "baseline": "framed-empty",
+        "pair_outcomes": ANALYSIS / "highlow_framed_empty_bridge__combined_7runs__pair_outcomes.csv",
+        "outcome_col": "outcome_vs_framed_empty",
+        "loss_value": "framed_empty",
+        "prefix": "high_utility_framed_empty_trend",
+        "paper_prefix": "high_utility_vs_framed_empty_trend",
+    },
 }
 
 
@@ -60,16 +91,18 @@ def as_bool(series: pd.Series) -> pd.Series:
     return series.astype(str).str.lower().isin({"true", "1", "yes"})
 
 
-def load_trials(path: Path) -> pd.DataFrame:
+def load_trials(path: Path, *, outcome_col: str, loss_value: str) -> pd.DataFrame:
     df = pd.read_csv(path)
     if df.empty:
         raise ValueError(f"no rows in {path}")
+    if outcome_col not in df.columns:
+        raise ValueError(f"{path} does not contain required column {outcome_col!r}")
     df = df[df["side"].eq("high")].copy()
     df["high_utility"] = pd.to_numeric(df["high_utility"], errors="coerce")
     df["side_net_score"] = pd.to_numeric(df["side_net_score"], errors="coerce")
-    df["target_win"] = df["outcome_vs_neutral"].eq("side")
-    df["target_loss"] = df["outcome_vs_neutral"].eq("neutral")
-    df["tie"] = df["outcome_vs_neutral"].eq("tie")
+    df["target_win"] = df[outcome_col].eq("side")
+    df["target_loss"] = df[outcome_col].eq(loss_value)
+    df["tie"] = df[outcome_col].eq("tie")
     df["resolved"] = df["target_win"] | df["target_loss"]
     df["high_win"] = np.where(df["resolved"], df["target_win"].astype(int), np.nan)
     df["net_score"] = df["side_net_score"]
@@ -158,7 +191,7 @@ def build_bins(df: pd.DataFrame, utility_col: str, n_bins: int, seed: int) -> pd
                 "n_pairs": int(len(sub)),
                 "n_resolved": int(n_resolved),
                 "high_wins": wins,
-                "neutral_wins": losses,
+                "baseline_wins": losses,
                 "ties": int(sub["tie"].sum()),
                 "utility_min": float(sub[utility_col].min()),
                 "utility_max": float(sub[utility_col].max()),
@@ -289,14 +322,28 @@ def fit_marginal_lines(df: pd.DataFrame, utility_col: str) -> tuple[Any, Any]:
     return logit, net
 
 
-def plot_bins(df: pd.DataFrame, bins: pd.DataFrame, utility_col: str, png: Path, pdf: Path, title: str) -> None:
+def plot_bins(
+    df: pd.DataFrame,
+    bins: pd.DataFrame,
+    utility_col: str,
+    png: Path,
+    title: str,
+    *,
+    baseline: str,
+    figure_kind: str = "both",
+    pdf: Path | None = None,
+) -> None:
     logit, net = fit_marginal_lines(df, utility_col)
     xs = np.linspace(float(df[utility_col].min()), float(df[utility_col].max()), 250)
     win_ys = 1 / (1 + np.exp(-(logit.params["Intercept"] + logit.params["utility_value"] * xs)))
     net_ys = net.params["Intercept"] + net.params["utility_value"] * xs
 
     plt.rcParams.update({"font.family": "DejaVu Sans", "figure.dpi": 200, "pdf.fonttype": 42})
-    fig, axes = plt.subplots(1, 2, figsize=(12.0, 4.7), facecolor="white")
+    if figure_kind == "win_rate":
+        fig, ax = plt.subplots(1, 1, figsize=(6.7, 4.7), facecolor="white")
+        axes = [ax]
+    else:
+        fig, axes = plt.subplots(1, 2, figsize=(12.0, 4.7), facecolor="white")
     fig.suptitle(title, fontsize=13, fontweight="bold")
 
     ax = axes[0]
@@ -320,23 +367,24 @@ def plot_bins(df: pd.DataFrame, bins: pd.DataFrame, utility_col: str, png: Path,
     ax.set_ylabel("High-utility side win rate, ties excluded")
     ax.legend(frameon=False, fontsize=8)
 
-    ax = axes[1]
-    ax.axhline(0.0, color="#9CA3AF", ls=(0, (4, 3)), lw=1.1)
-    ax.errorbar(
-        bins["utility_mean"],
-        bins["net_score_mean"],
-        yerr=[bins["net_score_mean"] - bins["net_score_ci_lo"], bins["net_score_ci_hi"] - bins["net_score_mean"]],
-        fmt="o",
-        color="#2A8C9E",
-        ecolor="#9BC7D0",
-        capsize=3,
-        label="equal-count bins",
-    )
-    ax.plot(xs, net_ys, color="#C2304A", lw=2.0, label="marginal linear fit")
-    ax.set_ylim(-0.30, 0.30)
-    ax.set_xlabel("High-side fitted utility")
-    ax.set_ylabel("Net score: high win=1, tie=0, neutral win=-1")
-    ax.legend(frameon=False, fontsize=8)
+    if figure_kind != "win_rate":
+        ax = axes[1]
+        ax.axhline(0.0, color="#9CA3AF", ls=(0, (4, 3)), lw=1.1)
+        ax.errorbar(
+            bins["utility_mean"],
+            bins["net_score_mean"],
+            yerr=[bins["net_score_mean"] - bins["net_score_ci_lo"], bins["net_score_ci_hi"] - bins["net_score_mean"]],
+            fmt="o",
+            color="#2A8C9E",
+            ecolor="#9BC7D0",
+            capsize=3,
+            label="equal-count bins",
+        )
+        ax.plot(xs, net_ys, color="#C2304A", lw=2.0, label="marginal linear fit")
+        ax.set_ylim(-0.30, 0.30)
+        ax.set_xlabel("High-side fitted utility")
+        ax.set_ylabel(f"Net score: high win=1, tie=0, {baseline} win=-1")
+        ax.legend(frameon=False, fontsize=8)
 
     for ax in axes:
         ax.grid(axis="y", color="#E5E7EB", lw=0.6)
@@ -345,7 +393,8 @@ def plot_bins(df: pd.DataFrame, bins: pd.DataFrame, utility_col: str, png: Path,
     fig.tight_layout()
     png.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(png, dpi=300, bbox_inches="tight")
-    fig.savefig(pdf, bbox_inches="tight")
+    if pdf is not None:
+        fig.savefig(pdf, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -364,12 +413,14 @@ def write_summary(
     filters_label: str,
     figure_png: Path,
     input_path: Path,
+    bridge_label: str,
+    baseline: str,
 ) -> None:
     resolved = df[df["resolved"]]
     wins = int(resolved["target_win"].sum())
-    neutral_wins = int(resolved["target_loss"].sum())
+    baseline_wins = int(resolved["target_loss"].sum())
     ties = int(df["tie"].sum())
-    win_lo, win_hi = exact_ci(wins, wins + neutral_wins)
+    win_lo, win_hi = exact_ci(wins, wins + baseline_wins)
     net_lo, net_hi = bootstrap_mean_ci(df["net_score"], seed=20260615)
     overall = regressions[regressions["scope"].eq("overall")]
     overall_corr = correlations[correlations["scope"].eq("overall")]
@@ -389,7 +440,7 @@ def write_summary(
     ].iloc[0]
 
     lines = [
-        "# High Utility Versus Framed Neutral: Absolute Utility Trend",
+        f"# High Utility Versus {bridge_label}: Absolute Utility Trend",
         "",
         f"Filters: {filters_label}.",
         f"Utility predictor: `{utility_scale}`.",
@@ -397,14 +448,14 @@ def write_summary(
         "",
         "Outcome definitions:",
         "",
-        "- Tie-excluded win rate: high-utility side wins divided by high-utility plus framed-neutral wins.",
-        "- Net score: high-utility win = 1, panel tie = 0, framed-neutral win = -1.",
+        f"- Tie-excluded win rate: high-utility side wins divided by high-utility plus {baseline} wins.",
+        f"- Net score: high-utility win = 1, panel tie = 0, {baseline} win = -1.",
         "- Primary cross-model utility scale: within-actor standardized high-side utility, so one unit is one within-model standard deviation of high-side utility values.",
         "",
         "## Overall",
         "",
         f"- Pairs: {len(df)} total; {len(resolved)} non-tied; {ties} ties.",
-        f"- High-utility side tie-excluded win rate: {wins}/{wins + neutral_wins} = {pct(wins / (wins + neutral_wins))} (95% exact CI {pct(win_lo)}-{pct(win_hi)}).",
+        f"- High-utility side tie-excluded win rate: {wins}/{wins + baseline_wins} = {pct(wins / (wins + baseline_wins))} (95% exact CI {pct(win_lo)}-{pct(win_hi)}).",
         f"- Mean net score: {df['net_score'].mean():.3f} (bootstrap 95% CI {net_lo:.3f} to {net_hi:.3f}).",
         f"- Adjusted linear win-rate trend: {reg_line('high_win_lpm')}.",
         f"- Adjusted logistic win-rate trend: {reg_line('high_win_logit')}.",
@@ -430,15 +481,25 @@ def write_summary(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--pair-outcomes", type=Path, default=DEFAULT_PAIR_OUTCOMES)
+    parser.add_argument("--bridge", choices=sorted(BRIDGES), default="framed_neutral")
+    parser.add_argument("--pair-outcomes", type=Path, default=None)
     parser.add_argument("--actors", default="", help="Comma-separated actor ids to include.")
     parser.add_argument("--tasks", default="", help="Comma-separated task ids to include.")
     parser.add_argument("--domains", default="", help="Comma-separated domains to include.")
     parser.add_argument("--utility-scale", choices=sorted(UTILITY_COLUMNS), default="actor_z")
     parser.add_argument("--bins", type=int, default=10)
     parser.add_argument("--seed", type=int, default=20260615)
+    parser.add_argument("--figure-kind", choices=["both", "win_rate"], default="both")
+    parser.add_argument("--write-pdf", action="store_true", help="Also write a PDF copy. Off by default.")
+    parser.add_argument(
+        "--copy-current-paper",
+        action="store_true",
+        help="Copy the PNG to CURRENT_PAPER/figures with a stable paper-facing name.",
+    )
     args = parser.parse_args()
 
+    bridge = BRIDGES[args.bridge]
+    pair_outcomes = args.pair_outcomes or bridge["pair_outcomes"]
     actors = parse_csv_arg(args.actors)
     tasks = parse_csv_arg(args.tasks)
     domains = parse_csv_arg(args.domains)
@@ -453,9 +514,14 @@ def main() -> None:
         if part
     ) or "all actors, tasks, and domains"
 
-    trials = filter_trials(load_trials(args.pair_outcomes), actors=actors, tasks=tasks, domains=domains)
+    trials = filter_trials(
+        load_trials(pair_outcomes, outcome_col=bridge["outcome_col"], loss_value=bridge["loss_value"]),
+        actors=actors,
+        tasks=tasks,
+        domains=domains,
+    )
     out_suffix = output_suffix(utility_scale=args.utility_scale, actors=actors, tasks=tasks, domains=domains)
-    prefix = f"high_utility_neutral_trend{out_suffix}"
+    prefix = f"{bridge['prefix']}{out_suffix}"
     ANALYSIS.mkdir(parents=True, exist_ok=True)
     FIGURES.mkdir(parents=True, exist_ok=True)
 
@@ -464,8 +530,9 @@ def main() -> None:
     regressions_path = ANALYSIS / f"{prefix}_regressions.csv"
     correlations_path = ANALYSIS / f"{prefix}_correlations.csv"
     summary_path = ANALYSIS / f"{prefix}_summary.md"
-    figure_png = FIGURES / f"{prefix}.png"
-    figure_pdf = FIGURES / f"{prefix}.pdf"
+    figure_prefix = prefix if args.figure_kind == "both" else f"{prefix}__win-rate-only"
+    figure_png = FIGURES / f"{figure_prefix}.png"
+    figure_pdf = FIGURES / f"{figure_prefix}.pdf" if args.write_pdf else None
 
     bins = build_bins(trials, utility_col, args.bins, args.seed)
     regressions = build_regressions(trials, utility_col)
@@ -475,30 +542,43 @@ def main() -> None:
         bins,
         utility_col,
         figure_png,
-        figure_pdf,
-        title=f"High utility versus framed neutral ({filters_label}; utility scale={args.utility_scale})",
+        title=f"High utility versus {bridge['baseline']} ({filters_label}; utility scale={args.utility_scale})",
+        baseline=bridge["baseline"],
+        figure_kind=args.figure_kind,
+        pdf=figure_pdf,
     )
-    write_summary(
-        summary_path,
-        df=trials,
-        bins=bins,
-        regressions=regressions,
-        correlations=correlations,
-        utility_scale=args.utility_scale,
-        filters_label=filters_label,
-        figure_png=figure_png,
-        input_path=args.pair_outcomes,
-    )
-    trials.to_csv(trials_path, index=False)
-    bins.to_csv(bins_path, index=False)
-    regressions.to_csv(regressions_path, index=False)
-    correlations.to_csv(correlations_path, index=False)
+    if args.figure_kind == "both":
+        write_summary(
+            summary_path,
+            df=trials,
+            bins=bins,
+            regressions=regressions,
+            correlations=correlations,
+            utility_scale=args.utility_scale,
+            filters_label=filters_label,
+            figure_png=figure_png,
+            input_path=pair_outcomes,
+            bridge_label=bridge["label"],
+            baseline=bridge["baseline"],
+        )
+        trials.to_csv(trials_path, index=False)
+        bins.to_csv(bins_path, index=False)
+        regressions.to_csv(regressions_path, index=False)
+        correlations.to_csv(correlations_path, index=False)
+    if args.copy_current_paper:
+        paper_figures = ROOT / "CURRENT_PAPER" / "figures"
+        paper_figures.mkdir(parents=True, exist_ok=True)
+        paper_suffix = "_win_rate_only" if args.figure_kind == "win_rate" else ""
+        paper_png = paper_figures / f"{bridge['paper_prefix']}_{slug(args.utility_scale).replace('-', '_')}{paper_suffix}.png"
+        paper_png.write_bytes(figure_png.read_bytes())
+        print(f"paper figure: {paper_png}")
 
-    print(f"summary: {summary_path}")
-    print(f"trials: {trials_path}")
-    print(f"bins: {bins_path}")
-    print(f"regressions: {regressions_path}")
-    print(f"correlations: {correlations_path}")
+    if args.figure_kind == "both":
+        print(f"summary: {summary_path}")
+        print(f"trials: {trials_path}")
+        print(f"bins: {bins_path}")
+        print(f"regressions: {regressions_path}")
+        print(f"correlations: {correlations_path}")
     print(f"figure: {figure_png}")
     overall = regressions[regressions["scope"].eq("overall")][["outcome", "coef", "ci_lo", "ci_hi", "p_value"]]
     print(overall.to_string(index=False))

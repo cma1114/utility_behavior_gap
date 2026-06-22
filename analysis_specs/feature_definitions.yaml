@@ -8,7 +8,8 @@ generic_features:
   standard_set:
     - words
     - paragraphs
-    - unique_word_ratio
+    - mattr_50
+    - rare_word_rate_per_1k
     - quantitative_detail
     - textstat_flesch_kincaid_grade
     - positive_words_per_1k
@@ -35,14 +36,42 @@ generic_features:
       definition: Unique lowercased word tokens divided by total word tokens.
       display_digits: 4
 
+    mattr_50:
+      family: Lexical variety
+      label: MATTR-50
+      definition: >
+        Moving-average type-token ratio computed in 50-word windows. For
+        outputs shorter than 50 eligible word tokens, computed as ordinary
+        type-token ratio over the available eligible tokens.
+      formula: mean(window_unique_tokens / 50)
+      display_digits: 4
+
+    rare_word_rate_per_1k:
+      family: Vocabulary sophistication
+      label: Rare-word rate per 1k words
+      definition: >
+        Eligible alphabetic tokens of length at least 3 with English Zipf
+        frequency below 3.5, per 1,000 eligible word tokens. Frequencies come
+        from the standardized `wordfreq` package.
+      formula: 1000 * count(zipf_frequency(token, "en") < 3.5) / eligible_words
+      display_digits: 2
+
+    mean_zipf_frequency:
+      family: Vocabulary sophistication
+      label: Mean Zipf frequency
+      definition: >
+        Mean English Zipf frequency of eligible alphabetic tokens of length at
+        least 3 from the standardized `wordfreq` package. Lower values indicate
+        rarer vocabulary.
+      display_digits: 2
+
     quantitative_detail:
       family: Quantitative detail
       label: Quantitative detail
       definition: >
-        Within-task z-score of numeric tokens plus percentage expressions.
-        Computed separately for each output before paired differencing.
-      formula: z_within_task(numbers + percentages)
-      display_digits: 3
+        Numeric tokens plus percentage expressions per 1,000 words.
+      formula: 1000 * (numbers + percentages) / words
+      display_digits: 2
 
     textstat_flesch_kincaid_grade:
       family: Readability/complexity

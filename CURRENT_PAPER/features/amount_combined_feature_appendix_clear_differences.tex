@@ -1,0 +1,43 @@
+\begin{longtable}{lllllll}
+\toprule
+Feature & Delta & 95\% CI & Panel preference (r) & \% amount high higher/better & \% amount low higher/better & Definition \\
+\midrule
+\endfirsthead
+\toprule
+Feature & Delta & 95\% CI & Panel preference (r) & \% amount high higher/better & \% amount low higher/better & Definition \\
+\midrule
+\endhead
+\midrule
+\multicolumn{7}{r}{Continued on next page} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
+\multicolumn{7}{l}{\textbf{Essay writing}} \\
+Words & -4.5 & [-6.8, -2.4] & +0.35 (n=2,100) & 42.4\% & 55.6\% & Word count. \\
+Unique-word ratio & 0.0029 & [0.0018, 0.0041] & +0.06 (n=2,100) & 52.7\% & 47.2\% & Unique lowercased word tokens divided by total word tokens. \\
+Argument depth & -0.13 & [-0.23, -0.03] & +0.41 (n=120) & 41.7\% & 55.0\% & Which essay gives better causal, economic, ethical, or institutional reasoning rather than generic assertion? \\
+\multicolumn{7}{l}{\textbf{Grant abstract}} \\
+Words & -5.1 & [-9.0, -1.3] & +0.30 (n=2,100) & 44.5\% & 54.6\% & Word count. \\
+Negative-word rate per 1k words & 0.70 & [0.26, 1.07] & +0.03 (n=2,100) & 53.3\% & 46.7\% & VADER negative-lexicon tokens per 1,000 words. \\
+Flesch-Kincaid grade & 0.20 & [0.13, 0.26] & +0.13 (n=2,100) & 56.8\% & 43.2\% & Flesch-Kincaid grade level. \\
+Quantitative detail & 0.070 & [0.012, 0.130] & +0.36 (n=2,100) & 43.5\% & 36.0\% & Within-task z-score of numeric tokens plus percentage expressions. Computed separately for each output before paired differencing. \\
+Unique-word ratio & 0.0038 & [0.0013, 0.0068] & +0.12 (n=2,100) & 56.6\% & 43.4\% & Unique lowercased word tokens divided by total word tokens. \\
+Evaluation rigor & 0.39 & [0.27, 0.51] & +0.36 (n=120) & 69.2\% & 30.0\% & Which abstract describes stronger outcomes, design, measurement, comparison/control logic, and analysis plan? \\
+Risk mitigation & 0.39 & [0.26, 0.54] & +0.48 (n=120) & 69.2\% & 30.0\% & Which abstract identifies more realistic risks and more credible mitigation plans? \\
+Intervention specificity & 0.37 & [0.24, 0.53] & +0.34 (n=120) & 68.3\% & 30.8\% & Which abstract gives a more concrete account of what will be built, delivered, tested, or changed? \\
+Problem significance & 0.37 & [0.25, 0.46] & +0.42 (n=120) & 55.8\% & 19.2\% & Which abstract more clearly states the need, affected population, and consequence of the problem? \\
+Feasibility/readiness & 0.35 & [0.17, 0.52] & +0.37 (n=120) & 65.0\% & 30.0\% & Which abstract gives more credible evidence that the project can actually be executed, including partners, team capacity, timeline, infrastructure, or prior pilots? \\
+Measurable impact & 0.34 & [0.19, 0.53] & +0.54 (n=120) & 63.3\% & 29.2\% & Which abstract gives more concrete and credible expected impacts, not just larger or more dramatic claims? \\
+Stakeholder/context fit & 0.33 & [0.19, 0.45] & +0.43 (n=120) & 56.7\% & 23.3\% & Which abstract better fits the affected community or deployment setting? \\
+\multicolumn{7}{l}{\textbf{Incident postmortem}} \\
+Words & -17 & [-25, -10] & +0.42 (n=2,100) & 41.6\% & 57.6\% & Word count. \\
+Negative-word rate per 1k words & 0.43 & [0.10, 0.78] & -0.02 (n=2,100) & 51.0\% & 48.9\% & VADER negative-lexicon tokens per 1,000 words. \\
+Flesch-Kincaid grade & 0.11 & [0.03, 0.26] & -0.09 (n=2,100) & 51.5\% & 48.5\% & Flesch-Kincaid grade level. \\
+Unique-word ratio & 0.0050 & [0.0032, 0.0071] & -0.15 (n=2,100) & 56.5\% & 43.5\% & Unique lowercased word tokens divided by total word tokens. \\
+Impact specificity & 0.15 & [0.03, 0.23] & +0.29 (n=120) & 57.5\% & 42.5\% & Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better? \\
+\multicolumn{7}{l}{\textbf{Translation}} \\
+Fluency/idiomaticity & -0.12 & [-0.19, -0.06] & +0.40 (n=119) & 24.4\% & 37.0\% & Which translation reads more naturally and idiomatically in English? \\
+Terminology precision & -0.11 & [-0.17, -0.05] & +0.32 (n=119) & 10.9\% & 21.8\% & Which translation uses more domain-appropriate terminology? \\
+Structural clarity & -0.11 & [-0.15, -0.07] & +0.17 (n=119) & 5.9\% & 16.8\% & Which translation more clearly handles clauses, lists, appositives, parentheticals, quotation, and sentence breaks while preserving source relations? \\
+\end{longtable}

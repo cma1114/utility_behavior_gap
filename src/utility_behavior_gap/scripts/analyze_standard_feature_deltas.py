@@ -209,7 +209,7 @@ def write_summary(
         "",
         "The primary overall estimate is the equal actor-task-cell mean. Its confidence interval uses a nonparametric bootstrap over actor and task cells.",
         "",
-        "Generic features use the standard paper-facing set from `analysis_specs/feature_definitions.yaml`: words, paragraphs, unique-word ratio, quantitative detail, Flesch-Kincaid grade, positive-word rate, and negative-word rate. Quantitative detail is `z(numbers + percentages)` standardized within task before paired differencing.",
+        "Generic features use the standard paper-facing set from `analysis_specs/feature_definitions.yaml`. Quantitative detail is numeric tokens plus percentage expressions per 1,000 words; MATTR-50 measures fixed-window lexical variety; rare-word rate uses the standardized `wordfreq` English Zipf-frequency scale.",
         "",
         f"- input pair catalog: `{input_path}`",
         f"- feature definitions CSV: `{definitions_path}`",

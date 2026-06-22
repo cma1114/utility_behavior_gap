@@ -1,0 +1,38 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.06}
+\caption{Direct-instruction feature shifts favored by the judging panel.}
+\label{tab:direct_instruction_features}
+\begin{tabular}{@{}p{0.16\linewidth}p{0.25\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.16\linewidth}@{}}
+\toprule
+Task & Dimension & Arm gap (SD) & Raw arm gap & Panel assoc. \\
+\midrule
+Essay writing & Words & +0.46 [+0.42, +0.50] & +17.0 [+15.5, +18.6] & +0.20 [+0.18, +0.23] \\
+ & Rare-word rate per 1k words & +0.47 [+0.38, +0.55] & +10.4 [+8.4, +12.3] & +0.10 [+0.07, +0.12] \\
+ & Argument depth & +0.39 [+0.16, +0.62] & +0.35 [+0.14, +0.55] & +0.12 [+0.02, +0.22] \\
+ & Rhetorical coherence and closure & +0.29 [+0.06, +0.52] & +0.24 [+0.05, +0.43] & +0.13 [+0.02, +0.24] \\
+\specialrule{0.2pt}{1pt}{1pt}
+Grant abstract & Words & +0.25 [+0.20, +0.29] & +14.4 [+12.0, +16.9] & +0.20 [+0.17, +0.23] \\
+ & MATTR-50 & +0.33 [+0.28, +0.37] & +0.005 [+0.004, +0.006] & +0.13 [+0.10, +0.16] \\
+ & Rare-word rate per 1k words & +0.51 [+0.47, +0.56] & +9.7 [+8.9, +10.5] & +0.15 [+0.12, +0.18] \\
+ & Flesch-Kincaid grade & +0.22 [+0.18, +0.27] & +0.33 [+0.27, +0.40] & +0.08 [+0.06, +0.11] \\
+ & Grant Abstract Quality Composite & +0.68 [+0.48, +0.88] & +0.47 [+0.33, +0.62] & +0.26 [+0.13, +0.38] \\
+\specialrule{0.2pt}{1pt}{1pt}
+Incident postmortem & Words & +0.58 [+0.54, +0.62] & +66.4 [+62.1, +70.6] & +0.26 [+0.22, +0.30] \\
+ & MATTR-50 & +0.28 [+0.22, +0.35] & +0.005 [+0.004, +0.007] & +0.06 [+0.03, +0.09] \\
+ & Rare-word rate per 1k words & +0.29 [+0.22, +0.36] & +5.7 [+4.3, +7.0] & +0.12 [+0.10, +0.15] \\
+ & Impact specificity & +0.37 [+0.09, +0.64] & +0.32 [+0.08, +0.56] & +0.16 [+0.03, +0.29] \\
+ & Detection/observability analysis & +0.27 [+0.01, +0.52] & +0.24 [+0.01, +0.48] & +0.15 [+0.03, +0.27] \\
+ & Action-item concreteness & +0.41 [+0.14, +0.69] & +0.36 [+0.12, +0.59] & +0.17 [+0.05, +0.30] \\
+\specialrule{0.2pt}{1pt}{1pt}
+Translation & Fluency/idiomaticity & +0.31 [+0.13, +0.48] & +0.24 [+0.10, +0.39] & +0.32 [+0.19, +0.44] \\
+ & Structural clarity & +0.28 [+0.10, +0.46] & +0.13 [+0.05, +0.22] & +0.16 [+0.02, +0.29] \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.98\linewidth}
+\footnotesize
+Note. The table reports dimensions that both changed under the strong prompt and tracked the judging panel's preferences. Specifically, each row has a strong-minus-neutral arm gap whose 95\% CI excludes zero and a panel-association estimate whose 95\% CI excludes zero, with aligned signs. Non-word dimensions are estimated in models that adjust for paired word-count difference and actor fixed effects; the Words row omits the word-count covariate because word count is the dimension being tested. Arm gap (SD) is the adjusted strong-minus-neutral gap standardized by the observed SD of paired differences for that dimension within task. Panel assoc. is the change in panel score associated with a one-SD increase in the paired feature difference. Main-text rows are retained when the standardized arm gap is at least approximately 0.20 SD. MATTR-50 is a 50-word moving-average type-token ratio, used as a length-robust lexical-variety measure. Grant Abstract Quality Composite is the mean of the seven grant-specific rubric dimensions, which were highly intercorrelated; individual grant dimensions are reported in the appendix.
+\end{minipage}
+\end{table}

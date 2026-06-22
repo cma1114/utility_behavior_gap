@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.06}
+\caption{Feature shifts in the user-prompt role contrast.}
+\label{tab:role_features}
+\begin{tabular}{@{}p{0.16\linewidth}p{0.25\linewidth}p{0.18\linewidth}p{0.18\linewidth}p{0.16\linewidth}@{}}
+\toprule
+Task & Dimension & Arm gap (SD) & Raw arm gap & Panel assoc. \\
+\midrule
+Essay writing & Rare-word rate per 1k words & +0.30 [+0.25, +0.35] & +6.9 [+5.7, +8.0] & +0.08 [+0.05, +0.11] \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.98\linewidth}
+\footnotesize
+Note. Rows are dimensions, in either direction, with a role-strong-minus-role-weak arm gap whose 95\% CI excludes zero, a panel-association estimate whose 95\% CI excludes zero, and an absolute standardized arm gap of at least approximately 0.25 SD. Non-word dimensions adjust for paired word-count difference and actor fixed effects; the Words row omits the word-count covariate because word count is the dimension being tested. Arm gap (SD) is standardized by the observed SD of paired differences for that dimension within task. Panel assoc. is the change in role-strong-minus-role-weak panel score associated with a one-SD increase in the paired feature difference. The selection considered both generic text features and task-specific LLM rubric dimensions.
+\end{minipage}
+\end{table}

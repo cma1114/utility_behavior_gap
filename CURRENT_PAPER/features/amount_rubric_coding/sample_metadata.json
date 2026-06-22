@@ -1,0 +1,21 @@
+{
+  "actors": [],
+  "coder_model": "google/gemini-2.5-flash",
+  "comparison_name": "amount",
+  "contrast": "amount",
+  "incomplete_source_rows_dropped": 0,
+  "left_condition": null,
+  "left_duplicates_dropped": 0,
+  "left_incomplete_rows_dropped": 0,
+  "right_condition": null,
+  "right_duplicates_dropped": 0,
+  "right_incomplete_rows_dropped": 0,
+  "sample_size_per_task": 120,
+  "seed": 20260615,
+  "tasks": [
+    "essay",
+    "grant_proposal_abstract",
+    "incident_postmortem",
+    "translation"
+  ]
+}

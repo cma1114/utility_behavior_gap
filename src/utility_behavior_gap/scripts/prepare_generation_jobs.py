@@ -25,7 +25,7 @@ def main() -> None:
             "highlow_intervention,highlow_intervention_gap_stratified,"
             "system_prompt_role,system_prompt_incentive,system_prompt_reputation,"
             "system_prompt_competition,system_prompt_effort,user_prompt_effort,"
-            "user_prompt_status,essay_direct_system_prompt,"
+            "user_prompt_role,framed_user_prompt_role,user_prompt_status,essay_direct_system_prompt,"
             "essay_direct_system_prompt_effort,essay_direct_system_prompt_max_effort,"
             "essay_direct_system_prompt_full_topics,"
             "essay_direct_system_prompt_effort_full_topics,"

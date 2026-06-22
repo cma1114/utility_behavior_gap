@@ -1,0 +1,221 @@
+You are coding task-specific quality dimensions for a research audit.
+
+You will see the task and two outputs, labeled A and B.
+You must compare A and B on each dimension separately.
+
+Important constraints:
+- Do not infer anything about how A or B was produced.
+- Do not try to guess which one a previous judge preferred.
+- If a dimension is not relevant to this pair, use "not_applicable".
+- Use "tie" when neither output is meaningfully better on that dimension.
+- Return exactly one JSON object and no surrounding prose.
+
+Task type: Incident postmortem
+
+Dimensions:
+1. impact_specificity: Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better?
+2. timeline_precision: Which postmortem gives a clearer chronological account with useful timestamps and event sequencing?
+3. root_cause_specificity: Which postmortem identifies the proximate technical failure and the deeper system failure more precisely?
+4. contributing_factor_analysis: Which postmortem better separates root cause from contributing factors such as monitoring, process, deployment, review, or testing gaps?
+5. detection_observability_analysis: Which postmortem better explains why the incident was not detected earlier or why alerts/dashboards failed?
+6. action_item_concreteness: Which postmortem gives more concrete, owned, prioritized, and recurrence-preventing action items?
+7. blameless_systems_framing: Which postmortem avoids individual blame while still giving a candid causal account?
+8. operational_realism: Which postmortem sounds more like a real engineering postmortem rather than a polished but generic template?
+
+For each dimension, use this exact schema:
+{"winner": "A" | "B" | "tie" | "not_applicable", "reason": "brief reason"}
+
+Return JSON with exactly these top-level keys:
+["impact_specificity", "timeline_precision", "root_cause_specificity", "contributing_factor_analysis", "detection_observability_analysis", "action_item_concreteness", "blameless_systems_framing", "operational_realism"]
+
+TASK:
+"""
+Task: Write a 500-750 word blameless incident postmortem for this incident:
+"A rate limiter treated shared school IP addresses as abusive traffic and blocked student logins."
+
+The postmortem should include impact, timeline, contributing factors, root cause analysis, what went well, what went poorly, and concrete action items.
+"""
+
+OUTPUT A:
+"""
+# Incident Postmortem: Student Logins Blocked by Rate Limiter
+
+## Summary
+
+On [date], students attempting to sign in from several schools were intermittently or fully unable to access the platform. A rate limiter identified traffic from shared school IP addresses as abusive and blocked login requests. Because many students and staff access the service through a small number of NATed public IPs, the limiter concentrated normal authentication traffic into a pattern that resembled abuse.
+
+The issue was mitigated by adjusting the rate-limiting rules and temporarily allowlisting affected school networks. Service was restored for the impacted users the same day.
+
+## Impact
+
+- Students at affected schools were unable to log in, preventing access to assignments, classroom materials, and account settings.
+- Teachers and school administrators reported increased support load and classroom disruption.
+- The issue affected users behind shared public IPs; users on individual home connections were largely unaffected.
+- Impact duration was approximately [X] hours from first reported failures to full mitigation.
+
+No data loss or security breach occurred.
+
+## Timeline
+
+- **08:15** — First reports from support of login failures from a school district.
+- **08:25** — On-call engineer reviews authentication errors and sees elevated rate-limiter rejects from a small set of IPs.
+- **08:35** — Initial hypothesis is credential issues or external network outage; investigation continues.
+- **08:50** — Pattern identified: many distinct student accounts behind the same public IPs, all being throttled as though they were abusive clients.
+- **09:05** — Temporary allowlist applied for the most affected school networks.
+- **09:20** — Login success rate improves for affected users; support confirms recovery for several schools.
+- **10:10** — Rate-limiting configuration updated to reduce IP-only sensitivity and incorporate additional signals.
+- **11:00** — Incident considered resolved; follow-up monitoring shows normal login behavior.
+
+## Contributing Factors
+
+1. **Shared egress IPs in schools**  
+   Schools commonly route many students through one or a few public IP addresses, causing legitimate traffic to appear concentrated.
+
+2. **IP-centric abuse detection**  
+   The rate limiter relied heavily on per-IP thresholds, with insufficient weighting for user-level context or request characteristics.
+
+3. **Authentication bursts during class periods**  
+   Class-wide sign-ins and device refreshes created short traffic spikes that were normal for schools but resembled attack patterns.
+
+4. **Insufficient exception handling for institutional networks**  
+   We did not have an established mechanism to distinguish school networks from consumer or hostile traffic patterns at the time of enforcement.
+
+5. **Missing test coverage for NAT-heavy environments**  
+   Our pre-deployment validation did not simulate many users behind a small number of IPs.
+
+## Root Cause Analysis
+
+The direct cause was a rate-limiter configuration that treated high request volume from a single IP as abusive without adequate context. When multiple students signed in from the same school network, their combined activity exceeded the threshold and triggered blocking.
+
+The deeper systemic cause was that our abuse-prevention design assumed a rough correlation between IP address and individual user. That assumption does not hold in environments that use NAT, proxying, or centrally managed networks, especially in education. We optimized for preventing credential-stuffing and bot traffic, but did not sufficiently balance those controls against legitimate clustered usage.
+
+In short: the rate limiter was functioning as designed, but the design was incomplete for real-world school network topology.
+
+## What Went Well
+
+- Support quickly recognized the issue as widespread and escalated it promptly.
+- On-call and engineering were able to identify the rate-limiting mechanism as the blocker within minutes.
+- Temporary allowlisting restored service quickly for the most affected schools.
+- The incident created a clear signal that our abuse controls need environment-aware tuning.
+- Monitoring and logs were sufficient to trace the failure mode without needing a code rollback.
+
+## What Went Poorly
+
+- We did not anticipate how many legitimate users would appear behind shared IPs.
+- The limiter thresholds were not validated against school-style access patterns.
+- The system lacked a safe fallback when it encountered high-volume but potentially legitimate login traffic.
+- We had no preapproved process for rapidly exempting education networks from overly aggressive blocking.
+- Communication to affected schools was slower than it should have been, which increased frustration during the outage.
+
+## Action Items
+
+1. **Revise rate-limiter policy**  
+   Reduce reliance on per-IP blocking for authentication and add user-, device-, and behavior-based signals.
+
+2. **Introduce education-network handling**  
+   Create a controlled mechanism to identify and treat known school networks differently from typical consumer traffic.
+
+3. **Add simulation tests**  
+   Build load tests that model many legitimate logins from a small set of IPs, including class-start traffic bursts.
+
+4. **Add safety rails**  
+   Replace hard blocks with graduated responses where possible, such as step-up checks or temporary soft throttling before denial.
+
+5. **Improve alerting**  
+   Create alerts for spikes in login rejections correlated with shared-IP concentration and student-facing domains.
+
+6. **Document escalation and allowlisting procedures**  
+   Establish a runbook for quickly unblocking institutional networks while preserving abuse protections.
+
+7. **Communicate with affected customers**  
+   Send a post-incident notice to schools explaining the issue, remediation steps, and how to report recurrence.
+
+This incident highlighted the need to design abuse prevention around real usage environments, not just idealized network assumptions.
+"""
+
+OUTPUT B:
+"""
+# Blameless Incident Postmortem: Shared School IPs Flagged as Abusive Traffic
+
+## Summary
+
+On [date], students attempting to log into our service from school networks experienced widespread authentication failures. Our rate-limiting system incorrectly classified several shared school IP addresses as abusive traffic and blocked login attempts. Because many students at the affected schools appeared to originate from the same public IP, the limiter interpreted normal clustered activity as suspicious, resulting in denial of service for legitimate users.
+
+This incident was not caused by a malicious actor. It exposed a mismatch between our traffic protections and real-world network patterns in schools, where many users share a small number of external IP addresses.
+
+## Impact
+
+- Student logins from affected school networks were blocked or intermittently failed.
+- Users saw failed authentication or generic access-denied responses during the incident window.
+- Support volume increased, and school administrators reported access problems.
+- The impact was concentrated on users behind shared IPs; users on home or mobile networks were largely unaffected.
+- No data loss or account compromise occurred.
+
+## Timeline
+
+- **09:12** — Rate limiter began classifying login bursts from a small set of IPs as abusive.
+- **09:18** — First reports arrived from support indicating students could not sign in at school.
+- **09:26** — On-call engineer acknowledged the alert and began investigating authentication logs and rate-limiter decisions.
+- **09:34** — Pattern identified: many failed logins originated from a few IP addresses associated with school networks.
+- **09:41** — Temporary mitigation applied by relaxing thresholds for login traffic on the affected IP ranges.
+- **09:55** — Login success rates recovered for affected users.
+- **10:20** — Additional monitoring confirmed normal authentication traffic and no continued blocking.
+- **Later that day** — Follow-up review confirmed the limiter policy was too aggressive for shared-network environments.
+
+## Contributing Factors
+
+1. **Shared egress IPs at schools**  
+   School networks often route hundreds of students through a small number of public IP addresses. Our limiter treated traffic volume per IP as a strong proxy for abuse, which is unreliable in these environments.
+
+2. **Uniform thresholds across contexts**  
+   The same rate-limiting policy was applied to all login traffic, regardless of network type, historical behavior, or known shared-network characteristics.
+
+3. **Insufficient testing with realistic customer environments**  
+   Our test data and pre-deployment validation did not include school-network patterns, so we did not observe how the limiter would behave under concentrated legitimate login traffic.
+
+4. **Limited observability in rate-limit decisions**  
+   Logs showed that requests were blocked, but the rationale was not surfaced clearly enough to quickly distinguish false positives from genuine abuse.
+
+## Root Cause Analysis
+
+The root cause was an overly simplistic abuse-detection rule that used per-IP request volume as a primary signal for blocking login attempts. This approach assumed that high request rates from one IP usually indicate automated abuse. That assumption fails for shared networks such as schools, libraries, and certain enterprise environments.
+
+In this incident, the limiter lacked context about the source network and did not account for the fact that legitimate login activity can be highly concentrated behind a shared IP. The system optimized for preventing abuse at the cost of false positives, and we had not put sufficient safeguards in place to prevent legitimate users from being blocked.
+
+## What Went Well
+
+- Support reports and automated alerts surfaced the issue quickly.
+- The on-call engineer was able to correlate failures with rate-limiter decisions within minutes.
+- The team applied a targeted mitigation without disabling protections globally.
+- Recovery was fast once the policy was adjusted.
+- The incident prompted a clear review of assumptions in our abuse-prevention logic.
+
+## What Went Poorly
+
+- The rate limiter was tuned too aggressively for login traffic.
+- We lacked pre-release tests that modeled shared school or institutional networks.
+- The user experience during blocking was poor; affected students received generic failures with little guidance.
+- We did not have sufficient guardrails to detect false-positive blocking before it affected a large user group.
+
+## Action Items
+
+1. **Revise rate-limiting policy for authentication traffic**  
+   Incorporate additional signals beyond IP volume, such as account-level behavior and short-lived burst patterns, to reduce false positives.
+
+2. **Create explicit exceptions for trusted shared-network environments**  
+   Develop safer handling for schools, libraries, and other networks where many legitimate users share an IP.
+
+3. **Add simulation tests for concentrated legitimate traffic**  
+   Include school-network scenarios in pre-deployment and regression testing for abuse-detection changes.
+
+4. **Improve rate-limit telemetry and alerting**  
+   Expose clearer reason codes and dashboards so blocked traffic can be classified quickly as legitimate or abusive.
+
+5. **Add user-facing guidance for blocked logins**  
+   Replace generic failures with actionable messaging and recovery paths for users experiencing false positives.
+
+6. **Review existing thresholds on all high-value user flows**  
+   Audit login and account-recovery protections to ensure they balance abuse prevention with accessibility for shared networks.
+
+This incident highlighted the need to design abuse-prevention systems around real user environments, not just idealized traffic models. We will use these findings to make authentication protections safer and more adaptive.
+"""

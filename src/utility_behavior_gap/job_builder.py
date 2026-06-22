@@ -31,6 +31,8 @@ from utility_behavior_gap.prompts import (
     USER_EFFORT_STRONG_INSTRUCTIONS,
     USER_EFFORT_WEAK_INSTRUCTIONS,
     USER_MAX_EFFORT_STRONG_INSTRUCTIONS,
+    USER_ROLE_STRONG_INSTRUCTIONS,
+    USER_ROLE_WEAK_INSTRUCTIONS,
     USER_STATUS_STRONG_INSTRUCTIONS,
     USER_STATUS_WEAK_INSTRUCTIONS,
     build_amount_prompt,
@@ -1089,6 +1091,7 @@ def build_generation_jobs(
 
     user_prompt_comparisons: dict[str, tuple[dict[str, str], dict[str, str]]] = {
         "user_prompt_effort": (USER_EFFORT_STRONG_INSTRUCTIONS, USER_EFFORT_WEAK_INSTRUCTIONS),
+        "user_prompt_role": (USER_ROLE_STRONG_INSTRUCTIONS, USER_ROLE_WEAK_INSTRUCTIONS),
         "user_prompt_status": (USER_STATUS_STRONG_INSTRUCTIONS, USER_STATUS_WEAK_INSTRUCTIONS),
     }
     for comparison, (strong_instructions, normal_instructions) in user_prompt_comparisons.items():
@@ -1122,6 +1125,58 @@ def build_generation_jobs(
                                 predicted_condition="user_strong",
                                 other_condition="user_normal",
                                 repeat=str(repeat),
+                            )
+                        )
+
+    framed_user_prompt_comparisons: dict[str, tuple[dict[str, str], dict[str, str]]] = {
+        "framed_user_prompt_role": (USER_ROLE_STRONG_INSTRUCTIONS, USER_ROLE_WEAK_INSTRUCTIONS),
+    }
+    for comparison, (strong_instructions, normal_instructions) in framed_user_prompt_comparisons.items():
+        if comparison not in comparisons:
+            continue
+        for actor in sorted(actors or set(ACTORS)):
+            for task_name in sorted(by_task):
+                for task in by_task[task_name]:
+                    task_block = (
+                        build_essay_system_prompt(task["item_label"])
+                        if task_name == "essay"
+                        else task["base_prompt"]
+                    )
+                    neutral = build_modgrid_fund_prompt(
+                        task_name,
+                        task_block,
+                        target=MODGRID_NEUTRAL_TARGET,
+                    )
+                    inst_a = strong_instructions.get(task_name, "")
+                    inst_b = normal_instructions.get(task_name, "")
+                    prompt_a = f"{neutral}\n\n{inst_a}" if inst_a else neutral
+                    prompt_b = f"{neutral}\n\n{inst_b}" if inst_b else neutral
+                    for repeat in range(modgrid_repeat_start, system_repeats):
+                        variant_id = user_prompt_variant_id(prompt_a=prompt_a, prompt_b=prompt_b)
+                        uid = f"{comparison}:{actor}:{task['task']}:{task['item_index']}:v{variant_id}:r{repeat}"
+                        jobs.append(
+                            common_job(
+                                pair_uid=uid,
+                                comparison=comparison,
+                                actor=actor,
+                                task_row=task,
+                                domain="",
+                                condition_a="user_strong",
+                                condition_b="user_normal",
+                                prompt_a=prompt_a,
+                                prompt_b=prompt_b,
+                                system_prompt_a="",
+                                system_prompt_b="",
+                                prompt_variant_id=variant_id,
+                                predicted_condition="user_strong",
+                                other_condition="user_normal",
+                                repeat=str(repeat),
+                                framing="modgrid_neutral_competition_wrapper",
+                                source_note=(
+                                    f"canonical_role_total_repeats_{system_repeats}"
+                                    if modgrid_repeat_start
+                                    else ""
+                                ),
                             )
                         )
 

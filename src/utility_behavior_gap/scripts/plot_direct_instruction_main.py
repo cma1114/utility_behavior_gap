@@ -23,7 +23,6 @@ from utility_behavior_gap.paths import ANALYSIS, FIGURES
 CSV_PATH = ANALYSIS / "framed_user_strong_panel_cell_summary.csv"
 PLOT_DATA_PATH = ANALYSIS / "direct_instruction_main_plot_data.csv"
 PNG_PATH = FIGURES / "direct_instruction_main.png"
-PDF_PATH = FIGURES / "direct_instruction_main.pdf"
 
 FAMILY_ALPHA = 0.05
 
@@ -272,7 +271,7 @@ def render_panel(
     ax.text(
         1.0,
         1.20,
-        f"{n_pos}/{n_total} adj-CI > 0.5",
+        f"{n_pos} / {n_total} adj-CI > 0.5",
         transform=ax.transAxes,
         ha="right",
         va="top",
@@ -285,7 +284,7 @@ def render_panel(
     n_excl = df_task["n_excl_tie"].astype(int)
     n_lo, n_hi = int(n_excl.min()), int(n_excl.max())
     n_note = f"n = {n_lo} pairs / actor" if n_lo == n_hi else f"n = {n_lo}-{n_hi} pairs / actor"
-    n_note = f"{n_note}; FWER 95% CIs"
+    n_note = f"{n_note}; FWER-adjusted 95% CIs"
     ax.text(-0.005, 1.06, n_note, transform=ax.transAxes, ha="left", va="top", fontsize=9.0, color=SUBTLE)
 
     ax.text(
@@ -343,10 +342,8 @@ def main() -> None:
         render_panel(ax, df_task, task_label, panel_letters[k], show_xlabel=(k // 2 == 1))
 
     fig.savefig(PNG_PATH, dpi=360, bbox_inches="tight", facecolor=PAPER_BG)
-    fig.savefig(PDF_PATH, bbox_inches="tight", facecolor=PAPER_BG)
     print(f"Wrote {PLOT_DATA_PATH}")
     print(f"Wrote {PNG_PATH}")
-    print(f"Wrote {PDF_PATH}")
 
 
 if __name__ == "__main__":

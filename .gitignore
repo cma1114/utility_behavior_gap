@@ -12,3 +12,9 @@ data/pairs/
 data/processed/
 data/sources/
 figures/*.svg
+
+# Keep curated paper-ready summaries under version control.
+!CURRENT_PAPER/results/
+!CURRENT_PAPER/results/**
+
+.DS_Store

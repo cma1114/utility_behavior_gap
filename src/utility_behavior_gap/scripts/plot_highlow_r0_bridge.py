@@ -122,7 +122,7 @@ def write_summary_md(
     return path
 
 
-def copy_paper_ready_outputs(*, stem: str) -> list[Path]:
+def copy_paper_ready_outputs(*, stem: str, include_pdf: bool = False) -> list[Path]:
     """Copy canonical bridge artifacts into stable paper-ready filenames.
 
     The source files remain in outputs/analysis with run-specific stems. The
@@ -146,24 +146,28 @@ def copy_paper_ready_outputs(*, stem: str) -> list[Path]:
             FIGURES / f"{stem}_model_task_lollipop.png",
             PAPER_READY_FIGURES / "high_utility_vs_r0_model_task_lollipop.png",
         ),
-        (
-            FIGURES / f"{stem}_model_task_lollipop.pdf",
-            PAPER_READY_FIGURES / "high_utility_vs_r0_model_task_lollipop.pdf",
-        ),
     ]
+    if include_pdf:
+        copies.append(
+            (
+                FIGURES / f"{stem}_model_task_lollipop.pdf",
+                PAPER_READY_FIGURES / "high_utility_vs_r0_model_task_lollipop.pdf",
+            )
+        )
     for domain in DOMAIN_ORDER:
-        copies.extend(
-            [
-                (
-                    FIGURES / f"{stem}_{domain}_model_task_lollipop.png",
-                    PAPER_READY_FIGURES / f"high_utility_vs_r0_domain_{domain}_model_task_lollipop.png",
-                ),
+        copies.append(
+            (
+                FIGURES / f"{stem}_{domain}_model_task_lollipop.png",
+                PAPER_READY_FIGURES / f"high_utility_vs_r0_domain_{domain}_model_task_lollipop.png",
+            )
+        )
+        if include_pdf:
+            copies.append(
                 (
                     FIGURES / f"{stem}_{domain}_model_task_lollipop.pdf",
                     PAPER_READY_FIGURES / f"high_utility_vs_r0_domain_{domain}_model_task_lollipop.pdf",
-                ),
-            ]
-        )
+                )
+            )
 
     written: list[Path] = []
     for source, dest in copies:
@@ -219,6 +223,11 @@ def main() -> None:
         action="store_true",
         help="Also copy stable paper-ready outputs to outputs/paper_ready/{figures,results}.",
     )
+    parser.add_argument(
+        "--png-only",
+        action="store_true",
+        help="Write and copy PNG figures only.",
+    )
     args = parser.parse_args()
 
     if args.from_high_utility_manifests:
@@ -244,16 +253,21 @@ def main() -> None:
     all_cells.to_csv(ANALYSIS / f"{stem}_model_task_cells.csv", index=False)
     figure_paths: list[Path] = []
     overall_stem = FIGURES / f"{stem}_model_task_lollipop"
-    plot_lollipop(all_cells, overall_stem, title="High Utility Versus R0: All Domains")
-    figure_paths += [overall_stem.with_suffix(".png"), overall_stem.with_suffix(".pdf")]
+    write_pdf = not args.png_only
+    plot_lollipop(all_cells, overall_stem, title="", write_pdf=write_pdf)
+    figure_paths.append(overall_stem.with_suffix(".png"))
+    if write_pdf:
+        figure_paths.append(overall_stem.with_suffix(".pdf"))
 
     domain_frames = []
     for domain in DOMAIN_ORDER:
         cells = build_cell_rows(high, domain=domain)
         domain_frames.append(cells)
         domain_stem = FIGURES / f"{stem}_{domain}_model_task_lollipop"
-        plot_lollipop(cells, domain_stem, title=f"High Utility Versus R0: {domain.capitalize()} Domain")
-        figure_paths += [domain_stem.with_suffix(".png"), domain_stem.with_suffix(".pdf")]
+        plot_lollipop(cells, domain_stem, title="", write_pdf=write_pdf)
+        figure_paths.append(domain_stem.with_suffix(".png"))
+        if write_pdf:
+            figure_paths.append(domain_stem.with_suffix(".pdf"))
     pd.concat(domain_frames, ignore_index=True).to_csv(
         ANALYSIS / f"{stem}_domain_model_task_cells.csv",
         index=False,
@@ -270,7 +284,7 @@ def main() -> None:
     print(f"model-task cells: {ANALYSIS / f'{stem}_model_task_cells.csv'}")
     print(f"figures: {overall_stem.with_suffix('.png')} and domain breakouts")
     if args.paper_ready:
-        written = copy_paper_ready_outputs(stem=stem)
+        written = copy_paper_ready_outputs(stem=stem, include_pdf=write_pdf)
         print("paper-ready outputs:")
         for path in written:
             print(path)

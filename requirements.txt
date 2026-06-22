@@ -5,3 +5,4 @@ pandas>=1.5
 PyYAML>=6
 pytest>=7
 statsmodels>=0.13
+wordfreq>=3.1

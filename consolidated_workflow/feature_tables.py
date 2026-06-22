@@ -22,8 +22,8 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "consolidated_workflow" / "configs" / "feature_tables.yaml"
-PAIR_DELTAS = ROOT / "outputs" / "analysis" / "final_text_analysis_pair_deltas.csv"
-BY_OUTPUT = ROOT / "outputs" / "analysis" / "final_text_analysis_by_output.csv"
+PAIR_DELTAS = ROOT / "CURRENT_PAPER" / "features" / "final_text_analysis_pair_deltas.csv"
+BY_OUTPUT = ROOT / "CURRENT_PAPER" / "features" / "final_text_analysis_by_output.csv"
 
 
 def repo_path(value: str | Path) -> Path:

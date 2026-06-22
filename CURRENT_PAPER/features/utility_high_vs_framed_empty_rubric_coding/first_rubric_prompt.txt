@@ -1,0 +1,212 @@
+You are coding task-specific quality dimensions for a research audit.
+
+You will see the task and two outputs, labeled A and B.
+You must compare A and B on each dimension separately.
+
+Important constraints:
+- Do not infer anything about how A or B was produced.
+- Do not try to guess which one a previous judge preferred.
+- If a dimension is not relevant to this pair, use "not_applicable".
+- Use "tie" when neither output is meaningfully better on that dimension.
+- Return exactly one JSON object and no surrounding prose.
+
+Task type: Incident postmortem
+
+Dimensions:
+1. impact_specificity: Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better?
+2. timeline_precision: Which postmortem gives a clearer chronological account with useful timestamps and event sequencing?
+3. root_cause_specificity: Which postmortem identifies the proximate technical failure and the deeper system failure more precisely?
+4. contributing_factor_analysis: Which postmortem better separates root cause from contributing factors such as monitoring, process, deployment, review, or testing gaps?
+5. detection_observability_analysis: Which postmortem better explains why the incident was not detected earlier or why alerts/dashboards failed?
+6. action_item_concreteness: Which postmortem gives more concrete, owned, prioritized, and recurrence-preventing action items?
+7. blameless_systems_framing: Which postmortem avoids individual blame while still giving a candid causal account?
+8. operational_realism: Which postmortem sounds more like a real engineering postmortem rather than a polished but generic template?
+
+For each dimension, use this exact schema:
+{"winner": "A" | "B" | "tie" | "not_applicable", "reason": "brief reason"}
+
+Return JSON with exactly these top-level keys:
+["impact_specificity", "timeline_precision", "root_cause_specificity", "contributing_factor_analysis", "detection_observability_analysis", "action_item_concreteness", "blameless_systems_framing", "operational_realism"]
+
+TASK:
+"""
+Task: Write a 500-750 word blameless incident postmortem for this incident:
+"A batch import duplicated volunteer shift assignments for a disaster-response nonprofit."
+
+The postmortem should include impact, timeline, contributing factors, root cause analysis, what went well, what went poorly, and concrete action items.
+"""
+
+OUTPUT A:
+"""
+# Blameless Incident Postmortem: Duplicate Volunteer Shift Assignments from Batch Import
+
+**Incident date:** 2026-05-12  
+**Systems affected:** Volunteer scheduling platform, shift notification workflow, downstream staffing reports  
+**Severity:** Moderate service integrity incident
+
+## Summary
+
+A batch import used to sync volunteer availability and shift assignments for a disaster-response nonprofit created duplicate shift assignments for a subset of volunteers. Some volunteers received two assignments for the same shift, while a smaller number were assigned to overlapping shifts. The issue was detected after coordinators noticed inconsistent staffing counts and volunteers reported receiving duplicate confirmation messages.
+
+The incident did not affect donor systems or emergency response operations directly, but it caused confusion for volunteers, increased coordinator workload, and required manual review and cleanup of affected schedules.
+
+## Impact
+
+- 184 duplicate shift assignments were created across 67 volunteer records.
+- 23 volunteers received conflicting or redundant assignment notifications.
+- 5 shifts were temporarily overfilled in the scheduling dashboard.
+- Coordinators spent approximately 6 staff-hours reconciling records and contacting volunteers.
+- Some volunteers expressed uncertainty about whether they were still needed, creating avoidable friction during a period of high operational demand.
+
+No volunteers missed a critical response assignment as a direct result of this incident, and no field operations were canceled. However, the integrity of the scheduling system was temporarily reduced.
+
+## Timeline
+
+- **09:10** — Scheduled batch import began processing updated volunteer roster and shift assignment data.
+- **09:14** — Import completed successfully with no errors reported by the job runner.
+- **09:30** — Coordinators observed duplicate names in the staffing dashboard for several shifts.
+- **09:42** — First volunteer reported receiving two assignment confirmations for the same shift.
+- **10:00** — Incident triage began; engineering and operations reviewed recent import logs.
+- **10:25** — Duplicate records were traced to the batch import process.
+- **11:05** — Import job was paused and the affected records were frozen from further automated syncing.
+- **12:15** — Manual deduplication and schedule correction began.
+- **14:40** — Cleanup completed; notifications were sent to impacted volunteers with corrected assignment status.
+- **16:00** — Post-incident review started and follow-up actions were assigned.
+
+## Contributing Factors
+
+Several factors made the incident possible:
+
+1. **Non-idempotent import logic.** The batch job inserted assignment rows without reliably checking whether a matching assignment already existed.
+2. **Weak uniqueness constraints.** The database did not enforce a compound uniqueness rule on volunteer ID, shift ID, and assignment type.
+3. **Repeated source records.** The upstream file contained duplicates for some volunteers due to a manual export issue during roster preparation.
+4. **Lack of dry-run validation.** The job was run directly in production without a preflight report showing how many records would be created or matched.
+5. **Insufficient monitoring.** There was no alert for sudden increases in assignments per shift or duplicate notification volume.
+
+## Root Cause Analysis
+
+The root cause was a mismatch between the import job’s assumptions and the data model’s protection mechanisms. The import workflow assumed the input file would be clean and that previously imported rows would not be reprocessed. In reality, the source file contained duplicate assignment entries, and the import logic treated each row as new.
+
+Because the database did not enforce uniqueness on assignment identity, duplicate rows were persisted successfully. Downstream notification logic then interpreted each row as a separate assignment, producing redundant confirmations and dashboard duplication. This was not a single-point coding error so much as a systems design gap: the process relied on manual data hygiene and application-level checks instead of durable storage-level safeguards.
+
+## What Went Well
+
+- The issue was detected quickly by both operations staff and a volunteer report.
+- Logs were sufficient to trace the problem back to the import job within about an hour.
+- The team paused the sync process before additional corrupted records were created.
+- Cleanup was completed the same day, limiting impact on active response work.
+- Communication with affected volunteers was prompt and transparent once the scope was understood.
+
+## What Went Poorly
+
+- The import job was allowed to write directly to production without a dry run or approval gate.
+- Duplicate detection depended on application behavior rather than enforced database constraints.
+- The source file preparation process had no validation step to catch repeated rows.
+- We lacked alerting on unusual assignment duplication, so the problem surfaced only after manual observation.
+- Coordinators had to perform manual reconciliation under time pressure.
+
+## Action Items
+
+1. **Add database uniqueness constraints** on volunteer ID, shift ID, and assignment type to prevent duplicate records.  
+   *Owner: Engineering; Due: 2 weeks*
+
+2. **Make the batch import idempotent** by using upsert semantics or explicit duplicate checks before insert.  
+   *Owner: Engineering; Due: 2 weeks*
+
+3. **Introduce a dry-run mode and import summary report** showing counts of creates, updates, and skipped duplicates before production execution.  
+   *Owner: Engineering; Due: 3 weeks*
+
+4. **Add pre-import validation for source files** to flag duplicate rows and malformed records before the job runs.  
+   *Owner: Operations; Due: 2 weeks*
+
+5. **Create monitoring and alerts** for abnormal spikes in shift assignments, duplicate notifications, and overfilled shifts.  
+   *Owner: SRE/Engineering; Due: 4 weeks*
+
+6. **Document a safer import procedure** requiring review for any batch that modifies live volunteer assignments.  
+   *Owner: Operations; Due: 1 week*
+
+7. **Run a backfill audit** of recent imports to confirm no similar duplication patterns exist in prior jobs.  
+   *Owner: Engineering; Due: 1 week*
+
+This incident highlighted that reliable scheduling for disaster-response work depends on both careful application logic and defensive data controls. The team will prioritize layered safeguards so that a single malformed file cannot create duplicate assignments again.
+"""
+
+OUTPUT B:
+"""
+# Incident Postmortem: Duplicate Volunteer Shift Assignments During Batch Import
+
+## Summary
+
+On 2026-06-10, a batch import process used by our disaster-response nonprofit created duplicate volunteer shift assignments in production. The import reprocessed a set of already-imported rows without a reliable idempotency check, resulting in some volunteers being assigned to the same shift more than once. The issue was detected the same day by a program coordinator reviewing shift rosters. We disabled the import job, corrected the affected records, and notified impacted coordinators. No volunteer was ultimately turned away from an active disaster response event, but the incident created confusion, increased manual work, and temporarily reduced trust in the scheduling data.
+
+## Impact
+
+- 312 shift assignment records were duplicated across 47 volunteer shift slots.
+- 28 volunteers received duplicate assignments for the same shift.
+- Coordinators spent approximately 6 person-hours identifying and reconciling records.
+- Two shift leads reported uncertainty about final staffing counts during live operations.
+- No safety incident occurred, but the error increased operational risk during a time-sensitive response period.
+
+## Timeline
+
+- **09:05** — Batch import began for a weekly roster update from a partner spreadsheet export.
+- **09:12** — Import completed successfully and reported no errors.
+- **10:40** — A program coordinator noticed duplicate names in a shift roster.
+- **10:55** — Engineering and operations were notified.
+- **11:10** — The import job was disabled to prevent further duplication.
+- **11:35** — Logs and source files were reviewed; duplicate inserts were confirmed.
+- **12:20** — A script was run to identify and mark duplicated assignment records.
+- **13:05** — Coordinators received corrected roster exports.
+- **15:00** — The import pipeline was restored with a temporary manual review step.
+- **Next day** — A follow-up audit confirmed no additional affected shifts.
+
+## Contributing Factors
+
+1. **Missing idempotency in the import pipeline**  
+   The job inserted shift assignments based on row content, but did not enforce a stable external key or deduplication constraint at the application or database layer.
+
+2. **Repeat processing of unchanged input**  
+   The import source produced an identical export with the same assignments, and the pipeline treated the file as new because it lacked file fingerprint tracking.
+
+3. **Insufficient validation and alerts**  
+   The job validated row format and required fields, but not uniqueness of volunteer-to-shift assignments. Duplicate creation did not trigger any alert.
+
+4. **Operational dependence on batch imports**  
+   Coordinators rely heavily on the import job for rapid schedule updates during disaster response, which reduced the opportunity for manual cross-checking before assignments were used.
+
+## Root Cause Analysis
+
+The root cause was a design gap in the batch import workflow: it lacked a reliable mechanism to identify whether an assignment had already been imported. The system accepted rows as independent records and created new shift assignments even when the volunteer, shift, and source data matched an existing assignment.
+
+This was not caused by a single code defect, but by an incomplete data model and insufficient safeguards around repeated imports. The job was built to prioritize successful ingestion of partner-provided schedules, but it did not include idempotent writes, uniqueness constraints, or replay protection. As a result, reprocessing the same data produced duplicate records.
+
+## What Went Well
+
+- The issue was detected quickly by an attentive coordinator during routine roster review.
+- The import job could be disabled immediately, limiting further duplication.
+- Logs and source files were sufficient to reconstruct the failure mode.
+- The team was able to correct records and redistribute accurate rosters within hours.
+- Cross-functional communication between operations and engineering was prompt and clear.
+
+## What Went Poorly
+
+- We relied on a single import path without strong guardrails against duplicate writes.
+- The system reported the job as successful despite creating invalid data.
+- There was no automated monitoring for duplicate assignment anomalies.
+- Corrective work required manual investigation during an already high-pressure operational period.
+- The lack of an explicit reconciliation process delayed confidence in the roster data.
+
+## Action Items
+
+1. **Add database uniqueness constraints** for volunteer, shift, and source-assignment identifiers to prevent duplicate writes.
+2. **Implement idempotency keys** in the import pipeline so repeated processing of the same file does not create new records.
+3. **Track file fingerprints and import history** to detect and skip unchanged partner exports.
+4. **Add post-import validation checks** that compare assignment counts and flag duplicate rates above zero.
+5. **Create alerting for anomalous import outcomes**, including repeated inserts for the same shift/volunteer pair.
+6. **Introduce a reconciliation report** for coordinators showing newly added, updated, and rejected assignments after each import.
+7. **Document a manual fallback procedure** for verifying roster integrity before assignments are used in active response operations.
+
+## Closing
+
+This incident exposed a gap between successful ingestion and correct data handling. We have already applied temporary controls and are implementing durable protections so that batch imports remain safe, repeatable, and trustworthy for mission-critical volunteer coordination.
+"""

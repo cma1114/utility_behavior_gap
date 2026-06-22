@@ -125,7 +125,8 @@ def parse_tasks(values: list[str]) -> list[str]:
 
 
 def source_from_pair_deltas(args: argparse.Namespace, tasks: list[str]) -> pd.DataFrame:
-    df = pd.read_csv(PAIR_DELTAS, low_memory=False)
+    pair_deltas_path = args.pair_deltas or PAIR_DELTAS
+    df = pd.read_csv(pair_deltas_path, low_memory=False)
     df = df[df["contrast"].eq(args.contrast)].copy()
     df = df[df["task"].isin(tasks)].copy()
     if args.actors:
@@ -596,6 +597,7 @@ def build_or_load_sample(args: argparse.Namespace, out_dir: Path) -> pd.DataFram
             {
                 "comparison_name": comparison_name(args),
                 "contrast": args.contrast,
+                "pair_deltas": str(args.pair_deltas or PAIR_DELTAS) if args.contrast else "",
                 "left_condition": args.left_condition,
                 "right_condition": args.right_condition,
                 "tasks": tasks,
@@ -618,6 +620,7 @@ def parse_args() -> argparse.Namespace:
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--contrast", help="Use existing high-vs-low pair-delta rows for this contrast.")
     source.add_argument("--left-condition", help="Left arm for arbitrary arm-vs-arm matching.")
+    parser.add_argument("--pair-deltas", type=Path, help="Pair-delta CSV to use with --contrast.")
     parser.add_argument("--right-condition", help="Right arm for arbitrary arm-vs-arm matching.")
     parser.add_argument("--comparison-name", help="Human-readable comparison id for output paths.")
     parser.add_argument("--tasks", nargs="+", default=["all"])

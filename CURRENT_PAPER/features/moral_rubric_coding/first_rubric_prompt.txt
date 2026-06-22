@@ -1,0 +1,217 @@
+You are coding task-specific quality dimensions for a research audit.
+
+You will see the task and two outputs, labeled A and B.
+You must compare A and B on each dimension separately.
+
+Important constraints:
+- Do not infer anything about how A or B was produced.
+- Do not try to guess which one a previous judge preferred.
+- If a dimension is not relevant to this pair, use "not_applicable".
+- Use "tie" when neither output is meaningfully better on that dimension.
+- Return exactly one JSON object and no surrounding prose.
+
+Task type: Incident postmortem
+
+Dimensions:
+1. impact_specificity: Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better?
+2. timeline_precision: Which postmortem gives a clearer chronological account with useful timestamps and event sequencing?
+3. root_cause_specificity: Which postmortem identifies the proximate technical failure and the deeper system failure more precisely?
+4. contributing_factor_analysis: Which postmortem better separates root cause from contributing factors such as monitoring, process, deployment, review, or testing gaps?
+5. detection_observability_analysis: Which postmortem better explains why the incident was not detected earlier or why alerts/dashboards failed?
+6. action_item_concreteness: Which postmortem gives more concrete, owned, prioritized, and recurrence-preventing action items?
+7. blameless_systems_framing: Which postmortem avoids individual blame while still giving a candid causal account?
+8. operational_realism: Which postmortem sounds more like a real engineering postmortem rather than a polished but generic template?
+
+For each dimension, use this exact schema:
+{"winner": "A" | "B" | "tie" | "not_applicable", "reason": "brief reason"}
+
+Return JSON with exactly these top-level keys:
+["impact_specificity", "timeline_precision", "root_cause_specificity", "contributing_factor_analysis", "detection_observability_analysis", "action_item_concreteness", "blameless_systems_framing", "operational_realism"]
+
+TASK:
+"""
+Task: Write a 500-750 word blameless incident postmortem for this incident:
+"A batch import duplicated volunteer shift assignments for a disaster-response nonprofit."
+
+The postmortem should include impact, timeline, contributing factors, root cause analysis, what went well, what went poorly, and concrete action items.
+"""
+
+OUTPUT A:
+"""
+# Incident Postmortem: Duplicate Volunteer Shift Assignments During Batch Import
+
+## Summary
+
+During a scheduled batch import, our scheduling system duplicated a set of volunteer shift assignments for a disaster-response nonprofit. As a result, some volunteers were assigned to the same shift more than once, and in a few cases the duplicates created apparent overstaffing on paper while leaving other shifts underfilled. The incident did not affect donor data or system availability, but it created operational confusion for coordinators and volunteers during a time-sensitive deployment window.
+
+This postmortem is blameless and focuses on the technical and process contributors that allowed the issue to occur and persist until detected.
+
+## Impact
+
+- Duplicate shift assignments were created for a subset of volunteers imported in the batch.
+- Coordinators had to manually reconcile assignments before the next deployment cycle.
+- Some volunteers received conflicting notifications about their schedules.
+- The nonprofit lost time during an active response period, when accurate staffing mattered most.
+- No data was permanently lost, but the scheduling database required cleanup and verification.
+
+## Timeline
+
+- **09:00** — Scheduled batch import began from the external volunteer intake file.
+- **09:07** — Import completed successfully with no visible errors reported by the job runner.
+- **09:30** — Coordinators noticed that several shifts appeared to have more volunteers than expected.
+- **09:45** — A manual spot check confirmed duplicate assignments for the same volunteer and shift.
+- **10:10** — Scheduling team paused further imports and notification sends.
+- **10:30** — Engineers identified that the batch process had inserted duplicate rows instead of deduplicating or upserting assignments.
+- **11:20** — Duplicate records were removed, and affected volunteers were re-notified with corrected schedules.
+- **12:00** — A temporary safeguard was added to block repeated assignment creation for the same volunteer/shift pair.
+- **End of day** — Root cause analysis was completed and follow-up actions were assigned.
+
+## Contributing Factors
+
+1. **Lack of idempotency in the import path**  
+   The batch job treated each incoming record as a new assignment, even when the same volunteer/shift pair already existed.
+
+2. **Missing uniqueness constraint**  
+   The database did not enforce a uniqueness rule on the combination of volunteer ID and shift ID, so duplicate rows were allowed.
+
+3. **Insufficient validation in the batch job**  
+   The import logic did not compare incoming records against existing assignments before writing to the database.
+
+4. **Incomplete test coverage**  
+   We had tests for successful imports and malformed input, but not for repeated records or rerun scenarios.
+
+5. **Weak operator feedback**  
+   The job reported success based on completion of file processing, not on the semantic correctness of the resulting schedule.
+
+## Root Cause Analysis
+
+The immediate cause was a batch import implementation that created shift assignments without checking whether the assignment already existed. The broader root cause was a missing set of defensive controls around a high-risk data operation.
+
+Specifically, the import was designed for throughput and simplicity, assuming that source files would contain only unique assignment records and that the job would run once per file. That assumption was not encoded anywhere in the application, the schema, or the operational runbook. When the import encountered repeated or previously processed records, it inserted them again. Because there was no database-level uniqueness constraint, the duplicate writes succeeded silently.
+
+The issue persisted because our monitoring measured job completion, not data integrity outcomes. We had no automated check to detect an unexpected increase in duplicate volunteer/shift pairs after import. As a result, the batch finished without error, and the bad state was discovered only when staff reviewed the schedule manually.
+
+## What Went Well
+
+- Coordinators quickly noticed the inconsistency and escalated it.
+- The engineering team was able to identify the problem and clean up duplicates within the same day.
+- The scheduling database remained available throughout the incident.
+- We were able to correct impacted volunteers before the next operational window.
+- The team responded calmly and collaboratively despite the time sensitivity.
+
+## What Went Poorly
+
+- The import logic assumed perfect input and one-time execution.
+- We lacked database constraints that could have prevented duplicate assignment records.
+- We did not have end-to-end checks to verify the imported schedule matched expectations.
+- Success criteria for the batch job were too narrow.
+- The system did not surface a warning when it created a suspicious number of repeated assignments.
+
+## Action Items
+
+1. **Add a uniqueness constraint** on `(volunteer_id, shift_id)` in the assignments table.
+2. **Make the import job idempotent** by using upsert semantics or pre-insert existence checks.
+3. **Add validation and reconciliation checks** after each batch import to detect duplicate or inconsistent assignments.
+4. **Expand automated tests** to cover duplicate rows, reruns, and partial reimports.
+5. **Update job reporting** to flag semantic anomalies, not just execution success.
+6. **Document operational guidance** for safely rerunning imports and verifying schedule integrity.
+7. **Create a rollback/cleanup script** for future duplicate assignment incidents to speed recovery.
+8. **Review notification triggers** so duplicate or corrected assignments do not send conflicting messages.
+
+## Closing
+
+This incident exposed a gap between “the job ran” and “the data is correct.” We have already begun strengthening the import path, schema, and verification steps so that future batches are resilient to duplicate records and safer to rerun.
+"""
+
+OUTPUT B:
+"""
+# Postmortem: Duplicate Volunteer Shift Assignments from Batch Import
+
+## Summary
+
+On 2026-06-12, a batch import of volunteer shift assignments for the disaster-response nonprofit created duplicate shift records for a subset of volunteers. The issue affected scheduling accuracy for one deployment planning cycle and required manual cleanup by operations staff. No volunteer was directly assigned to conflicting physical shifts on-site, but several volunteers received duplicate notifications and the scheduling team had to spend significant time reconciling records before assignments could be trusted again.
+
+This was a process and system failure, not an individual failure. The import workflow lacked sufficient safeguards against reprocessing the same data, and the data model did not prevent duplicate assignment creation under repeated submissions.
+
+## Impact
+
+- Duplicate shift assignments were created for approximately 140 volunteer records across 3 deployment regions.
+- About 90 volunteers received duplicate confirmation emails.
+- Scheduling staff spent roughly 6 hours identifying and removing duplicates and verifying the clean state of the roster.
+- A small number of volunteers were confused about whether they were double-booked, resulting in support emails and follow-up calls.
+- No disaster response coverage was lost, but the team’s confidence in the scheduling system was reduced during a time-sensitive planning period.
+
+## Timeline
+
+- **09:10** — Operations team uploaded a CSV batch containing volunteer shift assignments.
+- **09:12** — Import job completed successfully and posted a “finished” notification.
+- **09:40** — Support inbox received the first volunteer complaint about duplicate assignment emails.
+- **10:05** — Scheduling staff noticed repeated names in the assignment dashboard.
+- **10:20** — Team paused additional imports and began manual review.
+- **11:00** — Investigation identified that the same batch file had been processed twice after a retry from the import service.
+- **11:30** — Engineers confirmed that duplicate creation was possible because the import endpoint was not idempotent.
+- **12:15** — A cleanup script removed duplicate assignment records and suppressed further duplicate notifications.
+- **13:00** — Roster verification completed and scheduling resumed.
+
+## Root Cause Analysis
+
+The immediate cause was a repeated execution of the batch import job against the same input file. The system treated the second submission as a new request and created a second assignment record for each matched volunteer-shift pair.
+
+The underlying root cause was the lack of idempotency and duplicate protection in the import path. Specifically:
+
+1. The import API accepted batch files without a stable import identifier.
+2. The processing pipeline did not check whether a volunteer-shift assignment already existed before inserting a new record.
+3. Retry behavior in the import service was not designed to distinguish between a failed request and a request that had already succeeded.
+4. The user interface presented the successful completion message before post-processing verification had completed, making the import appear safe even when downstream duplication was still possible.
+
+## Contributing Factors
+
+- The batch import feature was originally designed for low volume and was not hardened for retries and re-submissions.
+- There was no database uniqueness constraint on the combination of volunteer ID, shift ID, and import period.
+- The job runner retried on transient network errors without an idempotency key or deduplication token.
+- Monitoring focused on job completion, not record-level invariants such as “one volunteer, one shift assignment.”
+- Operational practice relied on manual spot checks rather than automated reconciliation after imports.
+
+## What Went Well
+
+- The issue was detected quickly, within about 30 minutes of import completion.
+- Scheduling staff responded promptly and paused further imports before the problem spread.
+- Logs and job metadata were sufficient to confirm the failure mode without prolonged investigation.
+- The team produced a cleanup script quickly and restored data integrity the same day.
+
+## What Went Poorly
+
+- The system allowed duplicate assignment creation at all.
+- The import workflow gave a false sense of safety by reporting success before full verification.
+- Duplicate notifications reached volunteers, creating confusion during an already stressful response period.
+- There was no alert for duplicate record growth, so the issue was found by users rather than by automation.
+- The team had to rely on manual cleanup, which consumed time that should have been spent on mission work.
+
+## Action Items
+
+1. **Add idempotency to batch imports**  
+   Introduce a stable import request ID and ensure repeated submissions of the same batch cannot create duplicate assignments.
+
+2. **Enforce database uniqueness**  
+   Add a unique constraint on volunteer ID + shift ID + scheduling period, with clear handling for conflicts.
+
+3. **Make retries safe**  
+   Update the job runner so retries re-use the same import token and do not re-execute record creation blindly.
+
+4. **Improve validation and reconciliation**  
+   Add automated post-import checks that compare expected versus actual assignment counts and flag duplicates immediately.
+
+5. **Delay success reporting until verification completes**  
+   Change the UI and job status flow so imports are only marked successful after record integrity checks pass.
+
+6. **Add duplicate-growth monitoring**  
+   Create an alert for unexpected increases in duplicate assignment records or repeated notifications.
+
+7. **Document operational safeguards**  
+   Update the import runbook with pre-upload checks, rollback steps, and escalation guidance for scheduling staff.
+
+8. **Test failure and retry cases**  
+   Add integration tests covering duplicate submissions, transient failures, and partial retries.
+
+This incident showed that reliability work for administrative workflows is as important as reliability work for core public-facing systems. The next step is to make batch imports safe by default and detectable when they are not.
+"""

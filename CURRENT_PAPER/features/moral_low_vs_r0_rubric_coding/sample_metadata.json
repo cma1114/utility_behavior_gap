@@ -1,0 +1,29 @@
+{
+  "actors": [],
+  "coder_model": "google/gemini-2.5-flash",
+  "comparison_name": "moral_low_vs_r0",
+  "contrast": null,
+  "incomplete_source_rows_dropped": 0,
+  "left_condition": "moral_low",
+  "left_duplicates_dropped": 0,
+  "left_incomplete_rows_dropped": 0,
+  "moral_filter_report": {
+    "classification_path": "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/analysis/canonical_highn_moral_refusal_classifications.jsonl",
+    "moral_clean_rows_kept": 15971,
+    "moral_filter_applied": true,
+    "moral_rows": 16800,
+    "moral_rows_dropped": 829,
+    "unclassified_moral_rows_dropped": 55
+  },
+  "right_condition": "r0",
+  "right_duplicates_dropped": 0,
+  "right_incomplete_rows_dropped": 0,
+  "sample_size_per_task": 120,
+  "seed": 20260615,
+  "tasks": [
+    "essay",
+    "grant_proposal_abstract",
+    "incident_postmortem",
+    "translation"
+  ]
+}

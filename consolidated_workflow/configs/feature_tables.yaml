@@ -9,7 +9,7 @@ tables:
     right_label: "direct low"
     generic_out_prefix: outputs/analysis/consolidated/features/direct_instruction_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/direct_instruction_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/direct_instruction__source-pair-deltas__n-per-task-120__seed-20260615__coder-google-gemini-2.5-flash
+    rubric_run_dir: CURRENT_PAPER/features/direct_instruction_rubric_coding
 
   utility:
     title: "Utility High-Low Feature Appendix"
@@ -21,7 +21,7 @@ tables:
     right_label: "utility low"
     generic_out_prefix: outputs/analysis/consolidated/features/utility_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/utility_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/utility__source-pair-deltas__n-per-task-120__seed-20260615__coder-google-gemini-2.5-flash
+    rubric_run_dir: CURRENT_PAPER/features/utility_rubric_coding
 
   amount:
     title: "Amount High-Low Feature Appendix"
@@ -33,7 +33,7 @@ tables:
     right_label: "amount low"
     generic_out_prefix: outputs/analysis/consolidated/features/amount_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/amount_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/amount__source-pair-deltas__n-per-task-120__seed-20260615__coder-google-gemini-2.5-flash
+    rubric_run_dir: CURRENT_PAPER/features/amount_rubric_coding
 
   moral:
     title: "Moral High-Low Feature Appendix"
@@ -45,7 +45,7 @@ tables:
     right_label: "moral low"
     generic_out_prefix: outputs/analysis/consolidated/features/moral_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/moral_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/moral__source-pair-deltas__n-per-task-120__seed-20260615__coder-google-gemini-2.5-flash
+    rubric_run_dir: CURRENT_PAPER/features/moral_rubric_coding
 
   utility_high_vs_r0:
     title: "Utility High vs R0 Feature Appendix"
@@ -62,7 +62,7 @@ tables:
     bridge_right_output_col: source_r0_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/utility_high_vs_r0_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/utility_high_vs_r0_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/utility_high_vs_r0
+    rubric_run_dir: CURRENT_PAPER/features/utility_high_vs_r0_rubric_coding
 
   utility_high_vs_framed_empty:
     title: "Utility High vs Framed Empty Feature Appendix"
@@ -79,7 +79,7 @@ tables:
     bridge_right_output_col: source_framed_empty_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/utility_high_vs_framed_empty_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/utility_high_vs_framed_empty_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/utility_high_vs_framed_empty
+    rubric_run_dir: CURRENT_PAPER/features/utility_high_vs_framed_empty_rubric_coding
 
   utility_high_vs_framed_neutral:
     title: "Utility High vs Framed Neutral Generic Feature Appendix"
@@ -91,7 +91,7 @@ tables:
     right_key: neutral
     left_label: "utility high"
     right_label: "framed neutral"
-    bridge_outcomes: outputs/analysis/highlow_neutral_bridge_high__combined_7runs_pair_outcomes.csv
+    bridge_outcomes: CURRENT_PAPER/results/high_utility_vs_framed_neutral_pair_outcomes.csv
     bridge_left_output_col: source_highlow_output_id
     bridge_right_output_col: source_neutral_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/utility_high_vs_framed_neutral_feature_deltas
@@ -107,7 +107,7 @@ tables:
     right_key: neutral
     left_label: "amount high"
     right_label: "framed neutral"
-    bridge_outcomes: outputs/analysis/amount_neutral_bridge__combined_7runs__pair_outcomes.csv
+    bridge_outcomes: CURRENT_PAPER/results/amount_high_vs_framed_neutral_pair_outcomes.csv
     bridge_left_output_col: source_amount_output_id
     bridge_right_output_col: source_neutral_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/amount_high_vs_framed_neutral_feature_deltas
@@ -123,12 +123,12 @@ tables:
     right_key: r0
     left_label: "moral low"
     right_label: "R0"
-    bridge_outcomes: outputs/analysis/moral_r0_bridge__combined_7runs__pair_outcomes.csv
+    bridge_outcomes: CURRENT_PAPER/results/moral_low_vs_r0_pair_outcomes.csv
     bridge_left_output_col: source_moral_output_id
     bridge_right_output_col: source_r0_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/moral_low_vs_r0_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/moral_low_vs_r0_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/moral_low_vs_r0
+    rubric_run_dir: CURRENT_PAPER/features/moral_low_vs_r0_rubric_coding
 
   moral_low_vs_framed_empty:
     title: "Moral Low vs Framed Empty Feature Appendix"
@@ -140,12 +140,12 @@ tables:
     right_key: framed_empty
     left_label: "moral low"
     right_label: "framed empty"
-    bridge_outcomes: outputs/analysis/moral_empty_bridge__combined_7runs__pair_outcomes.csv
+    bridge_outcomes: CURRENT_PAPER/results/moral_low_vs_framed_empty_pair_outcomes.csv
     bridge_left_output_col: source_moral_output_id
     bridge_right_output_col: source_empty_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/moral_low_vs_framed_empty_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/moral_low_vs_framed_empty_combined_feature_appendix
-    rubric_run_dir: outputs/analysis/task_rubric_feature_coding/moral_low_vs_framed_empty
+    rubric_run_dir: CURRENT_PAPER/features/moral_low_vs_framed_empty_rubric_coding
 
   moral_low_vs_framed_neutral:
     title: "Moral Low vs Framed Neutral Generic Feature Appendix"
@@ -157,9 +157,8 @@ tables:
     right_key: neutral
     left_label: "moral low"
     right_label: "framed neutral"
-    bridge_outcomes: outputs/analysis/moral_neutral_bridge__combined_7runs__pair_outcomes.csv
+    bridge_outcomes: CURRENT_PAPER/results/moral_low_vs_framed_neutral_pair_outcomes.csv
     bridge_left_output_col: source_moral_output_id
     bridge_right_output_col: source_neutral_output_id
     generic_out_prefix: outputs/analysis/consolidated/features/moral_low_vs_framed_neutral_feature_deltas
     appendix_out_prefix: outputs/analysis/consolidated/features/moral_low_vs_framed_neutral_generic_feature_appendix
-

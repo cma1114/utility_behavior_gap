@@ -1,0 +1,51 @@
+{
+  "actors": [],
+  "coder_model": "google/gemini-2.5-flash",
+  "comparison_name": "framed_user_prompt_role",
+  "contrast": "framed_user_prompt_role",
+  "incomplete_source_rows_dropped": 0,
+  "left_condition": null,
+  "left_duplicates_dropped": 0,
+  "left_incomplete_rows_dropped": 0,
+  "pair_deltas": "outputs/analysis/framed_user_prompt_role_pair_deltas.csv",
+  "right_condition": null,
+  "right_duplicates_dropped": 0,
+  "right_incomplete_rows_dropped": 0,
+  "sample_size_per_task": 120,
+  "seed": 20260615,
+  "semantic_exclusion_filter_report": {
+    "classification_path": "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/analysis/canonical_highn_moral_refusal_classifications.jsonl",
+    "classified_outputs_in_file": 16745,
+    "classified_side_rows_seen": 0,
+    "nonclean_classified_side_rows_dropped": 0,
+    "pairs_after_filter": 8369,
+    "pairs_before_filter": 8369,
+    "pairs_dropped": 0,
+    "semantic_exclusion_filter_applied": true,
+    "side_rows_checked": 33476,
+    "unclassified_side_rows_seen": 33476
+  },
+  "tasks": [
+    "essay",
+    "grant_proposal_abstract",
+    "incident_postmortem",
+    "translation"
+  ],
+  "valid_output_filter_report": {
+    "invalid_flags": [
+      "missing_output",
+      "generation_success_false",
+      "finish_reason_missing",
+      "non_stop_finish",
+      "explicit_length_truncation",
+      "empty_output"
+    ],
+    "invalid_side_rows": 0,
+    "pairs_after_filter": 8369,
+    "pairs_before_filter": 8369,
+    "pairs_dropped": 0,
+    "side_rows_checked": 33476,
+    "used_inline_flags": false,
+    "valid_output_filter_applied": true
+  }
+}

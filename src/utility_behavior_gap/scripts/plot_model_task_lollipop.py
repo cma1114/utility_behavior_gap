@@ -16,6 +16,9 @@ from typing import Any
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
+import matplotlib
+
+matplotlib.use("Agg")
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
@@ -266,7 +269,8 @@ def select_runs(
     task_order: list[tuple[str, str]],
     left_condition: str,
     right_condition: str,
-) -> tuple[dict[tuple[str, str], Path], pd.DataFrame]:
+    combine_runs: bool,
+) -> tuple[dict[tuple[str, str], list[Path]], pd.DataFrame]:
     actors = {actor for actor, _ in actor_order}
     tasks = {task for task, _ in task_order}
     rows: list[dict[str, Any]] = []
@@ -294,7 +298,7 @@ def select_runs(
         rows.append(row)
         by_cell[(actor, task)].append((run_dir, status))
 
-    selected = {}
+    selected: dict[tuple[str, str], list[Path]] = {}
     for cell, candidates in by_cell.items():
         candidates = sorted(
             candidates,
@@ -306,12 +310,15 @@ def select_runs(
             ),
             reverse=True,
         )
-        selected[cell] = candidates[0][0]
+        if combine_runs:
+            selected[cell] = sorted([run_dir for run_dir, _ in candidates], key=lambda path: path.name)
+        else:
+            selected[cell] = [candidates[0][0]]
     return selected, pd.DataFrame(rows)
 
 
 def cells_from_runs(
-    selected: dict[tuple[str, str], Path],
+    selected: dict[tuple[str, str], list[Path]],
     *,
     actor_order: list[tuple[str, str]],
     task_order: list[tuple[str, str]],
@@ -323,14 +330,24 @@ def cells_from_runs(
     task_labels = dict(task_order)
     cell_rows: list[dict[str, Any]] = []
     pair_rows: list[dict[str, Any]] = []
-    for (actor, task), run_dir in sorted(selected.items()):
-        status = read_run(run_dir, left_condition=left_condition, right_condition=right_condition)
-        pairs = pd.DataFrame(status["pair_rows"])
-        pair_rows.extend(status["pair_rows"])
+    for (actor, task), run_dirs in sorted(selected.items()):
+        combined_pair_rows: list[dict[str, Any]] = []
+        seen_pair_uids: set[str] = set()
+        for run_dir in run_dirs:
+            status = read_run(run_dir, left_condition=left_condition, right_condition=right_condition)
+            for row in status["pair_rows"]:
+                pair_uid = str(row.get("pair_uid") or "")
+                if pair_uid in seen_pair_uids:
+                    continue
+                seen_pair_uids.add(pair_uid)
+                combined_pair_rows.append(row)
+                pair_rows.append(row)
+        pairs = pd.DataFrame(combined_pair_rows)
         left_wins = int(pairs["panel_winner_condition"].eq(left_condition).sum())
         right_wins = int(pairs["panel_winner_condition"].eq(right_condition).sum())
         ties = int(pairs["panel_winner_condition"].eq("tie").sum())
         unresolved = int(pairs["panel_winner_condition"].eq("unresolved").sum())
+        complete_pairs = int(pairs["complete"].sum())
         non_ties = left_wins + right_wins
         rate = left_wins / non_ties if non_ties else math.nan
         ci_lo, ci_hi = bonferroni_exact_ci(left_wins, non_ties, family_size)
@@ -345,10 +362,10 @@ def cells_from_runs(
                 "actor_label": actor_labels.get(actor, actor),
                 "task": task,
                 "task_label": task_labels.get(task, task),
-                "run_id": run_dir.name,
-                "run_dir": str(run_dir),
-                "n_pairs": int(status["expected_pairs"]),
-                "complete_pairs": int(status["complete_pairs"]),
+                "run_id": ";".join(run_dir.name for run_dir in run_dirs),
+                "run_dir": ";".join(str(run_dir) for run_dir in run_dirs),
+                "n_pairs": len(combined_pair_rows),
+                "complete_pairs": complete_pairs,
                 "left_wins": left_wins,
                 "right_wins": right_wins,
                 "ties": ties,
@@ -754,6 +771,11 @@ def main() -> None:
     parser.add_argument("--bootstrap-iterations", type=int, default=5000)
     parser.add_argument("--seed", type=int, default=20260620)
     parser.add_argument("--paper-copy", action="store_true")
+    parser.add_argument(
+        "--combine-runs",
+        action="store_true",
+        help="combine all complete matching run blocks per actor-task instead of selecting one best run",
+    )
     args = parser.parse_args()
 
     actor_order = subset_pairs(DEFAULT_ACTORS, args.actor)
@@ -771,6 +793,7 @@ def main() -> None:
         task_order=task_order,
         left_condition=args.left_condition,
         right_condition=args.right_condition,
+        combine_runs=args.combine_runs,
     )
     cells, pairs = cells_from_runs(
         selected,

@@ -151,40 +151,23 @@ def validate_direct_rows(df: pd.DataFrame) -> None:
 
 def add_composite_features(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
-    required = ["high_numbers", "low_numbers", "high_percentages", "low_percentages", "task"]
+    required = [
+        "high_numbers",
+        "low_numbers",
+        "high_percentages",
+        "low_percentages",
+        "high_words",
+        "low_words",
+    ]
     missing = [col for col in required if col not in out.columns]
     if missing:
         raise ValueError(f"Cannot compute quantitative_detail; missing columns: {missing}")
 
-    out["high_numeric_count_for_composite"] = (
-        pd.to_numeric(out["high_numbers"], errors="coerce")
-        + pd.to_numeric(out["high_percentages"], errors="coerce")
-    )
-    out["low_numeric_count_for_composite"] = (
-        pd.to_numeric(out["low_numbers"], errors="coerce")
-        + pd.to_numeric(out["low_percentages"], errors="coerce")
-    )
-    out["high_quantitative_detail"] = np.nan
-    out["low_quantitative_detail"] = np.nan
-
-    for task, idx in out.groupby("task", dropna=False).groups.items():
-        high = out.loc[idx, "high_numeric_count_for_composite"].to_numpy(dtype=float)
-        low = out.loc[idx, "low_numeric_count_for_composite"].to_numpy(dtype=float)
-        pooled = np.concatenate([high[np.isfinite(high)], low[np.isfinite(low)]])
-        if len(pooled) == 0:
-            continue
-        mean = float(np.mean(pooled))
-        sd = float(np.std(pooled, ddof=0))
-        if not np.isfinite(sd) or sd <= 0:
-            out.loc[idx, "high_quantitative_detail"] = 0.0
-            out.loc[idx, "low_quantitative_detail"] = 0.0
-            continue
-        out.loc[idx, "high_quantitative_detail"] = (
-            out.loc[idx, "high_numeric_count_for_composite"] - mean
-        ) / sd
-        out.loc[idx, "low_quantitative_detail"] = (
-            out.loc[idx, "low_numeric_count_for_composite"] - mean
-        ) / sd
+    for side in ("high", "low"):
+        numeric = pd.to_numeric(out[f"{side}_numbers"], errors="coerce").fillna(0)
+        percentages = pd.to_numeric(out[f"{side}_percentages"], errors="coerce").fillna(0)
+        words = pd.to_numeric(out[f"{side}_words"], errors="coerce")
+        out[f"{side}_quantitative_detail"] = (numeric + percentages) / words * 1000
 
     out["delta_quantitative_detail"] = (
         out["high_quantitative_detail"] - out["low_quantitative_detail"]
@@ -440,7 +423,7 @@ def write_summary(
         "",
         "The primary overall estimate is the equal actor-task-cell mean. Its confidence interval uses a nonparametric bootstrap over actor and task cells, so translation's larger sample does not dominate the aggregate.",
         "",
-        "Generic features use the standard paper-facing set: words, paragraphs, unique-word ratio, quantitative detail, Flesch-Kincaid grade, positive-word rate, and negative-word rate. Quantitative detail is `z(numbers + percentages)` standardized within task before paired differencing.",
+        "Generic features use the standard paper-facing set from `analysis_specs/feature_definitions.yaml`. Quantitative detail is numeric tokens plus percentage expressions per 1,000 words; MATTR-50 measures fixed-window lexical variety; rare-word rate uses the standardized `wordfreq` English Zipf-frequency scale.",
         "",
         f"- input pair catalog: `{input_path}`",
         f"- feature definitions: `{definitions_path}`",

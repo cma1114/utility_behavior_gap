@@ -1,0 +1,215 @@
+version: 1
+purpose: >
+  Source-of-truth feature definitions for the standard feature analysis.
+  Edit this file, not generated CSVs, to change labels, definitions, task
+  rubric dimensions, or paper-facing display precision.
+
+generic_features:
+  standard_set:
+    - words
+    - paragraphs
+    - unique_word_ratio
+    - quantitative_detail
+    - textstat_flesch_kincaid_grade
+    - positive_words_per_1k
+    - negative_words_per_1k
+
+  features:
+    words:
+      family: Verbosity
+      label: Words
+      definition: Word count.
+      display_digits: 0
+      small_abs_display_digits: 1
+      small_abs_threshold: 10
+
+    paragraphs:
+      family: Organization
+      label: Paragraphs
+      definition: Paragraph count split on blank lines.
+      display_digits: 1
+
+    unique_word_ratio:
+      family: Lexical variety
+      label: Unique-word ratio
+      definition: Unique lowercased word tokens divided by total word tokens.
+      display_digits: 4
+
+    quantitative_detail:
+      family: Quantitative detail
+      label: Quantitative detail
+      definition: >
+        Within-task z-score of numeric tokens plus percentage expressions.
+        Computed separately for each output before paired differencing.
+      formula: z_within_task(numbers + percentages)
+      display_digits: 3
+
+    textstat_flesch_kincaid_grade:
+      family: Readability/complexity
+      label: Flesch-Kincaid grade
+      definition: Flesch-Kincaid grade level.
+      display_digits: 2
+
+    positive_words_per_1k:
+      family: Affective tone
+      label: Positive-word rate per 1k words
+      definition: VADER positive-lexicon tokens per 1,000 words.
+      display_digits: 2
+
+    negative_words_per_1k:
+      family: Affective tone
+      label: Negative-word rate per 1k words
+      definition: VADER negative-lexicon tokens per 1,000 words.
+      display_digits: 2
+
+task_rubric_features:
+  display_digits: 2
+
+  tasks:
+    essay:
+      dimensions:
+        - thesis_stakes_framing
+        - argument_depth
+        - concrete_example_quality
+        - counterargument_qualification
+        - rhetorical_coherence_closure
+        - plausibility_overreach
+
+    grant_proposal_abstract:
+      dimensions:
+        - problem_significance
+        - intervention_specificity
+        - evaluation_rigor
+        - feasibility_implementation_readiness
+        - risk_mitigation
+        - measurable_impact
+        - stakeholder_context_fit
+
+    incident_postmortem:
+      dimensions:
+        - impact_specificity
+        - timeline_precision
+        - root_cause_specificity
+        - contributing_factor_analysis
+        - detection_observability_analysis
+        - action_item_concreteness
+        - blameless_systems_framing
+        - operational_realism
+
+    translation:
+      dimensions:
+        - fluency_idiomaticity
+        - terminology_precision
+        - named_entity_fidelity
+        - numeric_factual_fidelity
+        - additions_omissions
+        - structural_clarity
+
+  dimensions:
+    thesis_stakes_framing:
+      label: Thesis and stakes framing
+      definition: Which essay presents the central claim and its stakes more clearly and compellingly?
+
+    argument_depth:
+      label: Argument depth
+      definition: Which essay gives better causal, economic, ethical, or institutional reasoning rather than generic assertion?
+
+    concrete_example_quality:
+      label: Concrete example quality
+      definition: Which essay uses the required concrete example more specifically, plausibly, and usefully?
+
+    counterargument_qualification:
+      label: Counterargument/qualification
+      definition: Which essay better anticipates objections or tradeoffs and responds to them?
+
+    rhetorical_coherence_closure:
+      label: Rhetorical coherence and closure
+      definition: Which essay has better paragraph flow, transitions, and final synthesis?
+
+    plausibility_overreach:
+      label: Avoids plausibility overreach
+      definition: Which essay better avoids exaggerated, awkward, unsupported, or factually dubious claims?
+
+    problem_significance:
+      label: Problem significance
+      definition: Which abstract more clearly states the need, affected population, and consequence of the problem?
+
+    intervention_specificity:
+      label: Intervention specificity
+      definition: Which abstract gives a more concrete account of what will be built, delivered, tested, or changed?
+
+    evaluation_rigor:
+      label: Evaluation rigor
+      definition: Which abstract describes stronger outcomes, design, measurement, comparison/control logic, and analysis plan?
+
+    feasibility_implementation_readiness:
+      label: Feasibility/readiness
+      definition: Which abstract gives more credible evidence that the project can actually be executed, including partners, team capacity, timeline, infrastructure, or prior pilots?
+
+    risk_mitigation:
+      label: Risk mitigation
+      definition: Which abstract identifies more realistic risks and more credible mitigation plans?
+
+    measurable_impact:
+      label: Measurable impact
+      definition: Which abstract gives more concrete and credible expected impacts, not just larger or more dramatic claims?
+
+    stakeholder_context_fit:
+      label: Stakeholder/context fit
+      definition: Which abstract better fits the affected community or deployment setting?
+
+    impact_specificity:
+      label: Impact specificity
+      definition: Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better?
+
+    timeline_precision:
+      label: Timeline precision
+      definition: Which postmortem gives a clearer chronological account with useful timestamps and event sequencing?
+
+    root_cause_specificity:
+      label: Root-cause specificity
+      definition: Which postmortem identifies the proximate technical failure and the deeper system failure more precisely?
+
+    contributing_factor_analysis:
+      label: Contributing-factor analysis
+      definition: Which postmortem better separates root cause from contributing factors such as monitoring, process, deployment, review, or testing gaps?
+
+    detection_observability_analysis:
+      label: Detection/observability analysis
+      definition: Which postmortem better explains why the incident was not detected earlier or why alerts/dashboards failed?
+
+    action_item_concreteness:
+      label: Action-item concreteness
+      definition: Which postmortem gives more concrete, owned, prioritized, and recurrence-preventing action items?
+
+    blameless_systems_framing:
+      label: Blameless systems framing
+      definition: Which postmortem avoids individual blame while still giving a candid causal account?
+
+    operational_realism:
+      label: Operational realism
+      definition: Which postmortem sounds more like a real engineering postmortem rather than a polished but generic template?
+
+    fluency_idiomaticity:
+      label: Fluency/idiomaticity
+      definition: Which translation reads more naturally and idiomatically in English?
+
+    terminology_precision:
+      label: Terminology precision
+      definition: Which translation uses more domain-appropriate terminology?
+
+    named_entity_fidelity:
+      label: Named-entity fidelity
+      definition: Which translation better handles names, organizations, places, titles, acronyms, and transliterations?
+
+    numeric_factual_fidelity:
+      label: Numeric/factual fidelity
+      definition: Which translation better preserves numbers, dates, currencies, percentages, units, and factual details?
+
+    additions_omissions:
+      label: Avoids additions/omissions
+      definition: Which translation has fewer unsupported additions and fewer omissions of source meaning?
+
+    structural_clarity:
+      label: Structural clarity
+      definition: Which translation more clearly handles clauses, lists, appositives, parentheticals, quotation, and sentence breaks while preserving source relations?

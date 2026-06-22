@@ -37,6 +37,8 @@ CALIBRATION_COMPARISONS = {
     "modgrid_incident_headroom",
     "direct_user_prompt_max_effort",
     "user_prompt_effort",
+    "user_prompt_role",
+    "framed_user_prompt_role",
     "user_prompt_status",
     "moral_nolabel",
     "amount",

@@ -24,8 +24,9 @@ import math
 import re
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 import numpy as np
 import pandas as pd
@@ -56,6 +57,9 @@ HEADING_RE = re.compile(r"^\s*(?:#{1,6}\s+|\*\*[^*\n]+:\*\*)", re.MULTILINE)
 BOLD_RE = re.compile(r"\*\*")
 BULLET_RE = re.compile(r"^\s*(?:[-*]|\d+[.)])\s+", re.MULTILINE)
 WORD_RANGE_RE = re.compile(r"\b(\d{2,4})\s*(?:-|–|to)\s*(\d{2,4})\s+words?\b", re.IGNORECASE)
+MATTR_WINDOW = 50
+RARE_WORD_ZIPF_THRESHOLD = 3.5
+VOCAB_MIN_TOKEN_LEN = 3
 
 STRICT_HIDDEN_SCAFFOLD_RE = re.compile(
     r"\b("
@@ -172,6 +176,18 @@ FEATURE_DEFINITIONS = [
     FeatureDefinition("avg_sentence_words", "Words divided by sentence count."),
     FeatureDefinition("mean_word_length_chars", "Mean alphabetic token length."),
     FeatureDefinition("unique_word_ratio", "Unique lowercased word tokens divided by total word tokens."),
+    FeatureDefinition(
+        "mattr_50",
+        "Moving-average type-token ratio over 50-word windows; ordinary type-token ratio for shorter outputs.",
+    ),
+    FeatureDefinition(
+        "rare_word_rate_per_1k",
+        "Eligible alphabetic tokens of length at least 3 with wordfreq English Zipf frequency below 3.5, per 1,000 eligible tokens.",
+    ),
+    FeatureDefinition(
+        "mean_zipf_frequency",
+        "Mean wordfreq English Zipf frequency over eligible alphabetic tokens of length at least 3.",
+    ),
     FeatureDefinition("numbers", "Count of numeric tokens."),
     FeatureDefinition("percentages", "Count of percentage expressions."),
     FeatureDefinition("currency_mentions", "Count of currency expressions."),
@@ -311,6 +327,30 @@ def word_tokens(text: str) -> list[str]:
     return WORD_RE.findall(text or "")
 
 
+def alpha_lower_tokens(tokens: list[str]) -> list[str]:
+    out: list[str] = []
+    for token in tokens:
+        out.extend(piece.lower() for piece in re.findall(r"[A-Za-z]+", token))
+    return out
+
+
+def vocabulary_tokens(tokens: list[str]) -> list[str]:
+    return [token for token in alpha_lower_tokens(tokens) if len(token) >= VOCAB_MIN_TOKEN_LEN]
+
+
+def mattr(tokens: list[str], *, window: int = MATTR_WINDOW) -> float:
+    words = alpha_lower_tokens(tokens)
+    if not words:
+        return 0.0
+    if len(words) <= window:
+        return float(len(set(words)) / len(words))
+    ratios = []
+    for start in range(0, len(words) - window + 1):
+        current = words[start : start + window]
+        ratios.append(len(set(current)) / window)
+    return float(np.mean(ratios)) if ratios else 0.0
+
+
 def sentence_count(text: str) -> int:
     stripped = (text or "").strip()
     if not stripped:
@@ -378,6 +418,37 @@ def load_vader_lexicon() -> tuple[set[str], set[str]]:
         return (set(), set())
 
 
+def load_zipf_frequency() -> tuple[Callable[[str], float] | None, str]:
+    try:
+        from wordfreq import zipf_frequency
+    except Exception as exc:
+        return None, f"wordfreq unavailable ({exc}); vocabulary sophistication columns set to NaN."
+
+    @lru_cache(maxsize=200_000)
+    def english_zipf(word: str) -> float:
+        return float(zipf_frequency(word, "en"))
+
+    return english_zipf, "wordfreq loaded; vocabulary sophistication features enabled."
+
+
+def vocabulary_sophistication_features(
+    tokens: list[str],
+    zipf_frequency_fn: Callable[[str], float] | None,
+) -> dict[str, float]:
+    vocab_tokens = vocabulary_tokens(tokens)
+    if not vocab_tokens or zipf_frequency_fn is None:
+        return {
+            "rare_word_rate_per_1k": math.nan,
+            "mean_zipf_frequency": math.nan,
+        }
+    frequencies = [zipf_frequency_fn(token) for token in vocab_tokens]
+    rare_words = sum(1 for value in frequencies if value < RARE_WORD_ZIPF_THRESHOLD)
+    return {
+        "rare_word_rate_per_1k": float(1000 * rare_words / len(vocab_tokens)),
+        "mean_zipf_frequency": float(np.mean(frequencies)),
+    }
+
+
 def native_finish_reason(generation: dict[str, Any] | None) -> str:
     if generation is None:
         return ""
@@ -412,6 +483,7 @@ def scalar_features(
     textstat_module: Any | None,
     positive_words: set[str],
     negative_words: set[str],
+    zipf_frequency_fn: Callable[[str], float] | None,
 ) -> dict[str, float]:
     tokens = word_tokens(text)
     n_words = len(tokens)
@@ -429,6 +501,7 @@ def scalar_features(
         "avg_sentence_words": float(n_words / sentences) if sentences else 0.0,
         "mean_word_length_chars": mean_word_length(tokens),
         "unique_word_ratio": float(len(set(lower_tokens)) / n_words) if n_words else 0.0,
+        "mattr_50": mattr(tokens),
         "numbers": float(numbers),
         "percentages": float(percentages),
         "currency_mentions": float(currency),
@@ -453,6 +526,7 @@ def scalar_features(
             else math.nan
         ),
     }
+    out.update(vocabulary_sophistication_features(tokens, zipf_frequency_fn))
     for name, pattern in RHETORIC_PATTERNS.items():
         out[name] = float(1000 * len(pattern.findall(text or "")) / denominator)
     if textstat_module is not None and (text or "").strip():
@@ -625,6 +699,7 @@ def build_response_row(
     textstat_module: Any | None,
     positive_words: set[str],
     negative_words: set[str],
+    zipf_frequency_fn: Callable[[str], float] | None,
 ) -> dict[str, Any]:
     text = "" if generation is None else str(generation.get("output_text") or "")
     prompt = condition_prompt(job, raw_condition)
@@ -633,6 +708,7 @@ def build_response_row(
         textstat_module=textstat_module,
         positive_words=positive_words,
         negative_words=negative_words,
+        zipf_frequency_fn=zipf_frequency_fn,
     )
     artifacts = artifact_flags(generation, text, prompt=prompt)
     complete = completion_tokens(generation)
@@ -671,6 +747,7 @@ def load_pair_source(
     textstat_module: Any | None,
     positive_words: set[str],
     negative_words: set[str],
+    zipf_frequency_fn: Callable[[str], float] | None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
     jobs = read_jsonl_if_exists(run_dir / "generation_jobs.jsonl")
     generations = read_jsonl_if_exists(run_dir / "generations.jsonl")
@@ -721,6 +798,7 @@ def load_pair_source(
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         low_row = build_response_row(
             job=job,
@@ -735,6 +813,7 @@ def load_pair_source(
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         response_rows.extend([high_row, low_row])
 
@@ -825,6 +904,7 @@ def load_single_condition_source(
     textstat_module: Any | None,
     positive_words: set[str],
     negative_words: set[str],
+    zipf_frequency_fn: Callable[[str], float] | None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     jobs = read_jsonl_if_exists(run_dir / "generation_jobs.jsonl")
     generations = read_jsonl_if_exists(run_dir / "generations.jsonl")
@@ -854,6 +934,7 @@ def load_single_condition_source(
                 textstat_module=textstat_module,
                 positive_words=positive_words,
                 negative_words=negative_words,
+                zipf_frequency_fn=zipf_frequency_fn,
             )
         )
 
@@ -874,6 +955,7 @@ def load_r0_rows(
     textstat_module: Any | None,
     positive_words: set[str],
     negative_words: set[str],
+    zipf_frequency_fn: Callable[[str], float] | None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     raw_rows = read_jsonl_if_exists(R0_PATH)
@@ -893,6 +975,7 @@ def load_r0_rows(
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         artifacts = artifact_flags(generation, text, prompt="")
         row = {
@@ -1154,6 +1237,8 @@ def main() -> None:
     ANALYSIS.mkdir(parents=True, exist_ok=True)
     textstat_module = load_textstat_module()
     positive_words, negative_words = load_vader_lexicon()
+    zipf_frequency_fn, wordfreq_status = load_zipf_frequency()
+    log(wordfreq_status)
     log("Loading explicit run manifests.")
 
     direct_manifests = read_manifest_lists(DIRECT_MANIFEST_GLOB)
@@ -1186,6 +1271,7 @@ def main() -> None:
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         response_rows.extend(responses)
         pair_rows.extend(pairs)
@@ -1200,6 +1286,7 @@ def main() -> None:
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         response_rows.extend(responses)
         pair_rows.extend(pairs)
@@ -1214,6 +1301,7 @@ def main() -> None:
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         response_rows.extend(responses)
         pair_rows.extend(pairs)
@@ -1232,6 +1320,7 @@ def main() -> None:
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         response_rows.extend(responses)
         pair_rows.extend(pairs)
@@ -1248,6 +1337,7 @@ def main() -> None:
             textstat_module=textstat_module,
             positive_words=positive_words,
             negative_words=negative_words,
+            zipf_frequency_fn=zipf_frequency_fn,
         )
         response_rows.extend(responses)
         source_metadata_rows.append(metadata)
@@ -1256,6 +1346,7 @@ def main() -> None:
         textstat_module=textstat_module,
         positive_words=positive_words,
         negative_words=negative_words,
+        zipf_frequency_fn=zipf_frequency_fn,
     )
     response_rows.extend(r0_rows)
     log(f"Loaded R0 rows: {r0_metadata['included_rows']}")
@@ -1363,6 +1454,10 @@ def main() -> None:
         "r0": r0_metadata,
         "source_run_audit": source_metadata_rows,
         "feature_count": len(feature_names),
+        "wordfreq_status": wordfreq_status,
+        "mattr_window": MATTR_WINDOW,
+        "rare_word_zipf_threshold": RARE_WORD_ZIPF_THRESHOLD,
+        "vocab_min_token_len": VOCAB_MIN_TOKEN_LEN,
         "artifact_count": len(artifact_names),
         "spacy_status": spacy_status,
         "textstat_available": textstat_module is not None,

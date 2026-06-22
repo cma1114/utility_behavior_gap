@@ -1,0 +1,190 @@
+task,task_label,actor,actor_label,dimension,n_pairs,mean_left_minus_right,pct_left_better,pct_right_better,pct_tie_or_not_applicable
+essay,Essay writing,deepseek-v3.2-or,DeepSeek V3.2,argument_depth,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+essay,Essay writing,glm-5.1-or,GLM-5.1,argument_depth,17,-0.29411764705882354,0.29411764705882354,0.5882352941176471,0.11764705882352941
+essay,Essay writing,gpt-5.4-mini-or,GPT-5.4 mini,argument_depth,17,-0.29411764705882354,0.35294117647058826,0.6470588235294118,0.0
+essay,Essay writing,kimi-k2.5-or,Kimi K2.5,argument_depth,18,-0.2222222222222222,0.3888888888888889,0.6111111111111112,0.0
+essay,Essay writing,mimo-v25-pro-or,MiMo V2.5 Pro,argument_depth,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+essay,Essay writing,qwen3.5-9b-or,Qwen3.5 9B,argument_depth,17,-0.058823529411764705,0.47058823529411764,0.5294117647058824,0.0
+essay,Essay writing,qwen3.6-plus-or,Qwen3.6 Plus,argument_depth,17,-0.17647058823529413,0.35294117647058826,0.5294117647058824,0.11764705882352941
+essay,Essay writing,deepseek-v3.2-or,DeepSeek V3.2,concrete_example_quality,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+essay,Essay writing,glm-5.1-or,GLM-5.1,concrete_example_quality,17,-0.5294117647058824,0.23529411764705882,0.7647058823529411,0.0
+essay,Essay writing,gpt-5.4-mini-or,GPT-5.4 mini,concrete_example_quality,17,-0.4117647058823529,0.23529411764705882,0.6470588235294118,0.11764705882352941
+essay,Essay writing,kimi-k2.5-or,Kimi K2.5,concrete_example_quality,18,-0.1111111111111111,0.4444444444444444,0.5555555555555556,0.0
+essay,Essay writing,mimo-v25-pro-or,MiMo V2.5 Pro,concrete_example_quality,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+essay,Essay writing,qwen3.5-9b-or,Qwen3.5 9B,concrete_example_quality,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+essay,Essay writing,qwen3.6-plus-or,Qwen3.6 Plus,concrete_example_quality,17,-0.11764705882352941,0.4117647058823529,0.5294117647058824,0.058823529411764705
+essay,Essay writing,deepseek-v3.2-or,DeepSeek V3.2,counterargument_qualification,17,0.11764705882352941,0.23529411764705882,0.11764705882352941,0.6470588235294118
+essay,Essay writing,glm-5.1-or,GLM-5.1,counterargument_qualification,17,0.0,0.11764705882352941,0.11764705882352941,0.7647058823529411
+essay,Essay writing,gpt-5.4-mini-or,GPT-5.4 mini,counterargument_qualification,17,0.11764705882352941,0.35294117647058826,0.23529411764705882,0.4117647058823529
+essay,Essay writing,kimi-k2.5-or,Kimi K2.5,counterargument_qualification,18,0.0,0.4444444444444444,0.4444444444444444,0.1111111111111111
+essay,Essay writing,mimo-v25-pro-or,MiMo V2.5 Pro,counterargument_qualification,17,-0.11764705882352941,0.11764705882352941,0.23529411764705882,0.6470588235294118
+essay,Essay writing,qwen3.5-9b-or,Qwen3.5 9B,counterargument_qualification,17,-0.058823529411764705,0.17647058823529413,0.23529411764705882,0.5882352941176471
+essay,Essay writing,qwen3.6-plus-or,Qwen3.6 Plus,counterargument_qualification,17,-0.058823529411764705,0.29411764705882354,0.35294117647058826,0.35294117647058826
+essay,Essay writing,deepseek-v3.2-or,DeepSeek V3.2,plausibility_overreach,17,0.0,0.0,0.0,1.0
+essay,Essay writing,glm-5.1-or,GLM-5.1,plausibility_overreach,17,0.0,0.058823529411764705,0.058823529411764705,0.8823529411764706
+essay,Essay writing,gpt-5.4-mini-or,GPT-5.4 mini,plausibility_overreach,17,0.0,0.0,0.0,1.0
+essay,Essay writing,kimi-k2.5-or,Kimi K2.5,plausibility_overreach,18,0.0,0.0,0.0,1.0
+essay,Essay writing,mimo-v25-pro-or,MiMo V2.5 Pro,plausibility_overreach,17,0.0,0.0,0.0,1.0
+essay,Essay writing,qwen3.5-9b-or,Qwen3.5 9B,plausibility_overreach,17,-0.058823529411764705,0.0,0.058823529411764705,0.9411764705882353
+essay,Essay writing,qwen3.6-plus-or,Qwen3.6 Plus,plausibility_overreach,17,0.0,0.0,0.0,1.0
+essay,Essay writing,deepseek-v3.2-or,DeepSeek V3.2,rhetorical_coherence_closure,17,0.23529411764705882,0.47058823529411764,0.23529411764705882,0.29411764705882354
+essay,Essay writing,glm-5.1-or,GLM-5.1,rhetorical_coherence_closure,17,-0.11764705882352941,0.23529411764705882,0.35294117647058826,0.4117647058823529
+essay,Essay writing,gpt-5.4-mini-or,GPT-5.4 mini,rhetorical_coherence_closure,17,-0.29411764705882354,0.17647058823529413,0.47058823529411764,0.35294117647058826
+essay,Essay writing,kimi-k2.5-or,Kimi K2.5,rhetorical_coherence_closure,18,-0.05555555555555555,0.4444444444444444,0.5,0.05555555555555555
+essay,Essay writing,mimo-v25-pro-or,MiMo V2.5 Pro,rhetorical_coherence_closure,17,-0.058823529411764705,0.35294117647058826,0.4117647058823529,0.23529411764705882
+essay,Essay writing,qwen3.5-9b-or,Qwen3.5 9B,rhetorical_coherence_closure,17,-0.058823529411764705,0.4117647058823529,0.47058823529411764,0.11764705882352941
+essay,Essay writing,qwen3.6-plus-or,Qwen3.6 Plus,rhetorical_coherence_closure,17,-0.23529411764705882,0.17647058823529413,0.4117647058823529,0.4117647058823529
+essay,Essay writing,deepseek-v3.2-or,DeepSeek V3.2,thesis_stakes_framing,17,0.4117647058823529,0.6470588235294118,0.23529411764705882,0.11764705882352941
+essay,Essay writing,glm-5.1-or,GLM-5.1,thesis_stakes_framing,17,-0.11764705882352941,0.35294117647058826,0.47058823529411764,0.17647058823529413
+essay,Essay writing,gpt-5.4-mini-or,GPT-5.4 mini,thesis_stakes_framing,17,-0.35294117647058826,0.23529411764705882,0.5882352941176471,0.17647058823529413
+essay,Essay writing,kimi-k2.5-or,Kimi K2.5,thesis_stakes_framing,18,-0.1111111111111111,0.4444444444444444,0.5555555555555556,0.0
+essay,Essay writing,mimo-v25-pro-or,MiMo V2.5 Pro,thesis_stakes_framing,17,0.058823529411764705,0.47058823529411764,0.4117647058823529,0.11764705882352941
+essay,Essay writing,qwen3.5-9b-or,Qwen3.5 9B,thesis_stakes_framing,17,-0.17647058823529413,0.4117647058823529,0.5882352941176471,0.0
+essay,Essay writing,qwen3.6-plus-or,Qwen3.6 Plus,thesis_stakes_framing,17,-0.29411764705882354,0.17647058823529413,0.47058823529411764,0.35294117647058826
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,evaluation_rigor,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,evaluation_rigor,17,0.6470588235294118,0.8235294117647058,0.17647058823529413,0.0
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,evaluation_rigor,18,0.3333333333333333,0.6666666666666666,0.3333333333333333,0.0
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,evaluation_rigor,17,0.5294117647058824,0.7647058823529411,0.23529411764705882,0.0
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,evaluation_rigor,17,0.4117647058823529,0.7058823529411765,0.29411764705882354,0.0
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,evaluation_rigor,17,0.4117647058823529,0.7058823529411765,0.29411764705882354,0.0
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,evaluation_rigor,17,0.35294117647058826,0.6470588235294118,0.29411764705882354,0.058823529411764705
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,feasibility_implementation_readiness,17,0.11764705882352941,0.5294117647058824,0.4117647058823529,0.058823529411764705
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,feasibility_implementation_readiness,17,0.5882352941176471,0.7647058823529411,0.17647058823529413,0.058823529411764705
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,feasibility_implementation_readiness,18,0.3888888888888889,0.6666666666666666,0.2777777777777778,0.05555555555555555
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,feasibility_implementation_readiness,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,feasibility_implementation_readiness,17,-0.058823529411764705,0.47058823529411764,0.5294117647058824,0.0
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,feasibility_implementation_readiness,17,0.4117647058823529,0.7058823529411765,0.29411764705882354,0.0
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,feasibility_implementation_readiness,17,0.7058823529411765,0.7647058823529411,0.058823529411764705,0.17647058823529413
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,intervention_specificity,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,intervention_specificity,17,0.4117647058823529,0.7058823529411765,0.29411764705882354,0.0
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,intervention_specificity,18,0.5,0.7222222222222222,0.2222222222222222,0.05555555555555555
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,intervention_specificity,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,intervention_specificity,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,intervention_specificity,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,intervention_specificity,17,0.7647058823529411,0.8823529411764706,0.11764705882352941,0.0
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,measurable_impact,17,0.058823529411764705,0.47058823529411764,0.4117647058823529,0.11764705882352941
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,measurable_impact,17,0.29411764705882354,0.5294117647058824,0.23529411764705882,0.23529411764705882
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,measurable_impact,18,0.3888888888888889,0.6666666666666666,0.2777777777777778,0.05555555555555555
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,measurable_impact,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,measurable_impact,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,measurable_impact,17,0.35294117647058826,0.6470588235294118,0.29411764705882354,0.058823529411764705
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,measurable_impact,17,0.8235294117647058,0.8823529411764706,0.058823529411764705,0.058823529411764705
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,problem_significance,17,0.058823529411764705,0.35294117647058826,0.29411764705882354,0.35294117647058826
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,problem_significance,17,0.29411764705882354,0.47058823529411764,0.17647058823529413,0.35294117647058826
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,problem_significance,18,0.3333333333333333,0.5555555555555556,0.2222222222222222,0.2222222222222222
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,problem_significance,17,0.47058823529411764,0.7058823529411765,0.23529411764705882,0.058823529411764705
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,problem_significance,17,0.47058823529411764,0.6470588235294118,0.17647058823529413,0.17647058823529413
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,problem_significance,17,0.4117647058823529,0.5882352941176471,0.17647058823529413,0.23529411764705882
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,problem_significance,17,0.5294117647058824,0.5882352941176471,0.058823529411764705,0.35294117647058826
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,risk_mitigation,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,risk_mitigation,17,0.5294117647058824,0.7647058823529411,0.23529411764705882,0.0
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,risk_mitigation,18,0.3333333333333333,0.6666666666666666,0.3333333333333333,0.0
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,risk_mitigation,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,risk_mitigation,17,0.23529411764705882,0.5882352941176471,0.35294117647058826,0.058823529411764705
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,risk_mitigation,17,0.6470588235294118,0.8235294117647058,0.17647058823529413,0.0
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,risk_mitigation,17,0.6470588235294118,0.8235294117647058,0.17647058823529413,0.0
+grant_proposal_abstract,Grant abstract,deepseek-v3.2-or,DeepSeek V3.2,stakeholder_context_fit,17,0.0,0.4117647058823529,0.4117647058823529,0.17647058823529413
+grant_proposal_abstract,Grant abstract,glm-5.1-or,GLM-5.1,stakeholder_context_fit,17,0.17647058823529413,0.4117647058823529,0.23529411764705882,0.35294117647058826
+grant_proposal_abstract,Grant abstract,gpt-5.4-mini-or,GPT-5.4 mini,stakeholder_context_fit,18,0.4444444444444444,0.7222222222222222,0.2777777777777778,0.0
+grant_proposal_abstract,Grant abstract,kimi-k2.5-or,Kimi K2.5,stakeholder_context_fit,17,0.35294117647058826,0.6470588235294118,0.29411764705882354,0.058823529411764705
+grant_proposal_abstract,Grant abstract,mimo-v25-pro-or,MiMo V2.5 Pro,stakeholder_context_fit,17,0.5294117647058824,0.7058823529411765,0.17647058823529413,0.11764705882352941
+grant_proposal_abstract,Grant abstract,qwen3.5-9b-or,Qwen3.5 9B,stakeholder_context_fit,17,0.35294117647058826,0.5294117647058824,0.17647058823529413,0.29411764705882354
+grant_proposal_abstract,Grant abstract,qwen3.6-plus-or,Qwen3.6 Plus,stakeholder_context_fit,17,0.47058823529411764,0.5294117647058824,0.058823529411764705,0.4117647058823529
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,action_item_concreteness,18,0.1111111111111111,0.5555555555555556,0.4444444444444444,0.0
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,action_item_concreteness,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,action_item_concreteness,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,action_item_concreteness,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,action_item_concreteness,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,action_item_concreteness,17,-0.4117647058823529,0.29411764705882354,0.7058823529411765,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,action_item_concreteness,17,0.4117647058823529,0.7058823529411765,0.29411764705882354,0.0
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,blameless_systems_framing,18,-0.05555555555555555,0.0,0.05555555555555555,0.9444444444444444
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,blameless_systems_framing,17,0.17647058823529413,0.17647058823529413,0.0,0.8235294117647058
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,blameless_systems_framing,17,-0.058823529411764705,0.0,0.058823529411764705,0.9411764705882353
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,blameless_systems_framing,17,0.0,0.058823529411764705,0.058823529411764705,0.8823529411764706
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,blameless_systems_framing,17,0.0,0.23529411764705882,0.23529411764705882,0.5294117647058824
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,blameless_systems_framing,17,0.0,0.058823529411764705,0.058823529411764705,0.8823529411764706
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,blameless_systems_framing,17,0.0,0.0,0.0,1.0
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,contributing_factor_analysis,18,0.1111111111111111,0.5555555555555556,0.4444444444444444,0.0
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,contributing_factor_analysis,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,contributing_factor_analysis,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,contributing_factor_analysis,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,contributing_factor_analysis,17,-0.058823529411764705,0.47058823529411764,0.5294117647058824,0.0
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,contributing_factor_analysis,17,-0.29411764705882354,0.35294117647058826,0.6470588235294118,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,contributing_factor_analysis,17,0.11764705882352941,0.5294117647058824,0.4117647058823529,0.058823529411764705
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,detection_observability_analysis,18,0.1111111111111111,0.5555555555555556,0.4444444444444444,0.0
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,detection_observability_analysis,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,detection_observability_analysis,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,detection_observability_analysis,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,detection_observability_analysis,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,detection_observability_analysis,17,-0.17647058823529413,0.4117647058823529,0.5882352941176471,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,detection_observability_analysis,17,0.17647058823529413,0.5294117647058824,0.35294117647058826,0.11764705882352941
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,impact_specificity,18,0.2222222222222222,0.6111111111111112,0.3888888888888889,0.0
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,impact_specificity,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,impact_specificity,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,impact_specificity,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,impact_specificity,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,impact_specificity,17,-0.17647058823529413,0.4117647058823529,0.5882352941176471,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,impact_specificity,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,operational_realism,18,0.16666666666666666,0.5,0.3333333333333333,0.16666666666666666
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,operational_realism,17,0.17647058823529413,0.5294117647058824,0.35294117647058826,0.11764705882352941
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,operational_realism,17,0.058823529411764705,0.47058823529411764,0.4117647058823529,0.11764705882352941
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,operational_realism,17,0.11764705882352941,0.5294117647058824,0.4117647058823529,0.058823529411764705
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,operational_realism,17,0.11764705882352941,0.5294117647058824,0.4117647058823529,0.058823529411764705
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,operational_realism,17,-0.29411764705882354,0.35294117647058826,0.6470588235294118,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,operational_realism,17,0.17647058823529413,0.5294117647058824,0.35294117647058826,0.11764705882352941
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,root_cause_specificity,18,0.0,0.5,0.5,0.0
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,root_cause_specificity,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,root_cause_specificity,17,0.11764705882352941,0.5294117647058824,0.4117647058823529,0.058823529411764705
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,root_cause_specificity,17,-0.058823529411764705,0.47058823529411764,0.5294117647058824,0.0
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,root_cause_specificity,17,0.29411764705882354,0.6470588235294118,0.35294117647058826,0.0
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,root_cause_specificity,17,-0.17647058823529413,0.4117647058823529,0.5882352941176471,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,root_cause_specificity,17,0.11764705882352941,0.5294117647058824,0.4117647058823529,0.058823529411764705
+incident_postmortem,Incident postmortem,deepseek-v3.2-or,DeepSeek V3.2,timeline_precision,18,0.2222222222222222,0.6111111111111112,0.3888888888888889,0.0
+incident_postmortem,Incident postmortem,glm-5.1-or,GLM-5.1,timeline_precision,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,gpt-5.4-mini-or,GPT-5.4 mini,timeline_precision,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,kimi-k2.5-or,Kimi K2.5,timeline_precision,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+incident_postmortem,Incident postmortem,mimo-v25-pro-or,MiMo V2.5 Pro,timeline_precision,17,0.17647058823529413,0.5882352941176471,0.4117647058823529,0.0
+incident_postmortem,Incident postmortem,qwen3.5-9b-or,Qwen3.5 9B,timeline_precision,17,-0.4117647058823529,0.29411764705882354,0.7058823529411765,0.0
+incident_postmortem,Incident postmortem,qwen3.6-plus-or,Qwen3.6 Plus,timeline_precision,17,0.058823529411764705,0.5294117647058824,0.47058823529411764,0.0
+translation,Translation,deepseek-v3.2-or,DeepSeek V3.2,additions_omissions,17,-0.11764705882352941,0.0,0.11764705882352941,0.8823529411764706
+translation,Translation,glm-5.1-or,GLM-5.1,additions_omissions,17,0.0,0.058823529411764705,0.058823529411764705,0.8823529411764706
+translation,Translation,gpt-5.4-mini-or,GPT-5.4 mini,additions_omissions,17,-0.058823529411764705,0.0,0.058823529411764705,0.9411764705882353
+translation,Translation,kimi-k2.5-or,Kimi K2.5,additions_omissions,16,0.0,0.0625,0.0625,0.875
+translation,Translation,mimo-v25-pro-or,MiMo V2.5 Pro,additions_omissions,18,0.05555555555555555,0.05555555555555555,0.0,0.9444444444444444
+translation,Translation,qwen3.5-9b-or,Qwen3.5 9B,additions_omissions,17,0.058823529411764705,0.35294117647058826,0.29411764705882354,0.35294117647058826
+translation,Translation,qwen3.6-plus-or,Qwen3.6 Plus,additions_omissions,17,0.0,0.0,0.0,1.0
+translation,Translation,deepseek-v3.2-or,DeepSeek V3.2,fluency_idiomaticity,17,-0.17647058823529413,0.23529411764705882,0.4117647058823529,0.35294117647058826
+translation,Translation,glm-5.1-or,GLM-5.1,fluency_idiomaticity,17,-0.11764705882352941,0.29411764705882354,0.4117647058823529,0.29411764705882354
+translation,Translation,gpt-5.4-mini-or,GPT-5.4 mini,fluency_idiomaticity,17,-0.29411764705882354,0.11764705882352941,0.4117647058823529,0.47058823529411764
+translation,Translation,kimi-k2.5-or,Kimi K2.5,fluency_idiomaticity,16,0.0,0.25,0.25,0.5
+translation,Translation,mimo-v25-pro-or,MiMo V2.5 Pro,fluency_idiomaticity,18,-0.16666666666666666,0.2222222222222222,0.3888888888888889,0.3888888888888889
+translation,Translation,qwen3.5-9b-or,Qwen3.5 9B,fluency_idiomaticity,17,-0.11764705882352941,0.35294117647058826,0.47058823529411764,0.17647058823529413
+translation,Translation,qwen3.6-plus-or,Qwen3.6 Plus,fluency_idiomaticity,17,0.0,0.23529411764705882,0.23529411764705882,0.5294117647058824
+translation,Translation,deepseek-v3.2-or,DeepSeek V3.2,named_entity_fidelity,17,0.11764705882352941,0.23529411764705882,0.11764705882352941,0.6470588235294118
+translation,Translation,glm-5.1-or,GLM-5.1,named_entity_fidelity,17,0.0,0.058823529411764705,0.058823529411764705,0.8823529411764706
+translation,Translation,gpt-5.4-mini-or,GPT-5.4 mini,named_entity_fidelity,17,0.0,0.058823529411764705,0.058823529411764705,0.8823529411764706
+translation,Translation,kimi-k2.5-or,Kimi K2.5,named_entity_fidelity,16,0.0,0.125,0.125,0.75
+translation,Translation,mimo-v25-pro-or,MiMo V2.5 Pro,named_entity_fidelity,18,0.1111111111111111,0.16666666666666666,0.05555555555555555,0.7777777777777778
+translation,Translation,qwen3.5-9b-or,Qwen3.5 9B,named_entity_fidelity,17,0.17647058823529413,0.23529411764705882,0.058823529411764705,0.7058823529411765
+translation,Translation,qwen3.6-plus-or,Qwen3.6 Plus,named_entity_fidelity,17,-0.058823529411764705,0.058823529411764705,0.11764705882352941,0.8235294117647058
+translation,Translation,deepseek-v3.2-or,DeepSeek V3.2,numeric_factual_fidelity,17,-0.058823529411764705,0.0,0.058823529411764705,0.9411764705882353
+translation,Translation,glm-5.1-or,GLM-5.1,numeric_factual_fidelity,17,0.058823529411764705,0.058823529411764705,0.0,0.9411764705882353
+translation,Translation,gpt-5.4-mini-or,GPT-5.4 mini,numeric_factual_fidelity,17,0.0,0.0,0.0,1.0
+translation,Translation,kimi-k2.5-or,Kimi K2.5,numeric_factual_fidelity,16,0.0,0.0,0.0,1.0
+translation,Translation,mimo-v25-pro-or,MiMo V2.5 Pro,numeric_factual_fidelity,18,0.05555555555555555,0.05555555555555555,0.0,0.9444444444444444
+translation,Translation,qwen3.5-9b-or,Qwen3.5 9B,numeric_factual_fidelity,17,0.0,0.0,0.0,1.0
+translation,Translation,qwen3.6-plus-or,Qwen3.6 Plus,numeric_factual_fidelity,17,0.0,0.0,0.0,1.0
+translation,Translation,deepseek-v3.2-or,DeepSeek V3.2,structural_clarity,17,-0.17647058823529413,0.0,0.17647058823529413,0.8235294117647058
+translation,Translation,glm-5.1-or,GLM-5.1,structural_clarity,17,-0.11764705882352941,0.058823529411764705,0.17647058823529413,0.7647058823529411
+translation,Translation,gpt-5.4-mini-or,GPT-5.4 mini,structural_clarity,17,-0.11764705882352941,0.058823529411764705,0.17647058823529413,0.7647058823529411
+translation,Translation,kimi-k2.5-or,Kimi K2.5,structural_clarity,16,0.0,0.0625,0.0625,0.875
+translation,Translation,mimo-v25-pro-or,MiMo V2.5 Pro,structural_clarity,18,-0.16666666666666666,0.1111111111111111,0.2777777777777778,0.6111111111111112
+translation,Translation,qwen3.5-9b-or,Qwen3.5 9B,structural_clarity,17,-0.11764705882352941,0.11764705882352941,0.23529411764705882,0.6470588235294118
+translation,Translation,qwen3.6-plus-or,Qwen3.6 Plus,structural_clarity,17,-0.058823529411764705,0.0,0.058823529411764705,0.9411764705882353
+translation,Translation,deepseek-v3.2-or,DeepSeek V3.2,terminology_precision,17,-0.11764705882352941,0.11764705882352941,0.23529411764705882,0.6470588235294118
+translation,Translation,glm-5.1-or,GLM-5.1,terminology_precision,17,-0.17647058823529413,0.058823529411764705,0.23529411764705882,0.7058823529411765
+translation,Translation,gpt-5.4-mini-or,GPT-5.4 mini,terminology_precision,17,-0.11764705882352941,0.058823529411764705,0.17647058823529413,0.7647058823529411
+translation,Translation,kimi-k2.5-or,Kimi K2.5,terminology_precision,16,0.0,0.125,0.125,0.75
+translation,Translation,mimo-v25-pro-or,MiMo V2.5 Pro,terminology_precision,18,-0.1111111111111111,0.1111111111111111,0.2222222222222222,0.6666666666666666
+translation,Translation,qwen3.5-9b-or,Qwen3.5 9B,terminology_precision,17,0.0,0.29411764705882354,0.29411764705882354,0.4117647058823529
+translation,Translation,qwen3.6-plus-or,Qwen3.6 Plus,terminology_precision,17,-0.23529411764705882,0.0,0.23529411764705882,0.7647058823529411

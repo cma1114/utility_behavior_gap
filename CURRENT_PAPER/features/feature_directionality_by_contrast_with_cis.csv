@@ -1,0 +1,41 @@
+contrast,task,scope,n_feature_rows,directionally_positive,directionally_negative,mean_positive,ci_low,ci_high
+Direct instruction,All tasks,all_estimable,59,52,7,0.8813559322033898,0.7747612422658494,0.94132491722086
+Direct instruction,Essay writing,all_estimable,14,12,2,0.8571428571428571,0.600580922361363,0.9599069262620787
+Direct instruction,Grant abstract,all_estimable,15,15,0,1.0,0.7961107336956521,1.0
+Direct instruction,Incident postmortem,all_estimable,16,15,1,0.9375,0.7167073163197013,0.9888809426916687
+Direct instruction,Translation,all_estimable,14,10,4,0.7142857142857143,0.4535045882751561,0.882788120898909
+Role,All tasks,all_estimable,59,39,20,0.6610169491525424,0.5337223255448901,0.7686251640161651
+Role,Essay writing,all_estimable,14,10,4,0.7142857142857143,0.4535045882751561,0.882788120898909
+Role,Grant abstract,all_estimable,15,14,1,0.9333333333333333,0.7018292244757601,0.9881334113938051
+Role,Incident postmortem,all_estimable,16,8,8,0.5,0.2799923761135083,0.7200076238864916
+Role,Translation,all_estimable,14,7,7,0.5,0.2679886791947528,0.7320113208052472
+High-low utility,All tasks,all_estimable,59,31,28,0.5254237288135594,0.4003957675731271,0.6473433097259869
+High-low utility,Essay writing,all_estimable,14,7,7,0.5,0.2679886791947528,0.7320113208052472
+High-low utility,Grant abstract,all_estimable,15,11,4,0.7333333333333333,0.4804911034231324,0.8910272389681718
+High-low utility,Incident postmortem,all_estimable,16,6,10,0.375,0.18480982554752806,0.613593529020652
+High-low utility,Translation,all_estimable,14,7,7,0.5,0.2679886791947528,0.7320113208052472
+Moral low vs framed-empty,All tasks,all_estimable,59,24,35,0.4067796610169492,0.29088843022555855,0.534068286344357
+Moral low vs framed-empty,Essay writing,all_estimable,14,5,9,0.35714285714285715,0.16344490737202735,0.6123599531785959
+Moral low vs framed-empty,Grant abstract,all_estimable,15,3,12,0.2,0.07047420643610414,0.4518593533465045
+Moral low vs framed-empty,Incident postmortem,all_estimable,16,13,3,0.8125,0.5699064013154177,0.9340852122641324
+Moral low vs framed-empty,Translation,all_estimable,14,3,11,0.21428571428571427,0.0757124833691637,0.4758972377320828
+Direct instruction,All tasks,clear_gap_and_panel,34,31,3,0.9117647058823529,0.7703918204763959,0.9695346096956899
+Direct instruction,Essay writing,clear_gap_and_panel,7,5,2,0.7142857142857143,0.35892909014821267,0.9177828342909844
+Direct instruction,Grant abstract,clear_gap_and_panel,12,12,0,1.0,0.7574992425007574,1.0
+Direct instruction,Incident postmortem,clear_gap_and_panel,9,8,1,0.8888888888888888,0.5649937852319399,0.9801096286728695
+Direct instruction,Translation,clear_gap_and_panel,6,6,0,1.0,0.6096569663469354,0.9999999999999999
+Role,All tasks,clear_gap_and_panel,12,10,2,0.8333333333333334,0.5519636426153274,0.9530358523851776
+Role,Essay writing,clear_gap_and_panel,5,3,2,0.6,0.23071993220883708,0.8823817688407467
+Role,Grant abstract,clear_gap_and_panel,4,4,0,1.0,0.5100999795960008,1.0
+Role,Incident postmortem,clear_gap_and_panel,3,3,0,1.0,0.43849391955098227,1.0
+Role,Translation,clear_gap_and_panel,0,0,0,,,
+High-low utility,All tasks,clear_gap_and_panel,5,3,2,0.6,0.23071993220883708,0.8823817688407467
+High-low utility,Essay writing,clear_gap_and_panel,1,1,0,1.0,0.20654329147389294,1.0
+High-low utility,Grant abstract,clear_gap_and_panel,2,2,0,1.0,0.34237195288961925,1.0
+High-low utility,Incident postmortem,clear_gap_and_panel,1,0,1,0.0,0.0,0.7934567085261071
+High-low utility,Translation,clear_gap_and_panel,1,0,1,0.0,0.0,0.7934567085261071
+Moral low vs framed-empty,All tasks,clear_gap_and_panel,20,7,13,0.35,0.18118954786794464,0.5671494897805354
+Moral low vs framed-empty,Essay writing,clear_gap_and_panel,5,3,2,0.6,0.23071993220883708,0.8823817688407467
+Moral low vs framed-empty,Grant abstract,clear_gap_and_panel,10,1,9,0.1,0.01787574951572113,0.4041563854975721
+Moral low vs framed-empty,Incident postmortem,clear_gap_and_panel,4,3,1,0.75,0.3006360524426366,0.9544139373553637
+Moral low vs framed-empty,Translation,clear_gap_and_panel,1,0,1,0.0,0.0,0.7934567085261071

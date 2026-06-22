@@ -28,6 +28,9 @@ from utility_behavior_gap.output_exclusions import (
     filter_semantic_excluded_pair_rows,
     filter_valid_pair_rows,
 )
+from utility_behavior_gap.scripts.analyze_direct_instruction_feature_deltas import (
+    add_composite_features,
+)
 
 
 GENERIC_FEATURE_INFO = generic_feature_info()
@@ -307,6 +310,7 @@ def load_generic_panel_associations(
     pairs, _semantic_report = filter_semantic_excluded_pair_rows(
         pairs, side_prefixes=("high", "low")
     )
+    pairs = add_composite_features(pairs)
 
     if bridge_scores is not None:
         if "high_output_id" not in pairs.columns or "low_output_id" not in pairs.columns:
@@ -612,7 +616,7 @@ def write_summary(
         "",
         "The generic text rows use the standard paper-facing feature set: "
         + ", ".join(generic_labels)
-        + ". Quantitative detail is `z(numbers + percentages)`, standardized within task before paired differencing.",
+        + ". Quantitative detail is numeric tokens plus percentage expressions per 1,000 words; MATTR-50 measures fixed-window lexical variety; rare-word rate uses the standardized `wordfreq` English Zipf-frequency scale.",
         "",
         f"Positive deltas mean the {left_label} output had more of the generic feature or was favored by the rubric coder on the task-specific marker. Confidence intervals are over actor/task cells for the generic full-sample rows and over actors within task for the rubric rows.",
         "",

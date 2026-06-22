@@ -1,0 +1,113 @@
+domain,actor,actor_label,task,task_label,resolved_n,target_wins,target_losses,ties,target_win_rate_excluding_ties,familywise_ci_lo,familywise_ci_hi,familywise_ci_positive,familywise_ci_negative,p_two_sided_exact,holm_p_two_sided,holm_positive,holm_negative
+animals,deepseek-v3.2-or,DeepSeek V3.2,essay,Essay writing,32,8,24,6,0.25,0.06591593795871044,0.5379989709814423,False,False,0.0070003666914999485,0.18200953397899866,False,False
+animals,deepseek-v3.2-or,DeepSeek V3.2,grant_proposal_abstract,Grant abstract,38,26,12,0,0.6842105263157895,0.419653555564132,0.8837033256759623,False,False,0.03355243967962451,0.8388109919906128,False,False
+animals,deepseek-v3.2-or,DeepSeek V3.2,incident_postmortem,Incident postmortem,38,16,22,0,0.42105263157894735,0.19026410346110947,0.6796635995901725,False,False,0.417692190836533,1.0,False,False
+animals,deepseek-v3.2-or,DeepSeek V3.2,translation,Translation,34,21,13,4,0.6176470588235294,0.3409899128086815,0.8482665895043667,False,False,0.22948101302608848,1.0,False,False
+animals,gpt-5.4-mini-or,GPT-5.4 mini,essay,Essay writing,29,26,3,9,0.896551724137931,0.6177588157915708,0.9934779457712308,True,False,1.5236437320709229e-05,0.00041138380765914917,True,False
+animals,gpt-5.4-mini-or,GPT-5.4 mini,grant_proposal_abstract,Grant abstract,36,19,17,2,0.5277777777777778,0.26944805394852606,0.7758127375355681,False,False,0.8679394004284404,1.0,False,False
+animals,gpt-5.4-mini-or,GPT-5.4 mini,incident_postmortem,Incident postmortem,38,33,5,0,0.868421052631579,0.6251338976762744,0.9801657933931552,True,False,4.255962267052382e-06,0.0001191669434774667,True,False
+animals,gpt-5.4-mini-or,GPT-5.4 mini,translation,Translation,32,21,11,6,0.65625,0.3684547455920287,0.879307632862919,False,False,0.11018416518345475,1.0,False,False
+animals,glm-5.1-or,GLM-5.1,essay,Essay writing,31,13,18,7,0.41935483870967744,0.16880150061925442,0.7042690562867859,False,False,0.47312965989112854,1.0,False,False
+animals,glm-5.1-or,GLM-5.1,grant_proposal_abstract,Grant abstract,38,20,18,0,0.5263157894736842,0.2745268042368053,0.7688344947779311,False,False,0.8714146793645341,1.0,False,False
+animals,glm-5.1-or,GLM-5.1,incident_postmortem,Incident postmortem,38,16,22,0,0.42105263157894735,0.19026410346110947,0.6796635995901725,False,False,0.417692190836533,1.0,False,False
+animals,glm-5.1-or,GLM-5.1,translation,Translation,32,17,15,6,0.53125,0.2581550024133593,0.7914204806721992,False,False,0.860050065908581,1.0,False,False
+animals,kimi-k2.5-or,Kimi K2.5,essay,Essay writing,34,16,18,4,0.47058823529411764,0.21668055563356195,0.7359940692013096,False,False,0.8641662404406816,1.0,False,False
+animals,kimi-k2.5-or,Kimi K2.5,grant_proposal_abstract,Grant abstract,38,12,26,0,0.3157894736842105,0.11629667432403774,0.5803464444358681,False,False,0.03355243967962451,0.8388109919906128,False,False
+animals,kimi-k2.5-or,Kimi K2.5,incident_postmortem,Incident postmortem,38,16,22,0,0.42105263157894735,0.19026410346110947,0.6796635995901725,False,False,0.417692190836533,1.0,False,False
+animals,kimi-k2.5-or,Kimi K2.5,translation,Translation,32,20,12,6,0.625,0.3394351227895914,0.8588102176863113,False,False,0.21532714972272515,1.0,False,False
+animals,mimo-v25-pro-or,MiMo V2.5 Pro,essay,Essay writing,35,18,17,3,0.5142857142857142,0.25492978374780334,0.7682060780914337,False,False,1.0,1.0,False,False
+animals,mimo-v25-pro-or,MiMo V2.5 Pro,grant_proposal_abstract,Grant abstract,38,21,17,0,0.5526315789473685,0.29712332556248755,0.7895963929957628,False,False,0.6271025701571489,1.0,False,False
+animals,mimo-v25-pro-or,MiMo V2.5 Pro,incident_postmortem,Incident postmortem,38,21,17,0,0.5526315789473685,0.29712332556248755,0.7895963929957628,False,False,0.6271025701571489,1.0,False,False
+animals,mimo-v25-pro-or,MiMo V2.5 Pro,translation,Translation,37,18,19,1,0.4864864864864865,0.23856788698383824,0.7392861229841077,False,False,1.0,1.0,False,False
+animals,qwen3.5-9b-or,Qwen3.5 9B,essay,Essay writing,36,14,22,2,0.3888888888888889,0.1615702724393925,0.6574226982416317,False,False,0.24298495403490966,1.0,False,False
+animals,qwen3.5-9b-or,Qwen3.5 9B,grant_proposal_abstract,Grant abstract,38,12,26,0,0.3157894736842105,0.11629667432403774,0.5803464444358681,False,False,0.03355243967962451,0.8388109919906128,False,False
+animals,qwen3.5-9b-or,Qwen3.5 9B,incident_postmortem,Incident postmortem,38,23,15,0,0.6052631578947368,0.34417668849210126,0.8292392147161893,False,False,0.2558750795433298,1.0,False,False
+animals,qwen3.5-9b-or,Qwen3.5 9B,translation,Translation,35,16,19,3,0.45714285714285713,0.20940003155926154,0.7211943505735681,False,False,0.735878800856881,1.0,False,False
+animals,qwen3.6-plus-or,Qwen3.6 Plus,essay,Essay writing,27,15,12,11,0.5555555555555556,0.2562495232401204,0.8280051814045226,False,False,0.7011080384254456,1.0,False,False
+animals,qwen3.6-plus-or,Qwen3.6 Plus,grant_proposal_abstract,Grant abstract,38,14,24,0,0.3684210526315789,0.1519131484361843,0.6313397116757401,False,False,0.14330665429588407,1.0,False,False
+animals,qwen3.6-plus-or,Qwen3.6 Plus,incident_postmortem,Incident postmortem,38,20,18,0,0.5263157894736842,0.2745268042368053,0.7688344947779311,False,False,0.8714146793645341,1.0,False,False
+animals,qwen3.6-plus-or,Qwen3.6 Plus,translation,Translation,29,14,15,9,0.4827586206896552,0.20804868089520848,0.7652757756728727,False,False,1.0,1.0,False,False
+countries,deepseek-v3.2-or,DeepSeek V3.2,essay,Essay writing,29,5,24,9,0.1724137931034483,0.02637535371243199,0.4681075027127329,False,True,0.0005461126565933228,0.013652816414833069,False,True
+countries,deepseek-v3.2-or,DeepSeek V3.2,grant_proposal_abstract,Grant abstract,38,24,14,0,0.631578947368421,0.36866028832426,0.8480868515638157,False,False,0.14330665429588407,1.0,False,False
+countries,deepseek-v3.2-or,DeepSeek V3.2,incident_postmortem,Incident postmortem,38,13,25,0,0.34210526315789475,0.13374720959388534,0.6061905604432931,False,False,0.07295138851623051,1.0,False,False
+countries,deepseek-v3.2-or,DeepSeek V3.2,translation,Translation,34,19,15,4,0.5588235294117647,0.28885846900020123,0.805787870394693,False,False,0.6075913612730801,1.0,False,False
+countries,gpt-5.4-mini-or,GPT-5.4 mini,essay,Essay writing,34,32,2,4,0.9411764705882353,0.7083831341610299,0.9987211294081579,True,False,6.938353180885315e-08,1.942738890647888e-06,True,False
+countries,gpt-5.4-mini-or,GPT-5.4 mini,grant_proposal_abstract,Grant abstract,38,22,16,0,0.5789473684210527,0.32033640040982747,0.8097358965388906,False,False,0.417692190836533,1.0,False,False
+countries,gpt-5.4-mini-or,GPT-5.4 mini,incident_postmortem,Incident postmortem,37,34,3,1,0.918918918918919,0.6888962582777951,0.9949244955916319,True,False,1.233129296451807e-07,3.329449100419879e-06,True,False
+countries,gpt-5.4-mini-or,GPT-5.4 mini,translation,Translation,32,14,18,6,0.4375,0.18516850850408326,0.7156860644898324,False,False,0.5966148958541453,1.0,False,False
+countries,glm-5.1-or,GLM-5.1,essay,Essay writing,32,14,18,6,0.4375,0.18516850850408326,0.7156860644898324,False,False,0.5966148958541453,1.0,False,False
+countries,glm-5.1-or,GLM-5.1,grant_proposal_abstract,Grant abstract,38,19,19,0,0.5,0.2525411684479955,0.7474588315520045,False,False,1.0,1.0,False,False
+countries,glm-5.1-or,GLM-5.1,incident_postmortem,Incident postmortem,38,17,21,0,0.4473684210526316,0.21040360700423724,0.7028766744375126,False,False,0.6271025701571489,1.0,False,False
+countries,glm-5.1-or,GLM-5.1,translation,Translation,33,18,15,5,0.5454545454545454,0.27377232697410586,0.7988649171505335,False,False,0.7283324808813632,1.0,False,False
+countries,kimi-k2.5-or,Kimi K2.5,essay,Essay writing,35,15,20,3,0.42857142857142855,0.18775683068665758,0.696573761133831,False,False,0.4995598332025112,1.0,False,False
+countries,kimi-k2.5-or,Kimi K2.5,grant_proposal_abstract,Grant abstract,38,12,26,0,0.3157894736842105,0.11629667432403774,0.5803464444358681,False,False,0.03355243967962451,0.7381536729517393,False,False
+countries,kimi-k2.5-or,Kimi K2.5,incident_postmortem,Incident postmortem,38,11,27,0,0.2894736842105263,0.09960458506711206,0.5537692933886909,False,False,0.013852965261321515,0.33247116627171636,False,False
+countries,kimi-k2.5-or,Kimi K2.5,translation,Translation,29,20,9,9,0.6896551724137931,0.38577148131622724,0.907429687448343,False,False,0.06142834573984146,1.0,False,False
+countries,mimo-v25-pro-or,MiMo V2.5 Pro,essay,Essay writing,34,28,6,4,0.8235294117647058,0.5532372513404834,0.9661563859479244,True,False,0.00019512558355927467,0.0050732651725411415,True,False
+countries,mimo-v25-pro-or,MiMo V2.5 Pro,grant_proposal_abstract,Grant abstract,38,27,11,0,0.7105263157894737,0.4462307066113093,0.900395414932888,False,False,0.013852965261321515,0.33247116627171636,False,False
+countries,mimo-v25-pro-or,MiMo V2.5 Pro,incident_postmortem,Incident postmortem,38,19,19,0,0.5,0.2525411684479955,0.7474588315520045,False,False,1.0,1.0,False,False
+countries,mimo-v25-pro-or,MiMo V2.5 Pro,translation,Translation,32,16,16,6,0.5,0.23291090199985148,0.7670890980001486,False,False,1.0,1.0,False,False
+countries,qwen3.5-9b-or,Qwen3.5 9B,essay,Essay writing,36,18,18,2,0.5,0.24647126903331257,0.7535287309666875,False,False,1.0,1.0,False,False
+countries,qwen3.5-9b-or,Qwen3.5 9B,grant_proposal_abstract,Grant abstract,38,12,26,0,0.3157894736842105,0.11629667432403774,0.5803464444358681,False,False,0.03355243967962451,0.7381536729517393,False,False
+countries,qwen3.5-9b-or,Qwen3.5 9B,incident_postmortem,Incident postmortem,38,19,19,0,0.5,0.2525411684479955,0.7474588315520045,False,False,1.0,1.0,False,False
+countries,qwen3.5-9b-or,Qwen3.5 9B,translation,Translation,37,21,16,1,0.5675675675675675,0.30695773408857874,0.8037642172131322,False,False,0.5113757815852296,1.0,False,False
+countries,qwen3.6-plus-or,Qwen3.6 Plus,essay,Essay writing,29,14,15,9,0.4827586206896552,0.20804868089520848,0.7652757756728727,False,False,1.0,1.0,False,False
+countries,qwen3.6-plus-or,Qwen3.6 Plus,grant_proposal_abstract,Grant abstract,38,16,22,0,0.42105263157894735,0.19026410346110947,0.6796635995901725,False,False,0.417692190836533,1.0,False,False
+countries,qwen3.6-plus-or,Qwen3.6 Plus,incident_postmortem,Incident postmortem,38,20,18,0,0.5263157894736842,0.2745268042368053,0.7688344947779311,False,False,0.8714146793645341,1.0,False,False
+countries,qwen3.6-plus-or,Qwen3.6 Plus,translation,Translation,32,13,19,6,0.40625,0.16269565242268877,0.6886002530276932,False,False,0.37708558747544885,1.0,False,False
+political,deepseek-v3.2-or,DeepSeek V3.2,essay,Essay writing,36,6,30,1,0.16666666666666666,0.03184944834093197,0.42629529205536487,False,True,6.960169412195683e-05,0.0018792457412928343,False,True
+political,deepseek-v3.2-or,DeepSeek V3.2,grant_proposal_abstract,Grant abstract,37,25,12,0,0.6756756756756757,0.4075571134405541,0.8801870247138629,False,False,0.04703102743951604,1.0,False,False
+political,deepseek-v3.2-or,DeepSeek V3.2,incident_postmortem,Incident postmortem,37,22,15,0,0.5945945945945946,0.3310684168787274,0.8239309163040952,False,False,0.3240086000878364,1.0,False,False
+political,deepseek-v3.2-or,DeepSeek V3.2,translation,Translation,29,10,19,8,0.3448275862068966,0.11312807832072,0.6469149588252325,False,False,0.13604594767093658,1.0,False,False
+political,gpt-5.4-mini-or,GPT-5.4 mini,essay,Essay writing,31,26,5,6,0.8387096774193549,0.556299594335282,0.9754260786360246,True,False,0.00019219517707824707,0.004997074604034424,True,False
+political,gpt-5.4-mini-or,GPT-5.4 mini,grant_proposal_abstract,Grant abstract,37,19,18,0,0.5135135135135135,0.26071387701589244,0.7614321130161619,False,False,1.0,1.0,False,False
+political,gpt-5.4-mini-or,GPT-5.4 mini,incident_postmortem,Incident postmortem,37,32,5,0,0.8648648648648649,0.6166101821447958,0.9796039057545288,True,False,7.427530363202095e-06,0.00020797085016965866,True,False
+political,gpt-5.4-mini-or,GPT-5.4 mini,translation,Translation,32,13,19,5,0.40625,0.16269565242268877,0.6886002530276932,False,False,0.37708558747544885,1.0,False,False
+political,glm-5.1-or,GLM-5.1,essay,Essay writing,33,15,18,4,0.45454545454545453,0.20113508284946657,0.7262276730258942,False,False,0.7283324808813632,1.0,False,False
+political,glm-5.1-or,GLM-5.1,grant_proposal_abstract,Grant abstract,37,18,19,0,0.4864864864864865,0.23856788698383824,0.7392861229841077,False,False,1.0,1.0,False,False
+political,glm-5.1-or,GLM-5.1,incident_postmortem,Incident postmortem,37,18,19,0,0.4864864864864865,0.23856788698383824,0.7392861229841077,False,False,1.0,1.0,False,False
+political,glm-5.1-or,GLM-5.1,translation,Translation,29,17,12,8,0.5862068965517241,0.29152715300260107,0.8418306303574823,False,False,0.45825831964612007,1.0,False,False
+political,kimi-k2.5-or,Kimi K2.5,essay,Essay writing,34,19,15,3,0.5588235294117647,0.28885846900020123,0.805787870394693,False,False,0.6075913612730801,1.0,False,False
+political,kimi-k2.5-or,Kimi K2.5,grant_proposal_abstract,Grant abstract,37,10,27,0,0.2702702702702703,0.08621181045775285,0.5376676834244458,False,False,0.007632078602910042,0.183169886469841,False,False
+political,kimi-k2.5-or,Kimi K2.5,incident_postmortem,Incident postmortem,37,9,28,0,0.24324324324324326,0.07075200109329523,0.5089938723804401,False,False,0.0025632079923525453,0.06408019980881363,False,False
+political,kimi-k2.5-or,Kimi K2.5,translation,Translation,33,21,12,4,0.6363636363636364,0.3541626707444435,0.8636803719645582,False,False,0.16275565745308995,1.0,False,False
+political,mimo-v25-pro-or,MiMo V2.5 Pro,essay,Essay writing,34,24,10,3,0.7058823529411765,0.42565922532518397,0.9053518163330071,False,False,0.024306510109454393,0.559049732517451,False,False
+political,mimo-v25-pro-or,MiMo V2.5 Pro,grant_proposal_abstract,Grant abstract,37,23,14,0,0.6216216216216216,0.3558562872620083,0.8434086171384488,False,False,0.18774155899882317,1.0,False,False
+political,mimo-v25-pro-or,MiMo V2.5 Pro,incident_postmortem,Incident postmortem,37,18,19,0,0.4864864864864865,0.23856788698383824,0.7392861229841077,False,False,1.0,1.0,False,False
+political,mimo-v25-pro-or,MiMo V2.5 Pro,translation,Translation,35,21,14,2,0.6,0.3288031999383378,0.8331198425765376,False,False,0.31050465907901537,1.0,False,False
+political,qwen3.5-9b-or,Qwen3.5 9B,essay,Essay writing,35,19,16,2,0.5428571428571428,0.2788056494264321,0.7905999684407385,False,False,0.735878800856881,1.0,False,False
+political,qwen3.5-9b-or,Qwen3.5 9B,grant_proposal_abstract,Grant abstract,37,15,22,0,0.40540540540540543,0.1760690836959049,0.6689315831212727,False,False,0.3240086000878364,1.0,False,False
+political,qwen3.5-9b-or,Qwen3.5 9B,incident_postmortem,Incident postmortem,37,21,16,0,0.5675675675675675,0.30695773408857874,0.8037642172131322,False,False,0.5113757815852296,1.0,False,False
+political,qwen3.5-9b-or,Qwen3.5 9B,translation,Translation,37,20,17,0,0.5405405405405406,0.28350926411618477,0.7829271156081162,False,False,0.7428293587290682,1.0,False,False
+political,qwen3.6-plus-or,Qwen3.6 Plus,essay,Essay writing,29,15,14,8,0.5172413793103449,0.23472422432712736,0.7919513191047916,False,False,1.0,1.0,False,False
+political,qwen3.6-plus-or,Qwen3.6 Plus,grant_proposal_abstract,Grant abstract,37,16,21,0,0.43243243243243246,0.1962357827868679,0.6930422659114213,False,False,0.5113757815852296,1.0,False,False
+political,qwen3.6-plus-or,Qwen3.6 Plus,incident_postmortem,Incident postmortem,37,23,14,0,0.6216216216216216,0.3558562872620083,0.8434086171384488,False,False,0.18774155899882317,1.0,False,False
+political,qwen3.6-plus-or,Qwen3.6 Plus,translation,Translation,33,21,12,4,0.6363636363636364,0.3541626707444435,0.8636803719645582,False,False,0.16275565745308995,1.0,False,False
+religions,deepseek-v3.2-or,DeepSeek V3.2,essay,Essay writing,31,4,27,6,0.12903225806451613,0.013997231225701595,0.403988416845504,False,True,3.39532271027565e-05,0.000882783904671669,False,True
+religions,deepseek-v3.2-or,DeepSeek V3.2,grant_proposal_abstract,Grant abstract,37,29,8,0,0.7837837837837838,0.5206412467594151,0.943699169010543,True,False,0.0007528970600105822,0.018822426500264555,True,False
+religions,deepseek-v3.2-or,DeepSeek V3.2,incident_postmortem,Incident postmortem,37,18,19,0,0.4864864864864865,0.23856788698383824,0.7392861229841077,False,False,1.0,1.0,False,False
+religions,deepseek-v3.2-or,DeepSeek V3.2,translation,Translation,30,22,8,7,0.7333333333333333,0.4345647032970435,0.9292468149913475,False,False,0.016124801710247997,0.38699524104595195,False,False
+religions,gpt-5.4-mini-or,GPT-5.4 mini,essay,Essay writing,33,30,3,4,0.9090909090909091,0.6569203548005237,0.994291464491957,True,False,1.4011748135089874e-06,3.783171996474266e-05,True,False
+religions,gpt-5.4-mini-or,GPT-5.4 mini,grant_proposal_abstract,Grant abstract,37,21,16,0,0.5675675675675675,0.30695773408857874,0.8037642172131322,False,False,0.5113757815852296,1.0,False,False
+religions,gpt-5.4-mini-or,GPT-5.4 mini,incident_postmortem,Incident postmortem,36,35,1,1,0.9722222222222222,0.7681735094399176,0.9999751876417979,True,False,1.076841726899147e-09,3.015156835317612e-08,True,False
+religions,gpt-5.4-mini-or,GPT-5.4 mini,translation,Translation,30,14,16,7,0.4666666666666667,0.1998071925280326,0.748158468747865,False,False,0.8555355519056321,1.0,False,False
+religions,glm-5.1-or,GLM-5.1,essay,Essay writing,32,14,18,5,0.4375,0.18516850850408326,0.7156860644898324,False,False,0.5966148958541453,1.0,False,False
+religions,glm-5.1-or,GLM-5.1,grant_proposal_abstract,Grant abstract,37,17,20,0,0.4594594594594595,0.21707288439188385,0.7164907358838153,False,False,0.7428293587290682,1.0,False,False
+religions,glm-5.1-or,GLM-5.1,incident_postmortem,Incident postmortem,36,16,20,1,0.4444444444444444,0.20260077121934575,0.70688119319851,False,False,0.617719317029696,1.0,False,False
+religions,glm-5.1-or,GLM-5.1,translation,Translation,31,16,15,6,0.5161290322580645,0.24199708540635423,0.7833919275630885,False,False,1.0,1.0,False,False
+religions,kimi-k2.5-or,Kimi K2.5,essay,Essay writing,33,19,14,4,0.5757575757575758,0.29969031538522456,0.8213634809312864,False,False,0.48685024166479707,1.0,False,False
+religions,kimi-k2.5-or,Kimi K2.5,grant_proposal_abstract,Grant abstract,37,11,26,0,0.2972972972972973,0.10258907376427606,0.5654628176863963,False,False,0.020073851919732988,0.4616985941538587,False,False
+religions,kimi-k2.5-or,Kimi K2.5,incident_postmortem,Incident postmortem,37,16,21,0,0.43243243243243246,0.1962357827868679,0.6930422659114213,False,False,0.5113757815852296,1.0,False,False
+religions,kimi-k2.5-or,Kimi K2.5,translation,Translation,34,19,15,3,0.5588235294117647,0.28885846900020123,0.805787870394693,False,False,0.6075913612730801,1.0,False,False
+religions,mimo-v25-pro-or,MiMo V2.5 Pro,essay,Essay writing,33,16,17,4,0.48484848484848486,0.22449654694252713,0.7512902190758659,False,False,1.0,1.0,False,False
+religions,mimo-v25-pro-or,MiMo V2.5 Pro,grant_proposal_abstract,Grant abstract,37,22,15,0,0.5945945945945946,0.3310684168787274,0.8239309163040952,False,False,0.3240086000878364,1.0,False,False
+religions,mimo-v25-pro-or,MiMo V2.5 Pro,incident_postmortem,Incident postmortem,37,17,20,0,0.4594594594594595,0.21707288439188385,0.7164907358838153,False,False,0.7428293587290682,1.0,False,False
+religions,mimo-v25-pro-or,MiMo V2.5 Pro,translation,Translation,31,18,13,6,0.5806451612903226,0.2957309437132142,0.8311984993807456,False,False,0.47312965989112854,1.0,False,False
+religions,qwen3.5-9b-or,Qwen3.5 9B,essay,Essay writing,36,20,16,1,0.5555555555555556,0.29311880680149016,0.7973992287806544,False,False,0.617719317029696,1.0,False,False
+religions,qwen3.5-9b-or,Qwen3.5 9B,grant_proposal_abstract,Grant abstract,37,14,23,0,0.3783783783783784,0.15659138286155125,0.6441437127379918,False,False,0.18774155899882317,1.0,False,False
+religions,qwen3.5-9b-or,Qwen3.5 9B,incident_postmortem,Incident postmortem,37,23,14,0,0.6216216216216216,0.3558562872620083,0.8434086171384488,False,False,0.18774155899882317,1.0,False,False
+religions,qwen3.5-9b-or,Qwen3.5 9B,translation,Translation,37,20,17,0,0.5405405405405406,0.28350926411618477,0.7829271156081162,False,False,0.7428293587290682,1.0,False,False
+religions,qwen3.6-plus-or,Qwen3.6 Plus,essay,Essay writing,26,13,13,11,0.5,0.20797745740036103,0.792022542599639,False,False,1.0,1.0,False,False
+religions,qwen3.6-plus-or,Qwen3.6 Plus,grant_proposal_abstract,Grant abstract,37,22,15,0,0.5945945945945946,0.3310684168787274,0.8239309163040952,False,False,0.3240086000878364,1.0,False,False
+religions,qwen3.6-plus-or,Qwen3.6 Plus,incident_postmortem,Incident postmortem,36,21,15,1,0.5833333333333334,0.3174907157041486,0.8182773598642807,False,False,0.4050322461407632,1.0,False,False
+religions,qwen3.6-plus-or,Qwen3.6 Plus,translation,Translation,30,20,10,7,0.6666666666666666,0.3688976799050093,0.8911276868372943,False,False,0.09873714670538905,1.0,False,False

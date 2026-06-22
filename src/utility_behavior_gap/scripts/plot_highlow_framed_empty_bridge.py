@@ -257,7 +257,7 @@ def main() -> None:
     plot_lollipop(
         all_cells,
         overall_stem,
-        title="High Utility Versus Framed Empty: All Domains",
+        title="",
         write_pdf=write_pdf,
     )
     figure_paths.append(overall_stem.with_suffix(".png"))
@@ -272,7 +272,7 @@ def main() -> None:
         plot_lollipop(
             cells,
             domain_stem,
-            title=f"High Utility Versus Framed Empty: {domain.capitalize()} Domain",
+            title="",
             write_pdf=write_pdf,
         )
         figure_paths.append(domain_stem.with_suffix(".png"))

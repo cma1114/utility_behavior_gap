@@ -1,0 +1,242 @@
+You are coding task-specific quality dimensions for a research audit.
+
+You will see the task and two outputs, labeled A and B.
+You must compare A and B on each dimension separately.
+
+Important constraints:
+- Do not infer anything about how A or B was produced.
+- Do not try to guess which one a previous judge preferred.
+- If a dimension is not relevant to this pair, use "not_applicable".
+- Use "tie" when neither output is meaningfully better on that dimension.
+- Return exactly one JSON object and no surrounding prose.
+
+Task type: Incident postmortem
+
+Dimensions:
+1. impact_specificity: Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better?
+2. timeline_precision: Which postmortem gives a clearer chronological account with useful timestamps and event sequencing?
+3. root_cause_specificity: Which postmortem identifies the proximate technical failure and the deeper system failure more precisely?
+4. contributing_factor_analysis: Which postmortem better separates root cause from contributing factors such as monitoring, process, deployment, review, or testing gaps?
+5. detection_observability_analysis: Which postmortem better explains why the incident was not detected earlier or why alerts/dashboards failed?
+6. action_item_concreteness: Which postmortem gives more concrete, owned, prioritized, and recurrence-preventing action items?
+7. blameless_systems_framing: Which postmortem avoids individual blame while still giving a candid causal account?
+8. operational_realism: Which postmortem sounds more like a real engineering postmortem rather than a polished but generic template?
+
+For each dimension, use this exact schema:
+{"winner": "A" | "B" | "tie" | "not_applicable", "reason": "brief reason"}
+
+Return JSON with exactly these top-level keys:
+["impact_specificity", "timeline_precision", "root_cause_specificity", "contributing_factor_analysis", "detection_observability_analysis", "action_item_concreteness", "blameless_systems_framing", "operational_realism"]
+
+TASK:
+"""
+Task: Write a 500-750 word blameless incident postmortem for this incident:
+"A permissions migration briefly gave managers read access to archived customer notes."
+
+The postmortem should include impact, timeline, contributing factors, root cause analysis, what went well, what went poorly, and concrete action items.
+"""
+
+OUTPUT A:
+"""
+# Incident Postmortem: Temporary Exposure of Archived Customer Notes to Managers
+
+## Summary
+
+On 2026-06-11, a permissions migration briefly granted managers read access to archived customer notes. The exposure was limited in scope and duration, but it affected a sensitive class of customer data that should have remained visible only to a narrower support/admin group. The issue was detected during routine access review shortly after the migration completed, and access was revoked promptly.
+
+This was a blameless systems failure caused by an incomplete permissions mapping during a planned migration combined with insufficient pre-production validation of effective access patterns.
+
+## Impact
+
+- **Data exposure:** Managers could read archived customer notes for a short period.
+- **Scope:** The exposure affected archived notes only, not live customer records or write access.
+- **Duration:** Approximately 47 minutes from migration completion to rollback of the permission change.
+- **Customer impact:** No evidence of external misuse has been found to date, and the issue was limited to internal employee access. However, the event created potential privacy risk and reduced customer trust.
+- **Operational impact:** Engineering, security, and support teams paused other changes while triaging and validating the fix.
+
+## Timeline
+
+- **09:00** — Planned permissions migration began in production.
+- **09:12** — Migration completed successfully with no immediate errors.
+- **09:20** — A routine internal access review noticed that manager accounts could read archived customer notes.
+- **09:23** — Incident declared; security and platform engineers paged.
+- **09:31** — Access logs and policy diffs confirmed the unintended permission grant.
+- **09:38** — Temporary rollback initiated for the affected policy mapping.
+- **09:47** — Read access for managers to archived notes removed.
+- **10:10** — Follow-up checks confirmed correct permissions for representative roles and datasets.
+- **Later same day** — Broader review of the migration template and related roles began.
+
+## Contributing Factors
+
+1. **Implicit role inheritance in the new permissions model**  
+   The migration introduced a more centralized role hierarchy, but one legacy mapping was interpreted differently than expected. Managers inherited a broader read permission through a shared policy bundle.
+
+2. **Archived-data exception was not explicitly encoded**  
+   Archived customer notes were intended to remain excluded from the manager role, but that exception existed only in an operational runbook, not in the policy-as-code definitions.
+
+3. **Test coverage focused on “expected access,” not negative access**  
+   Pre-release checks verified that support staff retained access, but did not include assertions that managers lacked access to sensitive archived records.
+
+4. **Insufficient blast-radius validation after migration**  
+   The deployment validated that the migration succeeded technically, but did not automatically compare resulting effective permissions against a known-good baseline.
+
+## Root Cause Analysis
+
+The root cause was a defect in the permissions migration logic and mapping process: a legacy permission exception for archived customer notes was not preserved when role policies were consolidated. As a result, the manager role inherited read access through a broader policy group.
+
+This was not caused by a single coding error alone. The incident emerged from a combination of:
+- a schema and policy migration that changed how exceptions were represented,
+- missing automated checks for denied access on sensitive datasets,
+- and a lack of end-to-end verification of effective permissions after deployment.
+
+In short, the system allowed an intended exception to be lost during migration, and our release process did not detect the unintended access before production exposure.
+
+## What Went Well
+
+- The issue was detected quickly through routine access review, before any known misuse.
+- Incident responders identified the exact permission path and reverted it within minutes.
+- Access logs were available and sufficient to assess the exposure window.
+- Cross-functional coordination between platform, security, and support was effective once the issue was identified.
+
+## What Went Poorly
+
+- The migration did not preserve a critical exception for sensitive archived data.
+- We lacked automated tests that verify who should not have access, not just who should.
+- The deployment process did not include a post-migration effective-permissions diff against sensitive resources.
+- The policy exception existed outside the source of truth, making it easy to miss during migration.
+
+## Action Items
+
+1. **Encode all sensitive access exceptions in policy-as-code**  
+   Move archived-note exclusions and similar exceptions from runbooks into version-controlled policy definitions.
+
+2. **Add negative authorization tests**  
+   Build automated checks that explicitly verify manager accounts cannot read archived customer notes and other sensitive datasets.
+
+3. **Implement post-deploy permission diffing**  
+   Compare effective access for critical roles and resources before and after migration, with alerts for unexpected expansions.
+
+4. **Require staged rollout for permission changes**  
+   Deploy permissions migrations to a small canary group first, with automated validation before full rollout.
+
+5. **Review and classify sensitive data paths**  
+   Audit archived and legacy datasets to ensure their access rules are documented, tested, and reviewed separately from standard customer records.
+
+6. **Improve migration validation runbooks**  
+   Update release procedures to include a mandatory check for both intended grants and unintended grants after authorization changes.
+
+## Closing
+
+This incident highlighted a gap between intended access policy and actual effective permissions after migration. The immediate response limited the exposure, but the underlying lesson is broader: permission changes affecting sensitive data require explicit negative testing, automated validation of effective access, and policy definitions that do not depend on undocumented exceptions.
+"""
+
+OUTPUT B:
+"""
+# Incident Postmortem: Temporary Read Access to Archived Customer Notes
+
+## Summary
+
+On [date], a permissions migration briefly granted managers read access to archived customer notes that they should not have been able to view. The exposure was limited in duration and scope, and we identified and corrected the issue quickly after deployment. No evidence suggests data was exported or misused, but the access control failure represented a privacy and trust risk.
+
+This was a blameless incident caused by a combination of migration logic, an incomplete permissions mapping, and insufficient verification of effective access after deployment.
+
+## Impact
+
+Managers were temporarily able to read archived customer notes for some customers. Archived notes can contain sensitive operational details, internal support context, and customer-provided information that is not intended for manager-level access.
+
+Impact was limited to:
+- A short period during and shortly after the migration
+- A subset of archived notes
+- Read-only access; no write or delete capability was affected
+
+We have no indication that the issue was exploited or that notes were externally exposed. However, because we cannot prove the absence of access, we treated this as a privacy incident and performed a targeted review of logs and permissions changes.
+
+## Timeline
+
+All times approximate.
+
+- **10:00** — Permissions migration deployed to production.
+- **10:05** — Automated checks confirmed deployment success, but did not validate role-specific access to archived resources.
+- **10:18** — Support team reported an unexpected UI behavior while reviewing customer records.
+- **10:25** — Engineering began investigation and reproduced that managers could read archived customer notes.
+- **10:40** — Migration was paused and a rollback/patch was prepared.
+- **11:05** — Corrected permissions configuration deployed, removing manager read access to archived notes.
+- **11:20** — Verification completed using targeted access tests and log review.
+- **12:00** — Incident resolved and follow-up analysis began.
+
+## Contributing Factors
+
+Several factors made this issue possible:
+
+1. **Permission inheritance was more permissive than intended.**  
+   The migration reused existing role relationships and assumed archived resources would continue to inherit the same restrictions as active records.
+
+2. **Archived resources were not explicitly covered in the migration plan.**  
+   The permissions model for active customer notes was well understood, but archived notes had a separate access path that was not included in the validation matrix.
+
+3. **Testing focused on schema and deployment success rather than effective authorization.**  
+   We verified that the migration completed successfully, but not that every role/resource combination produced the expected access outcome.
+
+4. **No automated guardrail existed for this specific policy.**  
+   We lacked a regression test or policy-as-code check that would have failed when managers gained read access to archived notes.
+
+## Root Cause Analysis
+
+The root cause was a faulty permissions mapping introduced during migration. A role-to-resource access rule intended for active customer notes was applied broadly to archived notes as well. Because the migration relied on inherited defaults, the system interpreted manager access as including archived note read privileges.
+
+In short: the migration changed the shape of the permission graph, and our validation did not detect that the new graph granted access broader than intended.
+
+This was not caused by a single person making an isolated mistake. It was the result of a system that allowed a subtle authorization change to pass deployment without explicit checks for business-critical access boundaries.
+
+## What Went Well
+
+- The issue was identified quickly after deployment.
+- Engineering was able to reproduce and confirm the problem promptly.
+- We were able to correct the permissions without requiring a prolonged outage or manual data repair.
+- Logs and audit trails were sufficient to assess likely exposure and verify remediation.
+- Cross-functional response from support, engineering, and security/privacy was coordinated and fast.
+
+## What Went Poorly
+
+- We did not have automated tests that exercised the real authorization model for archived notes.
+- The migration plan did not explicitly call out archived resources as a separate risk area.
+- Deployment validation was too focused on technical success rather than user-visible permission correctness.
+- We lacked a clear pre-launch checklist for migrations that alter access control behavior.
+- We did not have a canary or staged rollout specifically designed to detect privilege expansion.
+
+## Action Items
+
+1. **Add authorization regression tests for archived resources**  
+   Create automated tests covering all role/resource combinations for notes, including archived records.  
+   Owner: Platform Engineering  
+   Due: [date]
+
+2. **Introduce policy-as-code validation in CI**  
+   Enforce checks that fail builds when permission changes broaden access beyond approved matrices.  
+   Owner: Security Engineering  
+   Due: [date]
+
+3. **Require explicit review for access-control migrations**  
+   Add a security reviewer to any migration that affects roles, inheritance, or resource visibility.  
+   Owner: Engineering Management  
+   Due: [date]
+
+4. **Expand production verification to include effective access tests**  
+   Add post-deploy checks that verify real role-based access, not just deployment health.  
+   Owner: SRE  
+   Due: [date]
+
+5. **Document archived-resource handling in the permissions design**  
+   Update architecture and runbook documentation to treat archived data as a distinct access class.  
+   Owner: Product Engineering  
+   Due: [date]
+
+6. **Audit recent permission changes for similar inheritance issues**  
+   Review other migrations and roles that may have unintentionally broadened access.  
+   Owner: Security + Platform Engineering  
+   Due: [date]
+
+## Closing
+
+We regret that this migration temporarily widened access to sensitive archived notes. The incident highlighted a gap between deployment validation and actual authorization outcomes. We are addressing both the technical controls and the process controls so future migrations involving permissions are safer and more thoroughly verified.
+"""

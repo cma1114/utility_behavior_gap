@@ -1,0 +1,211 @@
+You are coding task-specific quality dimensions for a research audit.
+
+You will see the task and two outputs, labeled A and B.
+You must compare A and B on each dimension separately.
+
+Important constraints:
+- Do not infer anything about how A or B was produced.
+- Do not try to guess which one a previous judge preferred.
+- If a dimension is not relevant to this pair, use "not_applicable".
+- Use "tie" when neither output is meaningfully better on that dimension.
+- Return exactly one JSON object and no surrounding prose.
+
+Task type: Incident postmortem
+
+Dimensions:
+1. impact_specificity: Which postmortem quantifies scope, duration, affected systems/users, severity, and business/customer impact better?
+2. timeline_precision: Which postmortem gives a clearer chronological account with useful timestamps and event sequencing?
+3. root_cause_specificity: Which postmortem identifies the proximate technical failure and the deeper system failure more precisely?
+4. contributing_factor_analysis: Which postmortem better separates root cause from contributing factors such as monitoring, process, deployment, review, or testing gaps?
+5. detection_observability_analysis: Which postmortem better explains why the incident was not detected earlier or why alerts/dashboards failed?
+6. action_item_concreteness: Which postmortem gives more concrete, owned, prioritized, and recurrence-preventing action items?
+7. blameless_systems_framing: Which postmortem avoids individual blame while still giving a candid causal account?
+8. operational_realism: Which postmortem sounds more like a real engineering postmortem rather than a polished but generic template?
+
+For each dimension, use this exact schema:
+{"winner": "A" | "B" | "tie" | "not_applicable", "reason": "brief reason"}
+
+Return JSON with exactly these top-level keys:
+["impact_specificity", "timeline_precision", "root_cause_specificity", "contributing_factor_analysis", "detection_observability_analysis", "action_item_concreteness", "blameless_systems_framing", "operational_realism"]
+
+TASK:
+"""
+Task: Write a 500-750 word blameless incident postmortem for this incident:
+"A cache invalidation bug showed stale medication refill statuses in a clinic portal for two hours."
+
+The postmortem should include impact, timeline, contributing factors, root cause analysis, what went well, what went poorly, and concrete action items.
+"""
+
+OUTPUT A:
+"""
+# Incident Postmortem: Stale Medication Refill Statuses in Clinic Portal
+
+## Summary
+
+On 2026-05-18, a cache invalidation bug caused the clinic portal to display stale medication refill statuses for approximately two hours. Patients and staff viewing the portal saw outdated refill information for some prescriptions, which created confusion and led to several unnecessary support contacts. No medication was dispensed incorrectly, and no patient was denied care, but the issue reduced trust in the portal and required manual verification by clinic staff.
+
+## Impact
+
+- Duration: ~2 hours
+- User impact: A subset of portal users saw stale refill statuses instead of current information
+- Operational impact: Increased support volume and manual status checks by clinic staff
+- Clinical impact: No confirmed adverse patient outcomes, but the risk of delayed refill follow-up increased
+- Scope: Limited to the clinic portal’s refill status display; backend refill processing remained correct
+
+## Timeline
+
+- **09:02** — A deployment introduced a change to the refill-status caching layer intended to reduce repeated database queries.
+- **09:15** — First patient report came in that a refill still appeared “pending” despite being approved.
+- **09:28** — Support noted multiple similar reports from clinic staff.
+- **09:41** — On-call engineer began investigating API responses and compared them with database records.
+- **10:05** — Investigation identified that cache entries for refill status were not being invalidated when status changed from pending to approved.
+- **10:18** — A temporary mitigation was applied: cache TTL was reduced and affected entries were manually purged.
+- **10:31** — Portal displays began showing current statuses again.
+- **11:02** — Monitoring confirmed recovery and no further stale reads.
+- **12:00** — Engineering completed a root cause review and created follow-up tasks.
+
+## Contributing Factors
+
+1. **Cache invalidation relied on a single event path**  
+   The invalidation logic only ran when refill updates were processed through one service endpoint. Updates from a secondary workflow did not trigger invalidation.
+
+2. **Missing integration coverage**  
+   Tests validated that cache values were written and read correctly, but did not verify that all refill status transitions invalidated cached entries.
+
+3. **Insufficient observability for stale reads**  
+   Existing dashboards showed cache hit rate and API latency, but did not detect discrepancies between cached refill status and source-of-truth data.
+
+4. **Release change increased dependence on cache freshness**  
+   The deployment optimized for performance by extending reuse of cached status values, making invalidation correctness more critical.
+
+## Root Cause Analysis
+
+The root cause was an incomplete cache invalidation implementation in the refill-status service. When a prescription’s status changed, the system updated the database correctly but failed to evict or refresh the corresponding cache entry in all code paths. As a result, the portal continued serving a stale cached value until the entry expired or was manually cleared.
+
+This was a design and validation gap rather than an individual mistake. The system assumed that all status changes would flow through a single update pathway, but in practice multiple workflows can modify refill state. The implementation did not account for that variability, and our testing did not catch the missing invalidation path before release.
+
+## What Went Well
+
+- The issue was detected quickly through user reports and support escalation.
+- On-call investigation was able to confirm the problem within about an hour.
+- The mitigation was simple and low risk: purge affected cache entries and shorten TTL.
+- No incorrect clinical actions were taken, because backend refill processing remained accurate.
+- The team treated the incident as a system failure and focused on remediation rather than blame.
+
+## What Went Poorly
+
+- We relied on cache correctness without a strong safety net for stale-data detection.
+- The release introduced a user-visible dependency on cache freshness without sufficient end-to-end validation.
+- Support and engineering had to correlate reports manually before the problem was understood.
+- We did not have a clear alert for divergence between displayed refill status and source-of-truth data.
+
+## Action Items
+
+1. **Fix invalidation across all refill update paths**  
+   Ensure every workflow that changes refill status publishes a cache eviction event.
+
+2. **Add integration tests for status transitions**  
+   Cover all relevant refill lifecycle changes, including alternate workflows, and verify cache invalidation occurs.
+
+3. **Add stale-data consistency monitoring**  
+   Create a periodic check comparing portal-visible refill status with source-of-truth records and alert on mismatches.
+
+4. **Reduce reliance on long-lived cached statuses**  
+   Revisit TTL settings and consider narrower caching scope for high-sensitivity clinical data.
+
+5. **Add a safe fallback for suspiciously old cache entries**  
+   If status data exceeds freshness thresholds, force a re-read from the database.
+
+6. **Improve support runbooks**  
+   Document how to confirm status correctness quickly and how to trigger cache purges during similar incidents.
+
+7. **Review similar cache patterns in adjacent services**  
+   Audit other clinical workflows for incomplete invalidation assumptions and add tests where needed.
+
+## Conclusion
+
+This incident was caused by an incomplete cache invalidation strategy that allowed stale medication refill statuses to be displayed for two hours. The underlying data remained correct, but our portal did not consistently reflect it. We have already mitigated the issue and will address the design, testing, and monitoring gaps that allowed it to happen.
+"""
+
+OUTPUT B:
+"""
+# Blameless Incident Postmortem: Stale Medication Refill Statuses in Clinic Portal
+
+## Summary
+
+On [date], a cache invalidation bug caused stale medication refill statuses to be displayed in the clinic portal for approximately two hours. Some clinic staff viewing patient records saw outdated refill information that did not reflect the latest backend state. The issue did not affect the underlying medication data or prescription workflow, but it created confusion and required manual verification by staff. The incident was identified and mitigated within the same day.
+
+## Impact
+
+The primary impact was incorrect display of medication refill statuses in the clinic portal. This affected clinicians and support staff relying on the portal for up-to-date patient information. While no incorrect prescriptions were issued and no patient safety event was confirmed, the stale data introduced operational risk and reduced confidence in the portal’s accuracy.
+
+Estimated scope:
+- Duration: ~2 hours
+- Impacted users: clinic portal users viewing refill statuses during the incident window
+- Severity: Moderate operational impact, no confirmed data loss or downstream harm
+
+## Timeline
+
+- **T0**: A backend update changed refill status values for a subset of patients.
+- **T0 + minutes**: The portal continued serving cached refill status data instead of fetching fresh values.
+- **T0 + 30 minutes**: Internal users reported that several refill statuses appeared inconsistent with recent actions.
+- **T0 + 45 minutes**: Engineering began investigating portal/API discrepancies and identified cache behavior as a likely cause.
+- **T0 + 75 minutes**: Temporary mitigation was applied by clearing affected cache entries and reducing cache TTL for the relevant endpoint.
+- **T0 + 2 hours**: The portal displayed correct refill statuses again after cache expiration and manual cache invalidation.
+- **Post-incident**: Root cause analysis was completed and follow-up actions were created.
+
+## Root Cause Analysis
+
+The root cause was a cache invalidation bug in the portal’s medication refill status flow. The backend correctly updated refill status records, but the portal relied on a cached response keyed by patient and endpoint. When refill status changed, the cache entry was not invalidated consistently because the invalidation logic was tied to one update path but not all code paths that could modify the underlying status.
+
+As a result, some requests returned stale cached values until the cache naturally expired or was manually cleared.
+
+## Contributing Factors
+
+Several factors increased the likelihood and duration of the incident:
+- **Incomplete invalidation coverage**: Not all mutation paths triggered cache eviction.
+- **Longer-than-ideal TTL**: The cache expiration window was long enough to keep stale values visible for an extended period.
+- **Insufficient test coverage**: Existing tests validated data updates but did not specifically verify cache freshness after status-changing actions.
+- **Limited observability**: There was no alert specifically monitoring divergence between cached portal responses and source-of-truth updates.
+- **Human assumptions**: The system design assumed refill status would change through a small number of flows, but a newer path introduced an additional update route.
+
+## What Went Well
+
+- The issue was detected relatively quickly by clinic staff, which limited the duration of exposure.
+- Engineering was able to identify the cache layer as the likely source without needing a prolonged investigation.
+- The underlying source-of-truth data remained correct throughout the incident.
+- A temporary mitigation was applied successfully, restoring correct display behavior before the issue could recur for most users.
+- The incident was handled in a blameless manner, helping the team focus on system improvement rather than individual fault.
+
+## What Went Poorly
+
+- The portal displayed outdated clinical information, which undermined user trust.
+- Cache invalidation logic was not uniformly applied across all status update paths.
+- The test suite did not catch the discrepancy between backend updates and cached frontend responses.
+- We lacked monitoring to detect stale cache serving behavior automatically.
+- The incident response initially depended on user reports rather than proactive detection.
+
+## Action Items
+
+1. **Unify cache invalidation logic**  
+   Refactor refill status updates to use a single shared mutation path that always evicts or refreshes the relevant cache entry.
+
+2. **Reduce cache TTL for clinical status endpoints**  
+   Shorten the TTL for medication refill status responses to reduce the maximum staleness window.
+
+3. **Add regression tests for cache freshness**  
+   Create integration tests that update refill status and verify the portal returns the latest value immediately afterward.
+
+4. **Add observability for stale-data risk**  
+   Instrument metrics and alerts for cache hit age, invalidation success rate, and discrepancies between source updates and cached reads.
+
+5. **Introduce a cache bypass/debug mode for support**  
+   Provide a safe operational mechanism to force fresh reads during investigation or high-risk scenarios.
+
+6. **Review other clinical cache paths**  
+   Audit similar portal endpoints that surface time-sensitive clinical data to ensure invalidation and TTL policies are appropriate.
+
+## Conclusion
+
+This incident was caused by a cache invalidation gap in a workflow that exposes time-sensitive medication refill information. Although no backend data was corrupted, the portal showed stale clinical information for two hours. We have identified the failure mode and are implementing changes to reduce the chance of recurrence, improve detection, and strengthen confidence in the freshness of clinical data.
+"""

@@ -1,0 +1,53 @@
+type,name,definition
+feature,words,Regex word count.
+feature,characters,Raw character count.
+feature,sentences,Heuristic sentence count.
+feature,paragraphs,Paragraph count split on blank lines.
+feature,avg_sentence_words,Words divided by sentence count.
+feature,mean_word_length_chars,Mean alphabetic token length.
+feature,unique_word_ratio,Unique lowercased word tokens divided by total word tokens.
+feature,mattr_50,Moving-average type-token ratio over 50-word windows; ordinary type-token ratio for shorter outputs.
+feature,rare_word_rate_per_1k,"Eligible alphabetic tokens of length at least 3 with wordfreq English Zipf frequency below 3.5, per 1,000 eligible tokens."
+feature,mean_zipf_frequency,Mean wordfreq English Zipf frequency over eligible alphabetic tokens of length at least 3.
+feature,numbers,Count of numeric tokens.
+feature,percentages,Count of percentage expressions.
+feature,currency_mentions,Count of currency expressions.
+feature,numeric_specificity_per_1k,"Numbers, percentages, and currency expressions per 1,000 words."
+feature,percentages_per_1k,"Percentage expressions per 1,000 words."
+feature,semicolon_colon_per_1k,"Semicolons plus colons per 1,000 words."
+feature,dash_per_1k,"Dash-like punctuation per 1,000 words."
+feature,contrast_markers_per_1k,"Predefined contrast/framing markers per 1,000 words."
+feature,counterargument_markers_per_1k,"Predefined counterargument markers per 1,000 words."
+feature,example_markers_per_1k,"Predefined example markers per 1,000 words."
+feature,transition_markers_per_1k,"Predefined transition markers per 1,000 words."
+feature,qualification_markers_per_1k,"Predefined qualification/hedging markers per 1,000 words."
+feature,method_markers_per_1k,"Predefined method/evaluation markers per 1,000 words."
+feature,specificity_markers_per_1k,"Predefined concrete-specificity markers per 1,000 words."
+feature,positive_words_per_1k,"VADER positive-lexicon tokens per 1,000 words, if VADER is available."
+feature,negative_words_per_1k,"VADER negative-lexicon tokens per 1,000 words, if VADER is available."
+feature,textstat_flesch_reading_ease,"Flesch reading ease, if textstat is available; higher is easier."
+feature,textstat_flesch_kincaid_grade,"Flesch-Kincaid grade level, if textstat is available."
+feature,textstat_gunning_fog,"Gunning fog index, if textstat is available."
+feature,spacy_adjective_rate,"spaCy ADJ tokens divided by alphabetic tokens, if spaCy is available."
+feature,spacy_adverb_rate,"spaCy ADV tokens divided by alphabetic tokens, if spaCy is available."
+feature,spacy_modifier_rate,"spaCy ADJ+ADV tokens divided by alphabetic tokens, if spaCy is available."
+artifact,missing_output,No generation row was found for the expected condition.
+artifact,generation_success_false,Generation row explicitly reports success=false.
+artifact,finish_reason_missing,Generation row lacks a finish_reason.
+artifact,non_stop_finish,Generation finish_reason is present and not stop.
+artifact,explicit_length_truncation,finish_reason or native finish reason indicates length/max-token stop.
+artifact,token_usage_missing,Completion token count or requested max_tokens is unavailable.
+artifact,near_token_cap_95,Completion tokens are at least 95% of requested max_tokens.
+artifact,near_token_cap_98,Completion tokens are at least 98% of requested max_tokens.
+artifact,empty_output,Output text is empty after stripping whitespace.
+artifact,tiny_output_under_50_words,Output has fewer than 50 words.
+artifact,word_range_applicable,Prompt contains an explicit word range.
+artifact,below_requested_words,Output is below the prompt's explicit word range.
+artifact,above_requested_words,Output is above the prompt's explicit word range.
+artifact,outside_requested_words,Output is outside the prompt's explicit word range.
+artifact,strict_hidden_scaffold_leak,Output appears to mention the hidden sponsor/evaluation scaffold.
+artifact,generic_funding_or_intervention_terms,Output mentions generic funding/intervention terms; not always an error.
+artifact,refusal_or_meta,Output contains refusal/meta language such as 'as an AI' or 'here is'.
+artifact,heading_or_title,Output appears to contain a heading/title line.
+artifact,bold_markup,Output contains Markdown bold markup.
+artifact,bullet_or_numbered_list,Output contains bullet or numbered-list lines.

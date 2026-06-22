@@ -46,7 +46,7 @@ comparisons:
 
   high_utility_vs_framed_neutral:
     title: "High Utility vs Framed Neutral"
-    pair_outcomes: outputs/analysis/highlow_neutral_bridge_high__combined_7runs_pair_outcomes.csv
+    pair_outcomes: CURRENT_PAPER/results/high_utility_vs_framed_neutral_pair_outcomes.csv
     target_label: "high utility"
     other_label: "framed neutral"
     target_condition: hl_high
@@ -108,7 +108,7 @@ comparisons:
 
   amount_high_vs_framed_neutral:
     title: "Amount High vs Framed Neutral"
-    pair_outcomes: outputs/analysis/amount_neutral_bridge__combined_7runs__pair_outcomes.csv
+    pair_outcomes: CURRENT_PAPER/results/amount_high_vs_framed_neutral_pair_outcomes.csv
     target_label: "larger amount"
     other_label: "framed neutral"
     target_condition: amount_high
@@ -128,7 +128,7 @@ comparisons:
 
   moral_low_vs_framed_neutral:
     title: "Moral Low vs Framed Neutral"
-    pair_outcomes: outputs/analysis/moral_neutral_bridge__combined_7runs__pair_outcomes.csv
+    pair_outcomes: CURRENT_PAPER/results/moral_low_vs_framed_neutral_pair_outcomes.csv
     target_label: "moral low"
     other_label: "framed neutral"
     target_condition: moral_bad
@@ -148,7 +148,7 @@ comparisons:
 
   moral_low_vs_framed_empty:
     title: "Moral Low vs Framed Empty"
-    pair_outcomes: outputs/analysis/moral_empty_bridge__combined_7runs__pair_outcomes.csv
+    pair_outcomes: CURRENT_PAPER/results/moral_low_vs_framed_empty_pair_outcomes.csv
     target_label: "moral low"
     other_label: "framed empty"
     target_condition: moral_bad
@@ -168,7 +168,7 @@ comparisons:
 
   moral_low_vs_r0:
     title: "Moral Low vs R0"
-    pair_outcomes: outputs/analysis/moral_r0_bridge__combined_7runs__pair_outcomes.csv
+    pair_outcomes: CURRENT_PAPER/results/moral_low_vs_r0_pair_outcomes.csv
     target_label: "moral low"
     other_label: "R0"
     target_condition: moral_bad
@@ -185,4 +185,3 @@ comparisons:
     aggregate_cells: [actor, task]
     x_label: "Moral-low-side win rate (ties excluded)"
     output_prefix: outputs/analysis/consolidated/moral_low_vs_r0
-

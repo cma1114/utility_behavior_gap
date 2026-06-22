@@ -260,8 +260,9 @@ def generation_success_row(
     dry_run: bool,
     reasoning: dict[str, Any],
     provider: dict[str, Any],
+    compact_log: bool,
 ) -> dict[str, Any]:
-    return {
+    row = {
         "output_id": request["output_id"],
         "pair_uid": request["pair_uid"],
         "actor": job["actor"],
@@ -276,11 +277,17 @@ def generation_success_row(
         "provider": provider if not dry_run else {},
         "finish_reason": reason,
         "usage": raw_response.get("usage", {}),
-        "raw_response": response_without_message_content(raw_response),
-        "request": request_snapshot,
-        "job": job,
         "run_id": job.get("run_id", ""),
     }
+    if not compact_log:
+        row.update(
+            {
+                "raw_response": response_without_message_content(raw_response),
+                "request": request_snapshot,
+                "job": job,
+            }
+        )
+    return row
 
 
 def run_generation_request(
@@ -294,6 +301,7 @@ def run_generation_request(
     reasoning: dict[str, Any],
     provider: dict[str, Any],
     allow_reasoning_tokens: bool,
+    compact_log: bool,
 ) -> tuple[bool, bool, dict[str, Any]]:
     started = time.time()
     request_snapshot = generation_request_snapshot(
@@ -405,6 +413,7 @@ def run_generation_request(
             dry_run=dry_run,
             reasoning=reasoning,
             provider=provider,
+            compact_log=compact_log,
         ),
     )
 
@@ -439,6 +448,7 @@ def run_parallel_generation(
     failure_paths: list[Path],
     run_generations: Path,
     run_failures: Path,
+    mirror_global: bool,
     dry_run: bool,
     temperature: float | None,
     max_tokens: int,
@@ -448,6 +458,7 @@ def run_parallel_generation(
     workers: int,
     limit: int | None,
     conditions: set[str] | None,
+    compact_log: bool,
 ) -> None:
     pending = pending_generation_requests(
         jobs, done, dry_run=dry_run, limit=limit, conditions=conditions
@@ -474,6 +485,7 @@ def run_parallel_generation(
                 reasoning=reasoning,
                 provider=provider,
                 allow_reasoning_tokens=allow_reasoning_tokens,
+                compact_log=compact_log,
             )
             futures[future] = request["output_id"]
             next_index += 1
@@ -500,11 +512,11 @@ def run_parallel_generation(
                 submit_next()
 
     print(f"wrote {written} new generations to {run_generations}")
-    if run_generations != GENERATIONS:
+    if mirror_global and run_generations != GENERATIONS:
         print(f"mirrored generations to {GENERATIONS}")
     if failed:
         print(f"logged {failed} invalid generations to {run_failures}")
-        if run_failures != GENERATION_FAILURES:
+        if mirror_global and run_failures != GENERATION_FAILURES:
             print(f"mirrored invalid generations to {GENERATION_FAILURES}")
     if stop_after_rate_limit:
         print("stopping after rate-limit error; re-run to resume missing generations")
@@ -551,6 +563,14 @@ def main() -> None:
             "on the shared jobs file."
         ),
     )
+    parser.add_argument(
+        "--compact-log",
+        action="store_true",
+        help=(
+            "For successful generations, omit duplicated raw_response/request/job blobs. "
+            "Use with immutable run manifests, where generation_jobs.jsonl already stores exact inputs."
+        ),
+    )
     args = parser.parse_args()
     if args.workers < 1:
         raise ValueError("--workers must be at least 1")
@@ -562,8 +582,9 @@ def main() -> None:
     jobs = read_jsonl(Path(args.jobs)) if args.jobs else read_generation_jobs()
     run_generations = run_log_path(jobs, "run_generations_path", GENERATIONS)
     run_failures = run_log_path(jobs, "run_generation_failures_path", GENERATION_FAILURES)
-    generation_paths = unique_paths([run_generations, GENERATIONS])
-    failure_paths = unique_paths([run_failures, GENERATION_FAILURES])
+    mirror_global = args.jobs is None
+    generation_paths = unique_paths([run_generations, GENERATIONS]) if mirror_global else [run_generations]
+    failure_paths = unique_paths([run_failures, GENERATION_FAILURES]) if mirror_global else [run_failures]
     done = existing_output_ids([run_generations], allow_reasoning_tokens=allow_reasoning_tokens)
     client = None if args.dry_run else OpenRouterClient()
     if args.workers > 1:
@@ -574,6 +595,7 @@ def main() -> None:
             failure_paths=failure_paths,
             run_generations=run_generations,
             run_failures=run_failures,
+            mirror_global=mirror_global,
             dry_run=args.dry_run,
             temperature=args.temperature,
             max_tokens=args.max_tokens,
@@ -583,6 +605,7 @@ def main() -> None:
             workers=args.workers,
             limit=args.limit,
             conditions=condition_filter,
+            compact_log=args.compact_log,
         )
         return
     attempted = 0
@@ -597,11 +620,11 @@ def main() -> None:
                 continue
             if args.limit is not None and attempted >= args.limit:
                 print(f"wrote {written} new generations to {run_generations}")
-                if run_generations != GENERATIONS:
+                if mirror_global and run_generations != GENERATIONS:
                     print(f"mirrored generations to {GENERATIONS}")
                 if failed:
                     print(f"logged {failed} invalid generations to {run_failures}")
-                    if run_failures != GENERATION_FAILURES:
+                    if mirror_global and run_failures != GENERATION_FAILURES:
                         print(f"mirrored invalid generations to {GENERATION_FAILURES}")
                 return
             attempted += 1
@@ -670,8 +693,11 @@ def main() -> None:
                     failed += 1
                     if is_rate_limit_api_error(exc):
                         print(f"wrote {written} new generations to {run_generations}")
-                        print(f"mirrored generations to {GENERATIONS}")
+                        if mirror_global and run_generations != GENERATIONS:
+                            print(f"mirrored generations to {GENERATIONS}")
                         print(f"logged {failed} invalid generations to {run_failures}")
+                        if mirror_global and run_failures != GENERATION_FAILURES:
+                            print(f"mirrored invalid generations to {GENERATION_FAILURES}")
                         print("stopping after rate-limit error; re-run to resume missing generations")
                         return
                     continue
@@ -721,15 +747,19 @@ def main() -> None:
                 "job": job,
                 "run_id": job.get("run_id", ""),
             }
+            if args.compact_log:
+                row.pop("raw_response", None)
+                row.pop("request", None)
+                row.pop("job", None)
             for path in generation_paths:
                 append_jsonl(path, row)
             written += 1
     print(f"wrote {written} new generations to {run_generations}")
-    if run_generations != GENERATIONS:
+    if mirror_global and run_generations != GENERATIONS:
         print(f"mirrored generations to {GENERATIONS}")
     if failed:
         print(f"logged {failed} invalid generations to {run_failures}")
-        if run_failures != GENERATION_FAILURES:
+        if mirror_global and run_failures != GENERATION_FAILURES:
             print(f"mirrored invalid generations to {GENERATION_FAILURES}")
 
 

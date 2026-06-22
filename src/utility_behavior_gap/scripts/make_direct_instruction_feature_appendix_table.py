@@ -294,7 +294,7 @@ def write_markdown(all_rows: pd.DataFrame, clear_rows: pd.DataFrame, path: Path)
         "",
         "The generic text rows use the standard paper-facing feature set: "
         + ", ".join(generic_labels)
-        + ". Quantitative detail is `z(numbers + percentages)`, standardized within task before paired differencing.",
+        + ". Quantitative detail is numeric tokens plus percentage expressions per 1,000 words; MATTR-50 measures fixed-window lexical variety; rare-word rate uses the standardized `wordfreq` English Zipf-frequency scale.",
         "",
         "Positive deltas mean the strong-prompt output had more of the generic feature or was favored by the rubric coder on the task-specific marker. Confidence intervals are over actor/task cells for the generic full-sample rows and over actors within task for the rubric rows.",
         "",
