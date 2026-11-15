@@ -1,0 +1,53 @@
+{
+  "verification": "Full statistical analysis reproduced in an isolated copy with original repository reads and network calls blocked.",
+  "matched_files": [
+    {
+      "file": "README.md",
+      "sha256_uncompressed": "687b7cb3a52a25cdfa31caa4352720de20a40fbc4dc55e3798f28eeed603a84d"
+    },
+    {
+      "file": "audit.json",
+      "sha256_uncompressed": "d660cac8ade33e5d7ba679ce73773645e638e632a09ce720f2ddd95dc71c6c5a"
+    },
+    {
+      "file": "classification_counts.csv",
+      "sha256_uncompressed": "fba8384108a06ab557c425068310beea664b46350dd7af78cc15ac4a4e0a21e5"
+    },
+    {
+      "file": "model_task_sensitivity.csv",
+      "sha256_uncompressed": "5b5ae180e7b21b6a73668d5b1c8705abc36f9d3b0c46f24841e671d384447d0a"
+    },
+    {
+      "file": "output_classifications.csv.gz",
+      "sha256_uncompressed": "c25d43ee45920f00bfb43d701fba5a3cab67b8a567cfb8d6e5f6764104246c3f"
+    },
+    {
+      "file": "pair_accounting.csv.gz",
+      "sha256_uncompressed": "cb207aa970a00a268630c86d88bc43abafc4053668d22f168a1e155203453cc8"
+    },
+    {
+      "file": "paired_refusal_differences.csv",
+      "sha256_uncompressed": "9e8fef257aa657ef5d5e933a765f50f3ad4c5e84dabf5b25a2108a54375d6984"
+    },
+    {
+      "file": "provenance.json",
+      "sha256_uncompressed": "d91f4a9b2244769f86e110350b5ce2d131376713109052b48869e3f61f5be6e8"
+    },
+    {
+      "file": "quality_sensitivity.csv",
+      "sha256_uncompressed": "19113b29beefd5ab904d49cec2ffeca72dde08bafc7f16906c5bb8264172e6b4"
+    }
+  ],
+  "access_audit": {
+    "network": 0,
+    "forbidden_read": 0
+  },
+  "tests": {
+    "command": "python -m pytest tests/test_utility_output_screen.py tests/test_essay_headroom_empty.py -q",
+    "passed": 14
+  },
+  "code_sha256": {
+    "paper_reproduction/utility_output_screen.py": "4ea3755416fc7461c1a00b71ae7dfed7bf19d0ad9fc996440d77cec1b57bc041",
+    "src/utility_behavior_gap/compact_request_batch.py": "98ffeab55d627afcfb74a1d6a1b052488b1b60a631dfea9d8275704a5c02546f"
+  }
+}

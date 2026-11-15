@@ -1,0 +1,490 @@
+{
+  "inputs": {
+    "CURRENT_PAPER/results/highn_condition_results_pair_outcomes.csv": "65214157759d308aafc14aefeac202792aa4dea15e33c7486e1309c5ed8abc4b",
+    "CURRENT_PAPER/results/high_utility_vs_framed_empty_pair_outcomes.csv": "3b0b3e0705a39d73ade6cd42a64ce6775ddf36a5a2762edbe31bfeb2fb7da097",
+    "CURRENT_PAPER/results/moral_low_vs_framed_empty_pair_outcomes.csv": "0d5b114129a0675986809deb81684bfafa97546449293e1e7e3c12937e8effaa",
+    "data/processed/final_text_analysis_pair_deltas.csv.gz": "90b1e7d86ad289a2190632587b4393c7a4ecfb5ec69a6b888840cd6569bf55b7",
+    "docs/reviewer_response/policy_framed_empty/pair_accounting.csv": "47306d6bfc7271d00b14da13e63ce00b50b3180f3135d182c9221e06a3a1f562"
+  },
+  "catalog_sha256": "7e93156069c748b519f83f1eea9947de995ad85c96993ca52337b52e2116af24",
+  "archive_bytes": 1726457233,
+  "archive_mtime_ns": 1784308863652499445,
+  "members": {
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-ddba9133645f/generations.jsonl": {
+      "sha256": "1383d5f55c7cdbf33344389a5e72e0c11c7054640983c4ffe686ac80a22c5331",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-ddba9133645f/generation_jobs.jsonl": {
+      "sha256": "f578cabaed506e5ad27a69c1075942ff93aa1f871ce9b2983594801fac76e875",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__deepseek-v3.2-or__2026-06-13_04-04-49Z__hash-fb3116fb0c50/generations.jsonl": {
+      "sha256": "ea4997d8520e36af5ceb625de88f68e54002719dd7cb7adf3bf3b8e11152ab6f",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__deepseek-v3.2-or__2026-06-13_04-04-49Z__hash-fb3116fb0c50/generation_jobs.jsonl": {
+      "sha256": "0bcf0252c72dcb25060d46c4ececaf42b336c0bab1dc1d51330a65f6ea1176c3",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-19-15Z__hash-d6e5f556b8da/generations.jsonl": {
+      "sha256": "a143a11cc5fc80b18d612abf290e4162761643e2d15e0d96c4ff039805f1366b",
+      "selected_rows": 1200
+    },
+    "runs/essay__4-comparisons__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-d294e29987b7/generations.jsonl": {
+      "sha256": "06a4d75c3d8de956c3b3d42aad9828b28962b584a2139641ae14eaa55b30967c",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-d294e29987b7/generation_jobs.jsonl": {
+      "sha256": "bbc03dce32e7e0599776343e1ed23abc7a29700e76da812a54c1e742462b8e23",
+      "selected_rows": 0
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__kimi-k2.5-or__2026-06-15_02-42-16Z__hash-f5686566945b/generations.jsonl": {
+      "sha256": "72d43072eb5807f4c2fa069fec4522c0a965a8f3054f56b3156c3bdeb57de0b9",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__kimi-k2.5-or__2026-06-15_02-42-16Z__hash-f5686566945b/generation_jobs.jsonl": {
+      "sha256": "33c070809cc4cd55a004c616bb74ce485a60c11836434239f91c14cdfe2d0ce8",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-b24312279f4e/generations.jsonl": {
+      "sha256": "b385bfe74e9c2a2170059fffff535e53cd6224a4cb9e3d9844a6ebc13d74e755",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-b24312279f4e/generation_jobs.jsonl": {
+      "sha256": "003010bed9d64cc8f4424165553ea0b5fd30f5e0eb60effc53770b44901eae35",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-7b746e78f4f1/generations.jsonl": {
+      "sha256": "e873497ddd614f09a2a99aa56176455fed3ae84a745ccc20ebbee809c2ccd9e4",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-7b746e78f4f1/generation_jobs.jsonl": {
+      "sha256": "ce522f2b800fa08a024f25c3e0546363595e4a47bfeb0bdf5bcc12e5376fc3ff",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-3fa785d4fc57/generations.jsonl": {
+      "sha256": "cd952434f8f5695ecd4e591ba491e13ec0e24ec896aa6bfd76106b91fb8b3b01",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-3fa785d4fc57/generation_jobs.jsonl": {
+      "sha256": "13288c537c887ab70869368c0fdbcd53416b4799cd246d818d44eeae18557690",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-920b20c6061e/generations.jsonl": {
+      "sha256": "64cf3018132e6ea5b2c52720f863a4fab4432f5fd9f7e2ae28e5266e821af83d",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-920b20c6061e/generation_jobs.jsonl": {
+      "sha256": "a29ef401f8ad97f7c0363e798d714e6cbab95a4663b26c09cfe026240dd8df8f",
+      "selected_rows": 0
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-2d1e6b975cb2/generations.jsonl": {
+      "sha256": "d5aa52a20b8338e95629cee527332963bf9ab836bb907899a0f51e7d6758ba69",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-2d1e6b975cb2/generation_jobs.jsonl": {
+      "sha256": "b123eafe98fced3d27a7d0eb0cba2a63c2cfe4f2941019f4693714fe9f1fdcce",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__glm-5.1-or__2026-06-13_04-05-21Z__hash-705546465ca1/generations.jsonl": {
+      "sha256": "6c4c16df6538b2190f073c395e9168d7fcf42514dbc2dcd11d0a250956b02dc3",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__glm-5.1-or__2026-06-13_04-05-21Z__hash-705546465ca1/generation_jobs.jsonl": {
+      "sha256": "9b13044eb30e8ed92bead0f14d1479ca99317af687c50f7a740382c5d4ea271a",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-e8c26b59bd39/generations.jsonl": {
+      "sha256": "4dc1e2a2ee22600f4b4a7ed7f9617249bb36f5179d70ae8d1199e65d4713c495",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-e8c26b59bd39/generation_jobs.jsonl": {
+      "sha256": "a33609cf97b0ec43c2d2f1787df9aae9c029a4bf1cf9a566eacf776c11d08503",
+      "selected_rows": 0
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-e38c22d31856/generations.jsonl": {
+      "sha256": "ca944e12f54cfc7b3f26956aec0195f488de5e8bcbf5d5d514e5e969ce2afee7",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-e38c22d31856/generation_jobs.jsonl": {
+      "sha256": "fb5975a6aa648ed6453f78958486a218c9f9afe7a033399f0eb704c13e176b97",
+      "selected_rows": 0
+    },
+    "runs/essay__4-comparisons__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-d03c4b317566/generations.jsonl": {
+      "sha256": "10692636748acd4d39eb6e25c703bbf14801f8739d2621a2eaf432528561fe04",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-d03c4b317566/generation_jobs.jsonl": {
+      "sha256": "1f5220d1ea86ce5014c3d27f83baf5628fc7bc52e53d7d4c6b1aa2b2958e797c",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-9da00b9e6cb6/generations.jsonl": {
+      "sha256": "39b92d5c7e30c8fe8c173455f5f307c8bbfe0887b0ec4b39c683377c1c0020c2",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-9da00b9e6cb6/generation_jobs.jsonl": {
+      "sha256": "c5a6d6b26239ea813bb599b56d33bdaaf9654feb28bd8fe0a2b7ec8ab84aff77",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-8262a277543d/generations.jsonl": {
+      "sha256": "98ebb8a7cecd68c8ef47e93f0f0aa7900e9e71ad9719196b93409a8b1ebc64a7",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-8262a277543d/generation_jobs.jsonl": {
+      "sha256": "1591f415720179140b7e0a7016d2043daaca1baa6d760baac06f7f19e1f2f1d7",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__kimi-k2.5-or__2026-06-15_02-42-17Z__hash-3af08b37ed78/generations.jsonl": {
+      "sha256": "6d7593eeaa814a3c40a88549bb4414b15a312f1fcc7cfa16b6b17404777a1e73",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__kimi-k2.5-or__2026-06-15_02-42-17Z__hash-3af08b37ed78/generation_jobs.jsonl": {
+      "sha256": "967459db3c29ab07bd115c7b553849a3333c5043ee3da00aa61cdc5676e63ea2",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-2f4d5ccbd568/generations.jsonl": {
+      "sha256": "d703cfe9d4d5e552a08a97973adffd3b6d4efde25e0db07ff4e88d2ad748c7f4",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-2f4d5ccbd568/generation_jobs.jsonl": {
+      "sha256": "a2f2ec858a299329c1cc4617872b7f6e768b0b5db1799addb840ceabfcb888f9",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-21ed828ca923/generations.jsonl": {
+      "sha256": "5ef3e3ff11f21babf6396bda23e88df2e6ca66d51b822829729df9e7c4b5c806",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-21ed828ca923/generation_jobs.jsonl": {
+      "sha256": "87a8f5819e232b0d99baa3fc3a3ee52b0f906ec45cbe7d1462e685c301a09e6f",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-06-34Z__hash-b7900b37796a/generations.jsonl": {
+      "sha256": "643e0266501c237ecf714291ef66d5b6b917815275693437a526369ef00845de",
+      "selected_rows": 1200
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-70a18a9ea049/generations.jsonl": {
+      "sha256": "bb199e0ab025e89916abf3b45b31bb24f39281e4301096b2f5c54460ba915c45",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-70a18a9ea049/generation_jobs.jsonl": {
+      "sha256": "1469e7c423645958b8127b8cd19b22c60ae3abc9d67966c13f718c035f06e1e1",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-225bfd045d95/generations.jsonl": {
+      "sha256": "0c60d62efebc27caf7bc2e20488d9f37b09d96ddbe2a9032c7d0c1092a2c7b91",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-225bfd045d95/generation_jobs.jsonl": {
+      "sha256": "78339d0eca145f8ef7e9f1012509dfb5acfdfd08408d47af8612d449f182d4c5",
+      "selected_rows": 0
+    },
+    "runs/essay__4-comparisons__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-869664aad346/generations.jsonl": {
+      "sha256": "dcb0ae9005f3443a1854faa01b0d67aa53906b57f825d44ce10d5057a98b6a89",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-869664aad346/generation_jobs.jsonl": {
+      "sha256": "9e8730307e6efcd9cef1a61a70d50ce0677fdf1f30ef26e3c6d5b9227ebfc4fd",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-9c2bc6fce1c7/generations.jsonl": {
+      "sha256": "740456820eee37115ebeeb31a5d52472c9c90846581fd29d84d7bc36367b3376",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-9c2bc6fce1c7/generation_jobs.jsonl": {
+      "sha256": "7ab2f9649133fdaae7ca87b3fdd03d4bf0a2361fbc143d56554b1c52b839f660",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-3cf4617eb0c7/generations.jsonl": {
+      "sha256": "6a7870ddbcbd502226e1beca4069752c404a56534624b48c8a46291be702ff33",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-3cf4617eb0c7/generation_jobs.jsonl": {
+      "sha256": "2cd211f199bcc2d6b7ede4abe9ee6e08ed32815778be4b7811b85b4fed15994b",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__kimi-k2.5-or__2026-06-15_02-42-16Z__hash-180e0865124e/generations.jsonl": {
+      "sha256": "8fec656eecfab7168eab132ec803d2d4b1effc26424fcb1debfa7f8b73af35f4",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__kimi-k2.5-or__2026-06-15_02-42-16Z__hash-180e0865124e/generation_jobs.jsonl": {
+      "sha256": "f35300daac1678aa786b48a505ac03c49188bfb356202a0a01469a9e23e9978c",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-21906dea91b0/generations.jsonl": {
+      "sha256": "140e2132ff3c50acf03bd3a63fc371e749c0e0072c8fb2f215ecb5395d7ec0d6",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-21906dea91b0/generation_jobs.jsonl": {
+      "sha256": "f1e0c976cae612fc6eaa3d8d11bd7a1f7e97164cdf792284cdb7e3c106541652",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-62ebddf508e8/generations.jsonl": {
+      "sha256": "afd14950e8d6280cd2305e0a73e0a14ae5aa6f82e45dbc6e7a045ef450bc7116",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__deepseek-v3.2-or__2026-06-15_02-39-58Z__hash-62ebddf508e8/generation_jobs.jsonl": {
+      "sha256": "d2518ba577ae4ae97867d00575b018d10fa60e5b9d993204944fbcb12a3275ab",
+      "selected_rows": 0
+    },
+    "runs/essay__4-comparisons__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-c4af48e575ac/generations.jsonl": {
+      "sha256": "630a6a1aa5accc607b95557b6d51f223eec5c57ab7852e8d9a44b9656c430130",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__qwen3.6-plus-or__2026-06-13_04-06-17Z__hash-c4af48e575ac/generation_jobs.jsonl": {
+      "sha256": "e88294971255a378a4fb1072297a28b0cfa4d0f8bfccc8e6e45c1733144e22bb",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__deepseek-v3.2-or__2026-06-13_04-04-49Z__hash-d4e6f64fd77f/generations.jsonl": {
+      "sha256": "b871c5cdf15dd1cf0786dcb1669e6c0e5eb8f600156030a99f0be00f9941291a",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__deepseek-v3.2-or__2026-06-13_04-04-49Z__hash-d4e6f64fd77f/generation_jobs.jsonl": {
+      "sha256": "39f99862952de79cd4e79b6f8f5875e8afabb86f1c4fc5b729ed8a81f9a16709",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-3a4e45ea5efd/generations.jsonl": {
+      "sha256": "c2386aa40e7419e074cdee34970e65f7d6d19e75a02ee4dd2252811124f138c4",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-3a4e45ea5efd/generation_jobs.jsonl": {
+      "sha256": "f9ff719f854b1a4be79024ea21fd027ee7c2b9a396cd8d4d46ee34dfdbc8bf65",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-022efeaa5084/generations.jsonl": {
+      "sha256": "6ceed83c1f366324d7f1c071335d4c539ff1932e8338f31c2960810ea082ab42",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-022efeaa5084/generation_jobs.jsonl": {
+      "sha256": "20adba77a5a0907c8cbb6045183f96e03c99db9af6d7a8a2582fbce1f956bbae",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-04-10Z__hash-1fd41e5a6d38/generations.jsonl": {
+      "sha256": "7d44bea6796025e653e6ccb36e0d4bcc4cdccfdab335002e7dc45f97c0684036",
+      "selected_rows": 1200
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-ceac2a36b4b3/generations.jsonl": {
+      "sha256": "b4c6bedeacf97f245781a4c73d6238d19536e504633c39500b505d3d5301a08d",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-ceac2a36b4b3/generation_jobs.jsonl": {
+      "sha256": "eb2088919e0f1d4c07ab19651571f4783897e2cb8b19e0084d43e72924e3876f",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-15b1d3d7b704/generations.jsonl": {
+      "sha256": "e53fc543b4af70ed5647f3ddac5d0c7b29f0b16808e08641924a6192cbffd699",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-15b1d3d7b704/generation_jobs.jsonl": {
+      "sha256": "34901f32a1e77652f0c87f10de9a6bb602ed8dab736370b5941ed555694ef3fc",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-cfcad95afbdf/generations.jsonl": {
+      "sha256": "f901a88236ff45637bdc7364709b62bbce21780ce79fa0c278469b24be450b43",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-cfcad95afbdf/generation_jobs.jsonl": {
+      "sha256": "0c51ec1dca1908b895a36b3018c2e46be807fd92abf432d3f668084166c47937",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-03-45Z__hash-db20d31049c2/generations.jsonl": {
+      "sha256": "ff4aecdade6bc5f5ff11a7094577b8235a03cb7266299ee4dbbbeb68b945d826",
+      "selected_rows": 1200
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-ae93a74b2b19/generations.jsonl": {
+      "sha256": "f35ea9161ea9e1c94f7bdacd409311cb03229176f513887f2c27db4ecb7f334d",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-ae93a74b2b19/generation_jobs.jsonl": {
+      "sha256": "5497b446408cc5a6b45d1cc74c57856ca6fb0dfce49ce723afb37722a57ad6dd",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-21-29Z__hash-4281b28144a8/generations.jsonl": {
+      "sha256": "799b517b7820f80c9baf4d9129d463b339908ceaf939ad22b2d4da67cafd0ce6",
+      "selected_rows": 1200
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-0aeb5997612e/generations.jsonl": {
+      "sha256": "545095d7dfde51c3bbe6493c1f5c5fbea0f7f9b2663d77363b0226e997e3b712",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-0aeb5997612e/generation_jobs.jsonl": {
+      "sha256": "dbb461455c17e62b1589063c2c9d51b2de0534137eff77f16c3b856568920648",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-528dd5347b0e/generations.jsonl": {
+      "sha256": "3d7ebc0f75dc6a711f8bfc166d57e27d85f0a3c22a0b2203117df5f24d99e078",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-528dd5347b0e/generation_jobs.jsonl": {
+      "sha256": "e9b37b067fd46b8633a0fdc021b081e20bb1298f4c2171e3404bb839b750bcf5",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-01-30Z__hash-89a63352882b/generations.jsonl": {
+      "sha256": "6af5bcb71a46335c08af954a90334b94d4956bda7e45da016d0a474c635e01b2",
+      "selected_rows": 1200
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-aaf52a4356d2/generations.jsonl": {
+      "sha256": "6b8ab0dfd78b36ee0ca26f40cc69554a07804f492cbe6f6335e7d63ef6bfbac7",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-aaf52a4356d2/generation_jobs.jsonl": {
+      "sha256": "fbb09e4b6b3250f8c818a7bfcf3adb65529cc1330093b135db91df54c836d286",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-2beddcf0e258/generations.jsonl": {
+      "sha256": "a071241a094b0380428e04ec2c7c388c77e96c967f10bb643fa3ad8dc746e063",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-2beddcf0e258/generation_jobs.jsonl": {
+      "sha256": "8fd9d55020a92c5f10d65dbecbaa25c3c7da92101beee96714d8c68b598ee92a",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__glm-5.1-or__2026-06-13_04-05-21Z__hash-9ab484b06507/generations.jsonl": {
+      "sha256": "4173860b628bd844a3299dbe005d9fbc35411d85c2bd3d353e838d6bf81528eb",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__glm-5.1-or__2026-06-13_04-05-21Z__hash-9ab484b06507/generation_jobs.jsonl": {
+      "sha256": "7499351fb98ff2be56cef6bfd02f732f64ffb0b0d7bd1ec7cbf80030327ae4e4",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__deepseek-v3.2-or__2026-06-13_04-04-49Z__hash-c11f310aa5bc/generations.jsonl": {
+      "sha256": "faceeba7a9b0c66b98063ede8cb874c949070db6e7203842f1f20f9dae51081f",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__deepseek-v3.2-or__2026-06-13_04-04-49Z__hash-c11f310aa5bc/generation_jobs.jsonl": {
+      "sha256": "cc3d2570f558db9554d32cdde7d54accbc34178e895611c08cf8523954b53e64",
+      "selected_rows": 0
+    },
+    "runs/essay__4-comparisons__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-d90d98e22924/generations.jsonl": {
+      "sha256": "b6a4d9491a1ae301739b80455483b035481789ba962de8e77ecd27fc98dea499",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-d90d98e22924/generation_jobs.jsonl": {
+      "sha256": "1e97dfab0f1d1aa06102297c6264b48257ab46ec6e7963b5c54ea8ddf9400d46",
+      "selected_rows": 0
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-a2a0a3701bac/generations.jsonl": {
+      "sha256": "02fd8d5f6d41361875fd7b85ec1fe4ca5ac37099f7f8730304a187545335015d",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__qwen3.6-plus-or__2026-06-15_02-42-28Z__hash-a2a0a3701bac/generation_jobs.jsonl": {
+      "sha256": "f69d781a1e5ac12b324b45b1cb1b889c130e102b0f7ccc324c47f3a846ed1502",
+      "selected_rows": 0
+    },
+    "runs/essay__4-comparisons__glm-5.1-or__2026-06-13_04-05-21Z__hash-055b24c48100/generations.jsonl": {
+      "sha256": "5270edfda66a0e17bfff5e1f9d7747add29dd2a628b1e7ef745546148b8e02d4",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__glm-5.1-or__2026-06-13_04-05-21Z__hash-055b24c48100/generation_jobs.jsonl": {
+      "sha256": "e4c6bd1bf99fb04d917aca3ea2ace4586b1f76e6d315966b4915cef10918569d",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__glm-5.1-or__2026-06-13_04-05-21Z__hash-7e2183bc39fb/generations.jsonl": {
+      "sha256": "6591a8a24800ecfd5e190029b107b8f8d7fca42811ba10f75fa20d08edecb472",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__glm-5.1-or__2026-06-13_04-05-21Z__hash-7e2183bc39fb/generation_jobs.jsonl": {
+      "sha256": "a32af39680b7d44e272ebd953cd4d09c796f262fe18f81e377f690a293a0a649",
+      "selected_rows": 0
+    },
+    "runs/essay__4-comparisons__deepseek-v3.2-or__2026-06-13_04-04-48Z__hash-1b35c1b70418/generations.jsonl": {
+      "sha256": "d3fd447cdebf11a41fad1fb6256e39b381e0059a9d27f28d43e798ac2249457f",
+      "selected_rows": 300
+    },
+    "runs/essay__4-comparisons__deepseek-v3.2-or__2026-06-13_04-04-48Z__hash-1b35c1b70418/generation_jobs.jsonl": {
+      "sha256": "e6b6b8014686dfcd92f9598ea14d0ace97a97b29843c836ed91221e231f8ef44",
+      "selected_rows": 0
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-3c338df117c5/generations.jsonl": {
+      "sha256": "f066ee6060d10911cbb3694634ad085b58d9ff30218558d14c2df0676250adc5",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-3c338df117c5/generation_jobs.jsonl": {
+      "sha256": "f421afbbbb2a31faad043802a0913560cc041cd6d93d7cdb3efe651000c2dda1",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-a9f597b64491/generations.jsonl": {
+      "sha256": "088eb2c1b259898cd530c736a8dd68c3a831aafc6b6291e5892b5652f3244b26",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-a9f597b64491/generation_jobs.jsonl": {
+      "sha256": "2263eae912dc275c4a79a6347818f149eb764eb3f51754784b52e8df700a761b",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-c31b0f913142/generations.jsonl": {
+      "sha256": "3d284f5f8841551685ad6aeaa85effce9065def11f34bb70dfc1410de6661fd3",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_headroom+modgrid_grant_highlow+modgrid_grant_moral__qwen3.5-9b-or__2026-06-13_04-06-00Z__hash-c31b0f913142/generation_jobs.jsonl": {
+      "sha256": "ff4434f33259c0695c54a31e447468e598e175788729cd3e41ac18cd4aed6dd3",
+      "selected_rows": 0
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-37e28a2005a9/generations.jsonl": {
+      "sha256": "a45fcc519958e40b59fd0b2b3e3aa74300725d2b15cd9a6842a28264f747d09f",
+      "selected_rows": 300
+    },
+    "runs/essay__modgrid_essay_amount+modgrid_essay_highlow+modgrid_essay_moral__mimo-v25-pro-or__2026-06-15_02-40-41Z__hash-37e28a2005a9/generation_jobs.jsonl": {
+      "sha256": "bf21b144043745439cf005f841221e9c7c0eff39438dbd517fc0f97b991af1fb",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-970cf2a4fad7/generations.jsonl": {
+      "sha256": "354a3c6a05471d65a09b1bc04186377dcbc7bb246ce451fc8c5bd9af99fbd205",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_headroom+modgrid_translation_highlow+modgrid_translation_moral__mimo-v25-pro-or__2026-06-13_04-05-46Z__hash-970cf2a4fad7/generation_jobs.jsonl": {
+      "sha256": "5f783af1bca504dbe2afdf16f2d6260bd446af6362bce3a7b169d201e2f07bd4",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__kimi-k2.5-or__2026-06-15_02-42-17Z__hash-1052c5e90a96/generations.jsonl": {
+      "sha256": "41d23ddf1a079ba2861b214b0a4db21dd73b49257c0660a9a9cb9c27f4dfa09d",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_amount+modgrid_incident_highlow+modgrid_incident_moral__kimi-k2.5-or__2026-06-15_02-42-17Z__hash-1052c5e90a96/generation_jobs.jsonl": {
+      "sha256": "af1447d1ec1a8f38d20a8be821e98065eae492f09670f3a7ae42d0434d9ddcf1",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-aa065ed0a14e/generations.jsonl": {
+      "sha256": "f2f1b2f2ce10bd737a14b3e4a2d67010bb3a32b4403bb6da00b9ed6bbcf6baa4",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__gpt-5.4-mini-or__2026-06-13_04-05-05Z__hash-aa065ed0a14e/generation_jobs.jsonl": {
+      "sha256": "1466bc01cac6cf29545d4122d85ef522638d508c262369e2bdf0cfae2dbd0118",
+      "selected_rows": 0
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-50c8d98615db/generations.jsonl": {
+      "sha256": "2bc2a1d97a80ffc020e3295be20ff5ffd2a9eed61819fa214d6765e63e9ecc5c",
+      "selected_rows": 300
+    },
+    "runs/translation__modgrid_translation_amount+modgrid_translation_highlow+modgrid_translation_moral__gpt-5.4-mini-or__2026-06-15_03-41-24Z__hash-50c8d98615db/generation_jobs.jsonl": {
+      "sha256": "1e6f8073677d833efbd379f292b951b3fef675f7fd109d21f79be3c5ee391d9f",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-6aa199b012d7/generations.jsonl": {
+      "sha256": "69ede4087eeca8a2ebe0b3a427f59d272be73b92f0e2fe3d7ef843992e755e8e",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__qwen3.5-9b-or__2026-06-15_02-41-12Z__hash-6aa199b012d7/generation_jobs.jsonl": {
+      "sha256": "df1983ec360886fadfbefdd5f0536a74a38a24f6db03b95a3e441f2dd213c296",
+      "selected_rows": 0
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-f1c4adfbbe93/generations.jsonl": {
+      "sha256": "38cc5b95d8aca8907eb7cc8a8847f8e20e69d2d407a8a88483a84f872136aa2b",
+      "selected_rows": 300
+    },
+    "runs/incident_postmortem__modgrid_incident_headroom+modgrid_incident_highlow+modgrid_incident_moral__kimi-k2.5-or__2026-06-13_04-05-34Z__hash-f1c4adfbbe93/generation_jobs.jsonl": {
+      "sha256": "a40601f10921872994117b85b0a4809f3bf09a2551ddb5b3ba070ddb6259272e",
+      "selected_rows": 0
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-64628b789970/generations.jsonl": {
+      "sha256": "9760b9b0b60222a1ed363eab2a629cee7a9b7e0381f60e5dcbee577e19ee7178",
+      "selected_rows": 300
+    },
+    "runs/grant_proposal_abstract__modgrid_grant_amount+modgrid_grant_highlow+modgrid_grant_moral__glm-5.1-or__2026-06-15_02-40-27Z__hash-64628b789970/generation_jobs.jsonl": {
+      "sha256": "01ae021fae6d92e2c1abc0fe054f0367106faaae4594dc75c2128409bbe797d9",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_04-53-06Z__hash-c2a42490a03b/generations.jsonl": {
+      "sha256": "e37c0b9a6b93a66854abab0caa955adfcbaa6492e0ac266ae53a93f228b16a66",
+      "selected_rows": 1200
+    }
+  }
+}

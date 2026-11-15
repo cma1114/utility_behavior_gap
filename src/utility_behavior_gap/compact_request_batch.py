@@ -81,9 +81,9 @@ def perform(job, parse, client_factory=OpenRouterClient, provider=None):
                 raw_response=response, timestamp_unix=time.time(), latency_s=round(time.monotonic()-start,3))
 
 
-def status(directory):
-    jobs = rows(directory / "judge_requests.jsonl.gz")
-    history = rows(directory / "judge_responses.jsonl.gz")
+def status(directory, *, stage="judge"):
+    jobs = rows(directory / f"{stage}_requests.jsonl.gz")
+    history = rows(directory / f"{stage}_responses.jsonl.gz")
     done = {r["job_id"] for r in history if r["success"]}
     return dict(complete=len(done), target=len(jobs), attempts=len(history),
                 recorded_cost_usd=round(sum(cost(r) for r in history),4),
@@ -91,27 +91,29 @@ def status(directory):
                                    target=sum(j["contrast"]==c for j in jobs)) for c in sorted({j["contrast"] for j in jobs})})
 
 
-def run(directory, jobs, parse, *, workers=24, budget=15., limit=None, provider=None):
+def run(directory, jobs, parse, *, workers=24, budget=15., limit=None, provider=None, stage="judge"):
     if not 1 <= workers <= 32 or budget <= 0:
         raise ValueError("Invalid concurrency or budget")
+    if stage not in {"judge", "screen"}:
+        raise ValueError("Unsupported request stage")
     directory = Path(directory)
     with (directory / ".lock").open("a+") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        return _run(directory, jobs, parse, workers=workers, budget=budget, limit=limit, provider=provider)
+        return _run(directory, jobs, parse, workers=workers, budget=budget, limit=limit, provider=provider, stage=stage)
 
 
-def _run(directory, jobs, parse, *, workers, budget, limit, provider):
-    path = directory / "judge_responses.jsonl.gz"
+def _run(directory, jobs, parse, *, workers, budget, limit, provider, stage):
+    path = directory / f"{stage}_responses.jsonl.gz"
     done = completed(path)
     pending = [j for j in jobs if j["job_id"] not in done]
     if limit is not None:
         first = {}
         for job in pending:
-            first.setdefault((job["contrast"],job["actor"],job["request"]["model"]),job)
+            first.setdefault((job["contrast"],job["actor"],job.get("task"),job["request"]["model"]),job)
         ids = {j["job_id"] for j in first.values()}
         pending = (list(first.values())+[j for j in pending if j["job_id"] not in ids])[:limit]
     if not pending:
-        print("All requested judgments already complete", flush=True)
+        print(f"All {stage} requests already complete", flush=True)
         return
     usage, credit = account_usage()
     guard_path = directory / "spend_guard.json"
@@ -131,7 +133,7 @@ def _run(directory, jobs, parse, *, workers, budget, limit, provider):
     sequence, new = len(queue), 0
     inflight, stopped, exhausted = {}, "", []
     cooldown, last_print = 0., time.monotonic()
-    print(f"Judging {len(pending)} pending calls, {workers} workers, ${budget:.2f} cap", flush=True)
+    print(f"{stage}: {len(pending)} pending calls, {workers} workers, ${budget:.2f} cap", flush=True)
     with ThreadPoolExecutor(max_workers=workers) as pool:
         while queue or inflight:
             now = time.monotonic()
@@ -186,7 +188,7 @@ def _run(directory, jobs, parse, *, workers, budget, limit, provider):
             if time.monotonic()-last_print > 30 or not(queue or inflight):
                 state = dict(complete=len(done),target=len(jobs),attempts=len(history)+new,recorded_cost_usd=round(actual,4),updated_unix=time.time())
                 (directory / "status.json").write_text(json.dumps(state,indent=2)+"\n")
-                print(f"Judging {len(done)}/{len(jobs)} complete; ${actual:.2f}",flush=True)
+                print(f"{stage}: {len(done)}/{len(jobs)} complete; ${actual:.2f}",flush=True)
                 last_print = time.monotonic()
     if stopped or exhausted:
         raise RuntimeError(stopped or f"{len(exhausted)} requests exhausted retries; rerun to resume")

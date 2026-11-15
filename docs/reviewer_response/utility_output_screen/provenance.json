@@ -1,0 +1,21 @@
+{
+  "inputs": {
+    "data/processed/utility_output_screen/reused_high_policy_evidence.jsonl.gz": "672063db8424108e3721c76b50daa6640131e90ce738dcd854932579f717a08e",
+    "data/processed/utility_output_screen/screen_responses.jsonl.gz": "5693ef5415f9afeded9772cb957044fb2459e01fbce3163f76d8005c927a3dd9",
+    "data/processed/utility_output_screen/panels.jsonl.gz": "8dae20ed7e8833ffb644a1d1f49b248d38291dc6802a351bd729fbd86a471204",
+    "data/processed/utility_output_screen/screen_requests.jsonl.gz": "3a1b99f44e9341350309f81593cfaa92844951c2e841dd993ab5fad807baa5c8",
+    "data/processed/utility_output_screen/review_candidates.jsonl.gz": "b37a28279ced55f944e2f05a7d81f86306ce883f07bc0a5c059fe322f320fcd8",
+    "data/processed/utility_output_screen/sources.jsonl.gz": "ca4a9cf281cc757ada6fca803d6b4587a67cfdaaaf4b51cab2ced7e62eed5302",
+    "data/processed/utility_output_screen/reused_labels.jsonl.gz": "e879c770384a93002ff8695e440bcb0d59209122aefaa3b989fe04fe82d7a6b5",
+    "data/processed/utility_output_screen/input_snapshot.json": "f6a2d655de215ee2c64e7d2dbaa9ee6bfdfd375c9c9b85a03b552e12b7ddf8f4",
+    "data/processed/utility_output_screen/manual_review.jsonl": "255b3e0eda07609fb211a728e43898a4a616493d4a845a69bbbb140c13f8c2e7",
+    "paper_reproduction/utility_output_screen.py": "4ea3755416fc7461c1a00b71ae7dfed7bf19d0ad9fc996440d77cec1b57bc041",
+    "src/utility_behavior_gap/compact_request_batch.py": "98ffeab55d627afcfb74a1d6a1b052488b1b60a631dfea9d8275704a5c02546f",
+    "CURRENT_PAPER/results/moral_refusal_classifications.jsonl": "6a5e984d50e8169b6c0968f98ce871ec346b254fdd0d381751dd4d7eae02973f",
+    "src/utility_behavior_gap/scripts/consolidate_aggregate_cis.py": "9570a45b793292400789ab034a817e8284d0c8985188d27c61577d19fcb70ea8",
+    "src/utility_behavior_gap/scripts/plot_canonical_highn_highlow.py": "c5212ab6e83e7a9203fcd36b7d5005d5fdf46dc22d852ed0f647e4be5ff32e3d"
+  },
+  "bootstrap_iterations": 5000,
+  "seed": "20260615 + scope index",
+  "api_calls_during_analysis": 0
+}

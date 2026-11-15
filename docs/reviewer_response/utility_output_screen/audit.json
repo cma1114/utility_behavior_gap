@@ -1,0 +1,14 @@
+{
+  "total_outputs": 25200,
+  "new_classifications": 19964,
+  "reused_labels": 5236,
+  "manually_reviewed": 94,
+  "classifier_overrides": 79,
+  "attempts": 19965,
+  "recorded_cost_usd": 6.13401325,
+  "generation_calls": 0,
+  "quality_judge_calls": 0,
+  "invalid_completions": {
+    "finish_reason_missing": 2
+  }
+}
