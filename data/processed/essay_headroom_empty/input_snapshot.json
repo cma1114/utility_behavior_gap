@@ -1,0 +1,293 @@
+{
+  "inputs": {
+    "data/processed/framed_user_strong_panel_pairs.csv.gz": "8aaba9e406a70f9a6df2b5a5354bddb53e8153212944c97cc44610a27c6282a7",
+    "data/processed/final_text_analysis_pair_deltas.csv.gz": "90b1e7d86ad289a2190632587b4393c7a4ecfb5ec69a6b888840cd6569bf55b7",
+    "CURRENT_PAPER/results/framed_user_prompt_role_pair_outcomes.csv": "6cbb9e4984d8a21a1162096f29cd7d314de46f5e767e7ded4c664ebaeed3d464",
+    "data/processed/framed_user_prompt_role_pair_deltas.csv.gz": "7ad7c22ae2698d1f35c1f7a47dbcab6b7d33a10687c2ff755c623aef579a16a3",
+    "CURRENT_PAPER/results/high_utility_vs_framed_empty_pair_outcomes.csv": "3b0b3e0705a39d73ade6cd42a64ce6775ddf36a5a2762edbe31bfeb2fb7da097"
+  },
+  "archive_bytes": 1726457233,
+  "archive_mtime_ns": 1784308863652499445,
+  "members": {
+    "runs/essay__framed_user_strong_headroom__qwen3.5-9b-or__2026-06-13_23-04-01Z__hash-d90fde7953d1/generations.jsonl": {
+      "sha256": "5926481fc0ea32fb4bc4dd3438edbc368995e6018e12c01e989b574fb88993dd",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__qwen3.5-9b-or__2026-06-13_23-04-01Z__hash-d90fde7953d1/generation_jobs.jsonl": {
+      "sha256": "4e111350c040e992574281237f298fe464da29b6998e80a16683b8dfafb70c63",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.5-9b-or__2026-06-21_00-42-03Z__hash-f3f591fe08cf/generations.jsonl": {
+      "sha256": "2459595eead567fac59a8f200f031c727f235b0b7f96716b3ce1b08906154e48",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.5-9b-or__2026-06-21_00-42-03Z__hash-f3f591fe08cf/generation_jobs.jsonl": {
+      "sha256": "d7829d92e05640e2c0c7d65e37e7ec9932d24e32d04479ec8b528d3931da215f",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__deepseek-v3.2-or__2026-06-21_00-41-04Z__hash-3e1c3dcc3c45/generations.jsonl": {
+      "sha256": "83aba39c3dc3fcd37049decb337df9c1e808667fd5a57a077a00d57b7ebacf17",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__deepseek-v3.2-or__2026-06-21_00-41-04Z__hash-3e1c3dcc3c45/generation_jobs.jsonl": {
+      "sha256": "f19be4bbc131958228519a2d0146390764035487e39bc2c080c0c90809b40352",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-19-15Z__hash-d6e5f556b8da/generations.jsonl": {
+      "sha256": "a143a11cc5fc80b18d612abf290e4162761643e2d15e0d96c4ff039805f1366b",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-19-15Z__hash-d6e5f556b8da/judge_votes.jsonl": {
+      "sha256": "968a6cfd2be7b99eb74efde8f13494a8b08e9923ace5405d870c1e94b4a009a1",
+      "selected_rows": 900
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__glm-5.1-or__2026-06-14_20-09-07Z__hash-c869b42d535c/generations.jsonl": {
+      "sha256": "44e2252d2108014886af4637311f3c1a9869e428b9615f5f25550a414e5f2c15",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__glm-5.1-or__2026-06-14_20-09-07Z__hash-c869b42d535c/generation_jobs.jsonl": {
+      "sha256": "df51d4585b65fa097595f5d77c099ee89bdb596dbdb189cf412bd6587107cf48",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__gpt-5.4-mini-or__2026-06-21_04-07-30Z__hash-5ae97cc759c5/generations.jsonl": {
+      "sha256": "1ee0f8bba7b415801fb77e105ab1c7a317ecdca02b12fe33c0683b2a78a1013e",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__gpt-5.4-mini-or__2026-06-21_04-07-30Z__hash-5ae97cc759c5/generation_jobs.jsonl": {
+      "sha256": "f8ad3cc7b134d2e75a0513324ec29eaadbaabc294213293a38390987bf3062ba",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__mimo-v25-pro-or__2026-06-21_00-41-51Z__hash-9eee9dc1472f/generations.jsonl": {
+      "sha256": "c248f24cc8cde9c86d0c9302896bab2f7841236aec53a65eb3649569a000055f",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__mimo-v25-pro-or__2026-06-21_00-41-51Z__hash-9eee9dc1472f/generation_jobs.jsonl": {
+      "sha256": "3c43d0727e6ca076c16148c56aa4c33179fd66e35448ae77ff0876dfe252a475",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__gpt-5.4-mini-or__2026-06-14_20-08-56Z__hash-02449d53362b/generations.jsonl": {
+      "sha256": "748a3266a59da26c9e55a467e534830cbc5184d702966dfb17546480b16cf763",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__gpt-5.4-mini-or__2026-06-14_20-08-56Z__hash-02449d53362b/generation_jobs.jsonl": {
+      "sha256": "0134d3363dc4d861863b3c2a505a3d2695c0626da0ba2d191b4ffd7ba8910cb8",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__glm-5.1-or__2026-06-21_00-41-30Z__hash-c642903312de/generations.jsonl": {
+      "sha256": "2b1ac044024704b5e4c7ef2d83a86cfcbda7d72d43e161848835b756c13801e0",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__glm-5.1-or__2026-06-21_00-41-30Z__hash-c642903312de/generation_jobs.jsonl": {
+      "sha256": "6d4f7196e0010a74aaf103c44336e291a49a9c898aa1d0410c11abbb6c6513ad",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-06-34Z__hash-b7900b37796a/generations.jsonl": {
+      "sha256": "643e0266501c237ecf714291ef66d5b6b917815275693437a526369ef00845de",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-06-34Z__hash-b7900b37796a/judge_votes.jsonl": {
+      "sha256": "e98b32e299a584d9945eaf39f48c6c345cd56891af862719ff0d53bd892dcbf8",
+      "selected_rows": 900
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.6-plus-or__2026-06-21_04-08-34Z__hash-bc740c1487f6/generations.jsonl": {
+      "sha256": "d3949ee63ce02ef0856601068f7d65622dfd1f5131f751fa1b163c7d29346a56",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.6-plus-or__2026-06-21_04-08-34Z__hash-bc740c1487f6/generation_jobs.jsonl": {
+      "sha256": "16bf9b59cc1ba718f7940379770c35685debe03305d462e3c806f89ccc851b19",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__mimo-v25-pro-or__2026-06-21_04-08-14Z__hash-a8cb77161e6f/generations.jsonl": {
+      "sha256": "dae66f1b584dc179f5ee2f98a7379ad73af520b093b8ead242a0d23e3f6d35b4",
+      "selected_rows": 149
+    },
+    "runs/essay__framed_user_prompt_role__mimo-v25-pro-or__2026-06-21_04-08-14Z__hash-a8cb77161e6f/generation_jobs.jsonl": {
+      "sha256": "090094cd19eae78b6eaeb27f6df2666405f91b7aa557ea0d516ea954491e3c16",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__glm-5.1-or__2026-06-21_04-07-49Z__hash-1c96df57442b/generations.jsonl": {
+      "sha256": "4a16c63c465fd08c1df668c107054a18abc4702323ab9b8aa3f78f921dcd3824",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__glm-5.1-or__2026-06-21_04-07-49Z__hash-1c96df57442b/generation_jobs.jsonl": {
+      "sha256": "9a415be6694c8e952252646093e4800446cf558ef2ea706c12215f124b073372",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__kimi-k2.5-or__2026-06-13_23-03-37Z__hash-cf8778c08251/generations.jsonl": {
+      "sha256": "1fbb31f63a30c3b4af260210dfef1438f4b51917e046dd04cfc2f4f3ae8e906d",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__kimi-k2.5-or__2026-06-13_23-03-37Z__hash-cf8778c08251/generation_jobs.jsonl": {
+      "sha256": "54d79aa887dc13b26081fd5b6444ee3064bbc540f5c35d2570a0517bc21994f5",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__kimi-k2.5-or__2026-06-14_20-09-19Z__hash-076bea94ee01/generations.jsonl": {
+      "sha256": "678ae4ca6be26a31fb139d24083361dc01ba3107037ba522f2e580b6916e2dec",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__kimi-k2.5-or__2026-06-14_20-09-19Z__hash-076bea94ee01/generation_jobs.jsonl": {
+      "sha256": "a55405c069b0ae2e889c1b7f171269864d911fca226197156697b999c6d775da",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__mimo-v25-pro-or__2026-06-14_20-09-28Z__hash-6506ba0591a1/generations.jsonl": {
+      "sha256": "35f997c7ac1220ee5d9800eb188a6dc8df11259891115553103b8f198ee09961",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__mimo-v25-pro-or__2026-06-14_20-09-28Z__hash-6506ba0591a1/generation_jobs.jsonl": {
+      "sha256": "3567cd6c39c93f34800cd500193c7b1dc3676a62e4d2440cf796e6bf90ad31bc",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-04-10Z__hash-1fd41e5a6d38/generations.jsonl": {
+      "sha256": "7d44bea6796025e653e6ccb36e0d4bcc4cdccfdab335002e7dc45f97c0684036",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-04-10Z__hash-1fd41e5a6d38/judge_votes.jsonl": {
+      "sha256": "4e41fdb1de6eaf723a259ec2c2056f50cdeb012f20691077f73f283efc756bf3",
+      "selected_rows": 900
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-03-45Z__hash-db20d31049c2/generations.jsonl": {
+      "sha256": "ff4aecdade6bc5f5ff11a7094577b8235a03cb7266299ee4dbbbeb68b945d826",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-03-45Z__hash-db20d31049c2/judge_votes.jsonl": {
+      "sha256": "959f7fc2f5d727ae9651ddbfc8508024b85d0c90781fc76e3de15f5749b7f2e5",
+      "selected_rows": 900
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__qwen3.6-plus-or__2026-06-14_20-09-46Z__hash-412fc2495388/generations.jsonl": {
+      "sha256": "cee820d9cf9a9872d2b36bc05615b7e23acaa83e4987c7d4fe520660889dee8a",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__qwen3.6-plus-or__2026-06-14_20-09-46Z__hash-412fc2495388/generation_jobs.jsonl": {
+      "sha256": "4ceb998ab9e69e2ab21d1bb074d1f884931465a7d9d6b2da02d6be8b710c9453",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__qwen3.6-plus-or__2026-06-13_23-04-11Z__hash-ce565cfc4022/generations.jsonl": {
+      "sha256": "0d4d07fb3416160126bbc4a4af26bc0e02a9fa4de51220f524689560c769d339",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__qwen3.6-plus-or__2026-06-13_23-04-11Z__hash-ce565cfc4022/generation_jobs.jsonl": {
+      "sha256": "3ed60763f537e731d02e9be12af0e086f35bba293165f7c22d2bdd4245640183",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__qwen3.5-9b-or__2026-06-14_20-09-37Z__hash-6b5734739f46/generations.jsonl": {
+      "sha256": "b4a295fae8367c0b9beb95b766c2c4a1a50903553470e99e4291d5444d1198eb",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__qwen3.5-9b-or__2026-06-14_20-09-37Z__hash-6b5734739f46/generation_jobs.jsonl": {
+      "sha256": "07f3359881c8ae7d20bc17792eb118469456d71fa1564437ec8fe1564ba3cba5",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-21-29Z__hash-4281b28144a8/generations.jsonl": {
+      "sha256": "799b517b7820f80c9baf4d9129d463b339908ceaf939ad22b2d4da67cafd0ce6",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_02-21-29Z__hash-4281b28144a8/judge_votes.jsonl": {
+      "sha256": "4fddc6e0192f85aadbe9e52e58a56ada39d538e0b3bf3b2a1d2b8258b88fb16f",
+      "selected_rows": 900
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.6-plus-or__2026-06-21_00-42-13Z__hash-7fcf259cbef2/generations.jsonl": {
+      "sha256": "0e7f50c03db4f65d052348f3f914f77296a1475a656e3cd9e089c8be8aca6142",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.6-plus-or__2026-06-21_00-42-13Z__hash-7fcf259cbef2/generation_jobs.jsonl": {
+      "sha256": "98a4b519f74107c56ffe14faab53382a4cf35b886925195e718755c3717e4be4",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-01-30Z__hash-89a63352882b/generations.jsonl": {
+      "sha256": "6af5bcb71a46335c08af954a90334b94d4956bda7e45da016d0a474c635e01b2",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_05-01-30Z__hash-89a63352882b/judge_votes.jsonl": {
+      "sha256": "3e76dae63d9f4418ed1818039226bf387866b1427fcbf3cb7061d66dfea33aeb",
+      "selected_rows": 900
+    },
+    "runs/essay__framed_user_prompt_role__kimi-k2.5-or__2026-06-21_00-41-39Z__hash-f0b0df2d5052/generations.jsonl": {
+      "sha256": "e83f52d39bcbbad104b9c8ab73a7f437cec0eb9d10a88a8c80d90aa4c2cf2964",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__kimi-k2.5-or__2026-06-21_00-41-39Z__hash-f0b0df2d5052/generation_jobs.jsonl": {
+      "sha256": "e2d2e55632f0944e4270b0d1ba6d96e64ad1fb225f56d8e03231f6d416bd3929",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__deepseek-v3.2-or__2026-06-14_20-08-45Z__hash-a07c4cfd20ce/generations.jsonl": {
+      "sha256": "a926b5ef5f5e2c724d02b5e61411c0cdbc479ed2420ec8f48526e0572f32ae74",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__repeat-block01__deepseek-v3.2-or__2026-06-14_20-08-45Z__hash-a07c4cfd20ce/generation_jobs.jsonl": {
+      "sha256": "26d524ef8e7542f76c369a39487fba6b25341d6e372be5ea7c974c2a714783b1",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__gpt-5.4-mini-or__2026-06-21_00-16-44Z__hash-b7363d777c17/generations.jsonl": {
+      "sha256": "f281b2554873d4a3ff3d5ff1c794e1711649c5beabdf48f46e01026eb3ffca3f",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__gpt-5.4-mini-or__2026-06-21_00-16-44Z__hash-b7363d777c17/generation_jobs.jsonl": {
+      "sha256": "2a19aa541babb563c3c8dfc689864f47aff50e89499f1cc561ad55f941b48d3f",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__deepseek-v3.2-or__2026-06-13_23-02-51Z__hash-27bafbfc5602/generations.jsonl": {
+      "sha256": "ae95f97e52446331f1d04873d83bcd4a146bc7dd4752d93ed67501bd130db24a",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__deepseek-v3.2-or__2026-06-13_23-02-51Z__hash-27bafbfc5602/generation_jobs.jsonl": {
+      "sha256": "67c607af66db9cde346a8017db4c2c44b35f23206a15f5bdbe6a4d62b30370cd",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__mimo-v25-pro-or__2026-06-13_23-03-48Z__hash-f520573862a7/generations.jsonl": {
+      "sha256": "5d3e7b3d0303cd85698d9704e90b255fe11c69a01503d7ccd7151478bab26420",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__mimo-v25-pro-or__2026-06-13_23-03-48Z__hash-f520573862a7/generation_jobs.jsonl": {
+      "sha256": "f914def977eabe329ac64b75b9203e2259a94da3c349432e364ac964dbe897b4",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__kimi-k2.5-or__2026-06-21_04-08-02Z__hash-b26912f9c9f0/generations.jsonl": {
+      "sha256": "38659a38426fbc35e8aedcc60e303339e065f078897e59944a33021a1ab68885",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__kimi-k2.5-or__2026-06-21_04-08-02Z__hash-b26912f9c9f0/generation_jobs.jsonl": {
+      "sha256": "0553692b5d8e6376b774d4c7be78338c7174ad90fcb90b415bb5160b5f1eaa83",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__deepseek-v3.2-or__2026-06-21_04-07-18Z__hash-c1a0f249ff74/generations.jsonl": {
+      "sha256": "3e6fb8723529fc4c408d72bffb2589a6938708d8df6b328a87d59cc083738c0f",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__deepseek-v3.2-or__2026-06-21_04-07-18Z__hash-c1a0f249ff74/generation_jobs.jsonl": {
+      "sha256": "c055dcaf7e06527b589abaf5ec5d781ddc44f09a8de8e8dd16edfd6ca7260671",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.5-9b-or__2026-06-21_04-08-25Z__hash-1a89e84a517c/generations.jsonl": {
+      "sha256": "153952141f6ef41b276842b1d448a7941c3d5c02cba9a06180225ebae9ea319e",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_prompt_role__qwen3.5-9b-or__2026-06-21_04-08-25Z__hash-1a89e84a517c/generation_jobs.jsonl": {
+      "sha256": "a956bc04577e45c4fb125aaa4f6306920b2c4c3c8feaf535a44cfdcd4a90d909",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__gpt-5.4-mini-or__2026-06-13_23-03-02Z__hash-94336358d62c/generations.jsonl": {
+      "sha256": "950ff058518a8bd920febd98f36ef6dce89010c2a61aebdf2512183d93bb44b3",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__gpt-5.4-mini-or__2026-06-13_23-03-02Z__hash-94336358d62c/generation_jobs.jsonl": {
+      "sha256": "6ba74b3b790e10391912706a8edb0a3d27533529e99544a7478aebfa5f08ce38",
+      "selected_rows": 0
+    },
+    "runs/essay__framed_user_strong_headroom__glm-5.1-or__2026-06-13_23-03-11Z__hash-907693aa645d/generations.jsonl": {
+      "sha256": "96c9794621300666149b8da1620cee8e3d3c13b692cac2db8e9bd3164ce1cf48",
+      "selected_rows": 150
+    },
+    "runs/essay__framed_user_strong_headroom__glm-5.1-or__2026-06-13_23-03-11Z__hash-907693aa645d/generation_jobs.jsonl": {
+      "sha256": "b1b1a63882c783cb89672163243a941df337c20540884fb28440d07ccc20ed7a",
+      "selected_rows": 0
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_04-53-06Z__hash-c2a42490a03b/generations.jsonl": {
+      "sha256": "e37c0b9a6b93a66854abab0caa955adfcbaa6492e0ac266ae53a93f228b16a66",
+      "selected_rows": 600
+    },
+    "runs/highlow-framed-empty-bridge__2026-06-17_04-53-06Z__hash-c2a42490a03b/judge_votes.jsonl": {
+      "sha256": "163c23a78705e08ec3d4ce3c6a10c55e8ea604c7e839462db185636351d944d5",
+      "selected_rows": 900
+    }
+  }
+}

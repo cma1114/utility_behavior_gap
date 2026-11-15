@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "isolated_copy": true,
+  "network_blocked": true,
+  "credentials_removed": true,
+  "original_project_reads_blocked": true,
+  "shared_python_runtime_allowed": true,
+  "module_paths_verified": true,
+  "artifacts_byte_identical": {
+    "aggregate_results.csv": "867c0534ffa8363e7f01cee94d83d4697365aef0e5866dc31c1e32cfcfc95892",
+    "run_audit.json": "d32c6585574f0e390f83ccd1c82faa0eac151923af7293e5fc19ecc49db03464",
+    "provenance.json": "8d7b8832d585f00d7971ff3b1821630d66d9591debf82568740e29b48f0e0e3c",
+    "pair_outcomes.csv": "2e06bf248f91c36310182eaec7cbc20abec3b5921c9a4d022a01cb01c018e90f",
+    "model_comparison_cells.csv": "22f5c9ac932f1cc04c88d2455956310371474a1c18c810123f3d2291c2cf2599",
+    "README.md": "d918e74b8523aaa44ca3f3eae8eaebbfb4181254e5f7f5c6f5f5b5f0e93da569",
+    "essay_effort_role_vs_framed_empty.png": "e276a58137f9597b2e68d984d444ffe00a6dfbc7b5ab690e1c5f95fcab2c8e5a",
+    "pair_accounting.csv": "8eb29b75b358b1ad519a5277c8b69b42cf662ab4fe6d87bfcae77deb77380109"
+  }
+}

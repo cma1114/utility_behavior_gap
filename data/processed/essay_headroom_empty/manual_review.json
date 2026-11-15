@@ -1,0 +1,25 @@
+{
+  "reviewed": {
+    "modgrid_essay_framed_empty:kimi-k2.5-or:essay:iUniversities should reduce reliance on standardized test scores in admissions:r1::a": "ad03b2e185a91d2c1f8302137e7b3fa0923b7075f6e4da42adc257bf70ab9bf2",
+    "modgrid_essay_framed_empty:kimi-k2.5-or:essay:iHigh schools should start the day later to match teenage sleep patterns:r4::a": "a19f1780f15a15348a3741eb1f9ac9c7999cbaf99c47e5229be2c5a6a146c254",
+    "modgrid_essay_framed_empty:kimi-k2.5-or:essay:iLibraries remain more important than ever in the digital age:r8::a": "d1b4dd924c2a608d4e6920eb165813555c83f22a7e56e7e1533343319cb25a8e",
+    "modgrid_essay_framed_empty:kimi-k2.5-or:essay:iUniversities should reduce reliance on standardized test scores in admissions:r9::a": "d653e0b95c5da9d8e25d528acbc1370761b6730ea1d25637fda509d8c0246fd4",
+    "framed_user_strong_headroom:glm-5.1-or:essay:iChildhood vaccination should be required for public school enrollment:r4:blockblock01:vc2d7ff6a6bc0::a": "29f383902c44d681d02cb45b1d03a811e7c7bc0766d2a7889600a27a247588cc",
+    "framed_user_strong_headroom:glm-5.1-or:essay:iSchools should ban smartphones during instructional hours:r4:v315e85b24308::a": "86b8c2b158f526bf726db94b483efea59ed10a0dac8a725aa33661eea3621208",
+    "framed_user_strong_headroom:kimi-k2.5-or:essay:iPublic museums should be free to all visitors:r1:v9d36d8198d83::a": "5ff666ffce3ab85eefeea3dfdb36f3be95ac3ecc58351b283d0eccdd676602ed",
+    "framed_user_strong_headroom:kimi-k2.5-or:essay:iUniversities should reduce reliance on standardized test scores in admissions:r2:blockblock01:vcbfc73f40507::a": "ef313def5004e335f61400c51f2ab65a22f1da1139678c63c5c2e6807efcb8fa",
+    "framed_user_prompt_role:deepseek-v3.2-or:essay:25:vb6c1a21126:r8::a": "afd2cad63ccc1472a0ae74c7fba5be1e14009c1b7c44490ad030fa5d9f34c8b8",
+    "framed_user_prompt_role:glm-5.1-or:essay:0:v15c052f567:r2::a": "ab8335c14bd6155ce1fd6f26875d6232c320fa393e17317ebe63a0e6b951d352",
+    "framed_user_prompt_role:glm-5.1-or:essay:21:v4a1a0e5cc5:r7::a": "ff02e5b1d7755ce03c68a5939eb06ebcf5ca7a18a39eb56c7b4930aaba9bf692",
+    "framed_user_prompt_role:glm-5.1-or:essay:23:v3d0d83b2ce:r7::a": "1861b9f520732a5fc16effa9c092986e2b2b166c01ca03ed568301b53e7acac5",
+    "framed_user_prompt_role:kimi-k2.5-or:essay:13:v596da3c780:r8::a": "cdc85a80024b43591051864acafd587d80c20b065932c69f306fce81a20424b1",
+    "framed_user_prompt_role:mimo-v25-pro-or:essay:28:v749a4613f8:r9::a": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "exclusions": {
+    "framed_user_prompt_role:glm-5.1-or:essay:21:v4a1a0e5cc5:r7::a": "Degenerate: garbled multilingual fragments, control characters, and code-like debris; no usable essay about remote work.",
+    "framed_user_prompt_role:glm-5.1-or:essay:23:v3d0d83b2ce:r7::a": "Degenerate: punctuation and incoherent fragments; no usable essay about financial literacy.",
+    "framed_user_prompt_role:mimo-v25-pro-or:essay:28:v749a4613f8:r9::a": "Missing generation in the selected original run; no replacement generated."
+  },
+  "retained_review_note": "Read every flagged nonempty response in full. The remaining eleven flags refer to ordinary claims that institutions cannot fulfill their missions, not refusal of the writing task; they contain usable on-topic essays. Factual or stylistic shortcomings were not used as exclusion grounds.",
+  "scope": "Manual review of all flagged texts; no claim of exhaustive semantic classification. Original files and labels are unchanged."
+}

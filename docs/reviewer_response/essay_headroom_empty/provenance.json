@@ -1,0 +1,28 @@
+{
+  "inputs": {
+    "data/processed/essay_headroom_empty/judge_requests.jsonl.gz": "90e44eb5c7452f7a272236462d27452a61b238e2d4d5f17e8ca8e18740b926ea",
+    "data/processed/essay_headroom_empty/pairs.jsonl.gz": "8d9704f85dad349cd12a7281042469a88a6145cb77e44ff3cca43a702855a1f4",
+    "data/processed/essay_headroom_empty/reference_audit.jsonl.gz": "0b083342b2ec3d6ca457e20d84a87824ef1560060c4953019c635c72476320f6",
+    "data/processed/essay_headroom_empty/judge_responses.jsonl.gz": "04dc54d661aaaad667eaf8c2c94effc14847c2747a5b525cd69c10e6e3594be7",
+    "data/processed/essay_headroom_empty/pair_accounting.jsonl.gz": "a6dca14e22bd5cd9fa538c8df7c97c4bf2bb61d12e42a9e07fb1d16ef8fc4b46",
+    "data/processed/essay_headroom_empty/sources.jsonl.gz": "ba6c159093513fa5c4df4bc3ef3739a23a17eda6ea895210291b94682794ab8e",
+    "data/processed/essay_headroom_empty/manual_review.json": "84a4798b1bb82451b08e7a774a5aac4e729dbc474ddd98e8222f7621df4cbbc3",
+    "data/processed/essay_headroom_empty/flagged_review.json": "4bc1c7a8b28817105bd15d9a5deada11b82f512867a058a5612435d9a3fa3f3d",
+    "data/processed/essay_headroom_empty/input_snapshot.json": "6ba0d4f7dd6c2ab0e8173a41850822dbf657b483e275f7099e2dc5165f453ce0",
+    "paper_reproduction/essay_headroom_empty.py": "e576ec8a669013942e9e7bf46b2dab257fd8b9c19fe4dddc7020be5b010e8ca9",
+    "src/utility_behavior_gap/compact_request_batch.py": "b2d3175508db4cb1a2ca837a019207ae2c92e18d4c470a30d2ad510cec94b303",
+    "src/utility_behavior_gap/constants.py": "1411e458bd235a4a875af64ff41bf72bb64cf319fe12ed58ac8daef1a9d361be",
+    "src/utility_behavior_gap/judging.py": "99a44e9d0a7dc4150a9325f05ab126b05d1efd3dada37b1d47748790b94eceb4",
+    "src/utility_behavior_gap/prompts.py": "d6624529f41920f1a22bd026db73b92ecc418df2a572d43ae4f41a82bd827ce5",
+    "src/utility_behavior_gap/scripts/run_judging.py": "797ac3ae83459b2ee7a4e75e6780e0beb167c0b3fc4c5e1700e1410a6f2be6de",
+    "src/utility_behavior_gap/scripts/consolidate_aggregate_cis.py": "9570a45b793292400789ab034a817e8284d0c8985188d27c61577d19fcb70ea8",
+    "src/utility_behavior_gap/scripts/plot_canonical_highn_highlow.py": "c5212ab6e83e7a9203fcd36b7d5005d5fdf46dc22d852ed0f647e4be5ff32e3d"
+  },
+  "source_experiment": "essay treatments vs framed empty; existing paper outputs only",
+  "no_generation_calls": true,
+  "allow_unresolved": true,
+  "unresolved_panels": 1,
+  "model_interval_family": 14,
+  "bootstrap_iterations": 5000,
+  "seed": 20260615
+}
