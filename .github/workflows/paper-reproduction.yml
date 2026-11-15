@@ -24,5 +24,5 @@ jobs:
           cache: pip
           cache-dependency-path: paper_reproduction/requirements.txt
       - run: python -m pip install -r paper_reproduction/requirements.txt
-      - run: python -m pytest tests/test_paper_reproduction.py tests/test_reasoning_trace_analysis.py tests/test_analysis.py tests/test_packaged_entrypoints.py -q
+      - run: python -m pytest tests/test_paper_reproduction.py tests/test_policy_public_reproduction.py tests/test_reasoning_trace_analysis.py tests/test_analysis.py tests/test_packaged_entrypoints.py -q
       - run: python paper_reproduction/reproduce.py run

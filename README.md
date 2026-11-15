@@ -10,6 +10,7 @@ experiments. This is the public replication repository, not the private research
 - **Exact judging prompts:** [judge prompts](CURRENT_PAPER/docs/judge_prompts.md).
 - **Reproduce and verify results:** [paper reproduction guide](paper_reproduction/README.md).
 - **Current versus historical:** [artifact map](paper_reproduction/ARTIFACTS.md).
+- **Policy follow-up and harmful comparison:** [side-by-side feature table](docs/reviewer_response/policy_framed_empty/features/harmful_and_low_policy_feature_table.md) and [qualitative findings](docs/reviewer_response/policy_framed_empty/features/findings.md).
 
 The current paper uses high-low utility, direct user-prompt exhortation, framed
 role cues, and harmful-outcome comparisons with baselines. Amount experiments
@@ -52,3 +53,10 @@ explicit artifact map, not timestamps. `src/` retains collection and analysis
 tools; `paper_reproduction/` is the tested offline entry point. Large raw API
 caches, credentials, and exploratory follow-ups are not automatically published.
 No private checkout is needed for the documented offline analyses.
+
+The policy-versus-framed-empty reviewer follow-up is now included in the offline
+runner (`--step policy` for that part alone). It reconstructs the saved panel
+judgments and rubric ratings, refits both policy and harmful features, and
+checks the parallel table. Its compact evidence package preserves the exact
+source texts, requests, responses, exclusions, and collection code; no paid
+calls are needed to reproduce the analysis.

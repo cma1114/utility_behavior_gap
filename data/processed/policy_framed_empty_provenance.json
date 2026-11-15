@@ -1,0 +1,140 @@
+{
+  "path": "data/processed/policy_framed_empty.jsonl.gz",
+  "sha256": "7f3b044b8283b7345c63cd6585b168039af2fe6c4e266243ceab503a01b4aa5a",
+  "sources": [
+    {
+      "member": "panel/sources.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/sources.jsonl.gz",
+      "source_sha256": "04ed93d70120570f66d9ddcdf6c4e4ba784949217223696f2d8aa58568f42281",
+      "rows": 4200
+    },
+    {
+      "member": "panel/pairs.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/pairs.jsonl.gz",
+      "source_sha256": "a80ec0d8ee110fc05ad8f96e0489153bc77fb76c2660c2bf2adab90364d026c5",
+      "rows": 2100
+    },
+    {
+      "member": "panel/pair_accounting.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/pair_accounting.jsonl.gz",
+      "source_sha256": "89e44a2ae1356c7bf15caecf4e29dcaa1f0aad187b836355d2c7de77880386eb",
+      "rows": 2100
+    },
+    {
+      "member": "panel/reference_votes.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/reference_votes.jsonl.gz",
+      "source_sha256": "5b33a9ee1225f6f689b1fab04b63ba9a422210e2d1915604a5385f984197c642",
+      "rows": 2100
+    },
+    {
+      "member": "panel/judge_requests.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/judge_requests.jsonl.gz",
+      "source_sha256": "64a4770cc695ec0ce83756351d37b91e2062cd5f72ef0c67921729f8cd68014d",
+      "rows": 6270
+    },
+    {
+      "member": "panel/judge_responses.jsonl",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/judge_responses.jsonl",
+      "source_sha256": "fad970c88bd23fe49dc3627789c2a04504f0cb462ced9b9426e90af8009d1bc9",
+      "rows": 6270
+    },
+    {
+      "member": "panel/screen_requests.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/screen_requests.jsonl.gz",
+      "source_sha256": "e1dca4b111d52e1fec71565c0faa45b8028a48f14f51875c7e2292253f52cc93",
+      "rows": 2127
+    },
+    {
+      "member": "panel/screen_responses.jsonl",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/screen_responses.jsonl",
+      "source_sha256": "8310194f1d2563ff03cb4123ca5bd8c0c3709df691c86eeb269090b360f441a6",
+      "rows": 2127
+    },
+    {
+      "member": "panel/manual_review.json",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/manual_review.json",
+      "source_sha256": "7569bd91155f88c4fcdd37626cc1c0e03cb49bdc52ae3c12f2044fc8590511f7",
+      "rows": 1
+    },
+    {
+      "member": "panel/archive_audit.json",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/archive_audit.json",
+      "source_sha256": "81d49c2fe804e9f80722b35dc162adf7469bc1ef2dd73504c8f4a3c77f5644b2",
+      "rows": 1
+    },
+    {
+      "member": "panel/input_snapshot.json",
+      "source": "outputs/api/policy_low_framed_empty_2026-11-14/input_snapshot.json",
+      "source_sha256": "e22c467a48dcdfc5224d6f858a6c22025cbea3a20d771352c54a014a467108e1",
+      "rows": 1
+    },
+    {
+      "member": "features/protocol.jsonl",
+      "source": "outputs/api/policy_low_framed_empty_features/protocol.jsonl",
+      "source_sha256": "c8daf9fe8761a38a1d5d1a9167671db49006779c6a9473d1156fde50c684ca2a",
+      "rows": 1
+    },
+    {
+      "member": "features/rubric_requests.jsonl.gz",
+      "source": "outputs/api/policy_low_framed_empty_features/rubric_requests.jsonl.gz",
+      "source_sha256": "5d1705c721ecb946b6da9a53fc5ee5653464a3c44ec1bfdd8a14882e0f9f4e27",
+      "rows": 480
+    },
+    {
+      "member": "features/rubric_responses.jsonl",
+      "source": "outputs/api/policy_low_framed_empty_features/rubric_responses.jsonl",
+      "source_sha256": "0b52aa1320155398547158d4f7c2c701fab2a4c78958221c280665ac892662e1",
+      "rows": 481
+    },
+    {
+      "member": "features/pair_measurements.csv",
+      "source": "docs/reviewer_response/policy_framed_empty/features/pair_features.csv",
+      "source_sha256": "06a5ddf9909ecd556ac57781bab6623c3489e441f9db380d49776a68d86b20b3",
+      "rows": 2090
+    },
+    {
+      "member": "collection_code/run_policy_framed_empty.py",
+      "source": "src/utility_behavior_gap/scripts/run_policy_framed_empty.py",
+      "source_sha256": "a0525df062d7652b1494f254ea158e59921fb0f963799fad1f0d564d3bcf3f96",
+      "rows": 1
+    },
+    {
+      "member": "collection_code/run_screened_pair_features.py",
+      "source": "src/utility_behavior_gap/scripts/run_screened_pair_features.py",
+      "source_sha256": "e82e166e3eac837b70b1b062cdcbffe6fa425d4a0794458603b53d8f1c0de818",
+      "rows": 1
+    },
+    {
+      "member": "collection_code/complete_policy_baseline_analysis.py",
+      "source": "src/utility_behavior_gap/scripts/complete_policy_baseline_analysis.py",
+      "source_sha256": "3180fd2852381ca6684862b32207f043da3d0bae84f857c46d3371fa3b2d2260",
+      "rows": 1
+    },
+    {
+      "member": "collection_code/analyze_policy_baseline_features.py",
+      "source": "src/utility_behavior_gap/scripts/analyze_policy_baseline_features.py",
+      "source_sha256": "6752623b6cdbccbe9143ce673c153a57fbe1154bf3d38201efda1251401ca5aa",
+      "rows": 1
+    },
+    {
+      "member": "collection_code/run_task_rubric_pilot.py",
+      "source": "src/utility_behavior_gap/scripts/run_task_rubric_pilot.py",
+      "source_sha256": "c0f8a95187b08744a27022780ae668bf8905bbc2297d230f8ff40383f978941a",
+      "rows": 1
+    },
+    {
+      "member": "collection_code/run_task_rubric_feature_coding.py",
+      "source": "src/utility_behavior_gap/scripts/run_task_rubric_feature_coding.py",
+      "source_sha256": "1332a32fdbb45995dc373ed35db62176a2e06b869f2bb21d3c321802f277d92a",
+      "rows": 1
+    },
+    {
+      "member": "collection_code/request_batch.py",
+      "source": "src/utility_behavior_gap/request_batch.py",
+      "source_sha256": "3de2cf7fd899051ae91298e888015c1798d36073e90e4c7930bfff1bbaf0fdfe",
+      "rows": 1
+    }
+  ],
+  "transformation": "JSON objects preserved; CSV measurements parsed without filtering; collection source text preserved",
+  "excluded": "No credentials, account-credit records, or unrelated raw run archives"
+}

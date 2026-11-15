@@ -14,6 +14,13 @@ Experiments are selected explicitly, not by timestamps or loose filename searche
 | Feature directionality | features/feature_directionality_by_contrast_table.tex | features |
 | Reasoning / suspicion exclusion | docs/appendix_reasoning_trace_analysis.md; results/reasoning_trace/ | reasoning |
 
+Reviewer follow-up (separate from `CURRENT_PAPER`):
+`docs/reviewer_response/policy_framed_empty/` contains the low-policy/framed-empty
+quality results and the parallel harmful/low-policy feature table. Reproduce
+with `python paper_reproduction/reproduce.py run --step policy`. The self-contained
+evidence is `data/processed/policy_framed_empty.jsonl.gz`; this supplement does
+not silently replace the original high-low or harmful paper snapshots.
+
 The unified aggregate reference is
 `paper_reproduction/reference/aggregate_winrate_bootstrap_cis.csv`. The runner
 recomputes it from pair outcomes, not from figure annotations.

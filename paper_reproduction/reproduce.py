@@ -65,6 +65,9 @@ def audit():
             if not (PAPER / "features" / folder / name).is_file():
                 raise FileNotFoundError(PAPER / "features" / folder / name)
     print(f"Verified {len(entries)} exported-input checksums and all required contrast/rubric inputs", flush=True)
+    policy = json.loads((DATA / "policy_framed_empty_provenance.json").read_text())
+    if sha(ROOT / policy["path"]) != policy["sha256"]:
+        raise ValueError("Policy follow-up evidence checksum mismatch")
 
 
 def compare(actual, expected, keys, columns=None):
@@ -318,7 +321,12 @@ def reasoning(out):
     print("  Updated reasoning appendix checked, including the 1,620-pair Qwen follow-up", flush=True)
 
 
-STEPS = {"outcomes": outcomes, "trends": trends, "features": features, "reasoning": reasoning}
+def policy(out):
+    from policy_framed_empty import run
+    run(ROOT, out, compare)
+
+
+STEPS = {"outcomes": outcomes, "trends": trends, "features": features, "reasoning": reasoning, "policy": policy}
 
 
 def main():

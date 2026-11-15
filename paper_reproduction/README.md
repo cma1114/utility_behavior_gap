@@ -10,8 +10,8 @@ python paper_reproduction/reproduce.py run
 ```
 
 To run one part, use `--step outcomes`, `--step trends`, `--step features`, or
-`--step reasoning`. Multiple `--step` arguments are allowed. The default runs
-all four. Each writes to its own directory under `outputs/reproduced/`.
+`--step reasoning`, or `--step policy`. Multiple `--step` arguments are allowed.
+The default runs all five. Each writes to its own directory under `outputs/reproduced/`.
 `verification.json` records completed steps and numerical checks. Mismatches
 raise errors; missing files are not silently treated as null results.
 
@@ -29,6 +29,7 @@ small per-analysis logs.
 | trends | Outcomes, assigned utilities, item identifiers | Utility-gap and absolute-utility regressions, binned intervals, two-panel figure |
 | features | Generic measurements and saved rubric ratings | All length-controlled gap and panel-association fits, four feature tables, directionality |
 | reasoning | Traces, outcomes, saved local labels, Qwen follow-up | Mention/awareness analyses, reasoning-on lollipop, follow-up estimates, suspicion exclusion |
+| policy | Archived low-policy/framed-empty outputs, literal requests, raw judge/rubric responses, exclusions, feature measurements | Reparse 6,270 judgments and 480 rubric responses; reconstruct 2,090 panels; refit 118 policy/harmful feature rows; rebuild parallel tables and lollipop |
 
 This reproduces analyses **from stored measurements and judgments**. It does
 not claim that stochastic API calls regenerate the same essays or votes, or
@@ -76,6 +77,37 @@ does not complete this publication step.
 
 The older `consolidated_workflow/` remains historical. Its aggregate routine is
 not the paper's bootstrap implementation; use this entry point instead.
+
+## Policy Follow-Up
+
+The accepted follow-up outputs are in `docs/reviewer_response/policy_framed_empty/`,
+separate from the historical main-paper snapshots. Run:
+
+```bash
+python paper_reproduction/reproduce.py run --step policy
+```
+
+The 23.7 MiB compressed archive `data/processed/policy_framed_empty.jsonl.gz`
+contains records with `file` and `row` keys. It includes all 4,200 source
+outputs (including excluded ones), literal collection/coding requests, raw
+successful and failed responses, final text-bound exclusion labels, manual
+adjudications, paired generic measurements, and frozen collection source code.
+It omits credentials, account-credit records, and unrelated run archives.
+Original source paths inside metadata are provenance only, never runtime inputs.
+The final cached clean classifications are reused as measurements; reproduction
+does not claim to independently reclassify refusals or remeasure the generic
+features from text. It reparses the raw judge and rubric responses, verifies
+literal prompts and hashes, and recomputes the panels and feature models.
+
+The methods and selection threshold are unchanged. Both comparisons use framed
+empty, not R0. The new table uses the union of dimensions meeting the paper's
+0.25-SD/clear-gap/clear-panel-association rule in either contrast and always shows
+both estimates. Generic and rubric fits retain the same length/actor controls.
+Presentation follows the existing harmful feature order; reference numbers are
+not used to fit the models. See `policy_framed_empty_provenance.json` for input
+checksums and export accounting. The archived collection code documents the
+historical execution; the supported portable entry point is the command above,
+not the old research-only collection commands.
 
 The GitHub workflow `.github/workflows/paper-reproduction.yml` runs the offline
 checks on pushes and pull requests without model credentials. A future change

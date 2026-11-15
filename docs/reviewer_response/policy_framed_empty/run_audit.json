@@ -1,0 +1,34 @@
+{
+  "planned_pairs": 2100,
+  "excluded_pairs": 10,
+  "completed_panels": 2090,
+  "pending_judgments": 0,
+  "retained_per_task": {
+    "essay": 523,
+    "grant_proposal_abstract": 518,
+    "incident_postmortem": 525,
+    "translation": 524
+  },
+  "excluded_low_labels": {
+    "full_refusal": 8,
+    "partial_refusal": 1,
+    "degenerate": 1
+  },
+  "judge_finish_reasons": {
+    "stop": 6251,
+    "length": 19
+  },
+  "recorded_total_cost_usd": 6.490667,
+  "stages": {
+    "screen": {
+      "requests": 2127,
+      "successful": 2127,
+      "attempts": 2127
+    },
+    "judge": {
+      "requests": 6270,
+      "successful": 6270,
+      "attempts": 6270
+    }
+  }
+}

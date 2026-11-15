@@ -1,0 +1,35 @@
+{
+  "files": {
+    "outputs/api/policy_low_framed_empty_2026-11-14/reference_votes.jsonl.gz": "5b33a9ee1225f6f689b1fab04b63ba9a422210e2d1915604a5385f984197c642",
+    "outputs/api/policy_low_framed_empty_2026-11-14/judge_requests.jsonl.gz": "64a4770cc695ec0ce83756351d37b91e2062cd5f72ef0c67921729f8cd68014d",
+    "outputs/api/policy_low_framed_empty_2026-11-14/pairs.jsonl.gz": "a80ec0d8ee110fc05ad8f96e0489153bc77fb76c2660c2bf2adab90364d026c5",
+    "outputs/api/policy_low_framed_empty_2026-11-14/screen_requests.jsonl.gz": "e1dca4b111d52e1fec71565c0faa45b8028a48f14f51875c7e2292253f52cc93",
+    "outputs/api/policy_low_framed_empty_2026-11-14/flagged_review_required.json": "c13fbe2dac6e5fd61983cd289c85a5eb8f18fc8b4f2644d1135720107c9b9fa9",
+    "outputs/api/policy_low_framed_empty_2026-11-14/manual_review.json": "7569bd91155f88c4fcdd37626cc1c0e03cb49bdc52ae3c12f2044fc8590511f7",
+    "outputs/api/policy_low_framed_empty_2026-11-14/spend_guard.json": "52bb261155c93e5492d15299e6cfb09347e9fb9bb3f9d220c34168523500d106",
+    "outputs/api/policy_low_framed_empty_2026-11-14/pair_accounting.jsonl.gz": "89e44a2ae1356c7bf15caecf4e29dcaa1f0aad187b836355d2c7de77880386eb",
+    "outputs/api/policy_low_framed_empty_2026-11-14/screen_responses.jsonl": "8310194f1d2563ff03cb4123ca5bd8c0c3709df691c86eeb269090b360f441a6",
+    "outputs/api/policy_low_framed_empty_2026-11-14/judge_responses.jsonl": "fad970c88bd23fe49dc3627789c2a04504f0cb462ced9b9426e90af8009d1bc9",
+    "outputs/api/policy_low_framed_empty_2026-11-14/archive_audit.json": "81d49c2fe804e9f80722b35dc162adf7469bc1ef2dd73504c8f4a3c77f5644b2",
+    "outputs/api/policy_low_framed_empty_2026-11-14/sources.jsonl.gz": "04ed93d70120570f66d9ddcdf6c4e4ba784949217223696f2d8aa58568f42281",
+    "outputs/api/policy_low_framed_empty_2026-11-14/input_snapshot.json": "e22c467a48dcdfc5224d6f858a6c22025cbea3a20d771352c54a014a467108e1",
+    "outputs/api/policy_low_framed_empty_2026-11-14/status.json": "1db888f896358467544974bc026017bd80942de6e1a923023a74073faaf0aa6d",
+    "outputs/api/policy_low_framed_empty_2026-11-14/runner_events.jsonl": "592310da4540fb68a3a54846bfb46a2ca7ee40200deaaff63c3daf61f9fdfac3",
+    "src/utility_behavior_gap/scripts/run_policy_framed_empty.py": "a0525df062d7652b1494f254ea158e59921fb0f963799fad1f0d564d3bcf3f96",
+    "src/utility_behavior_gap/request_batch.py": "c13352d9c42520c5ac6fd5c386f6481add3d395b9565f0efc6ef17ecee849adb",
+    "src/utility_behavior_gap/scripts/complete_policy_baseline_analysis.py": "3180fd2852381ca6684862b32207f043da3d0bae84f857c46d3371fa3b2d2260",
+    "src/utility_behavior_gap/scripts/run_judging.py": "28e7d93fb088acf57e04997b91db312fe7a8ebcc16b85ee689357bda329f79b6",
+    "src/utility_behavior_gap/scripts/plot_canonical_highn_highlow.py": "05d174b49b35019b0e1b646d59480f7f0875fe706a8e12bd032580a1fba336e3",
+    "src/utility_behavior_gap/scripts/consolidate_aggregate_cis.py": "fc777ad6feedbd403ed99f406246782f4372317b2eed48b5a8a64c4079ce77bb",
+    "tests/test_policy_framed_empty.py": "8c45c281c449a247a5451d66189ed293e3c1beac5a3e60c8a7cf236eb8c3db29"
+  },
+  "outputs": {
+    "aggregate_results.csv": "285ad286b3fe047e097d873212219a1c3fd3ffefd93358fc7cb898eeca0b0c3e",
+    "low_policy_vs_framed_empty_lollipop.png": "3c4a799c762486ac1cc2adc79626edff3f3ff42a4059bef36da21e21cd190020",
+    "run_audit.json": "b2382add713c35bcaf467be1ca4764a5c8030e6a2c297af3359bcd5dca5aea64",
+    "model_task_cells.csv": "1aa443380b5fd315ddd15542f556f27c78f9462ca03ba708ceb46e02d8cb1e87",
+    "pair_outcomes.csv": "1c6c16cd05c25857ce4ef9fd5f7a88ce44569e0e396ac962ebd5ce909eaa40c0",
+    "README.md": "7c8670454d4c46d327aa5e0f54ed6374d16cc2278408bdf6170a7c91dfd3fd7b",
+    "pair_accounting.csv": "47306d6bfc7271d00b14da13e63ce00b50b3180f3135d182c9221e06a3a1f562"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "inputs": {
+    "CURRENT_PAPER/features/moral_low_vs_framed_empty_length_controlled_feature_selection.csv": "6af8af83eb5aba3c424bb05b8ad3cbcc41b98a22153a5823d122e1881551cac9",
+    "docs/reviewer_response/policy_framed_empty/features/feature_results.csv": "84e25323b6c0d6b4ef1e08e6dbd43cd3282034a196f606891374b105c5bef028"
+  },
+  "threshold": 0.25,
+  "selection": "union; full counterpart retained",
+  "rows": 10,
+  "command": "python -m utility_behavior_gap.scripts.make_moral_low_framed_empty_feature_table --selection CURRENT_PAPER/features/moral_low_vs_framed_empty_length_controlled_feature_selection.csv --compare-selection docs/reviewer_response/policy_framed_empty/features/feature_results.csv --first-label Harmful --second-label 'Low policy' --out-prefix docs/reviewer_response/policy_framed_empty/features/harmful_and_low_policy_feature_table --threshold 0.25",
+  "script_sha256": "624bceb5b786435824cc58969a1105226b2743b526550e88fd7469c348769720"
+}

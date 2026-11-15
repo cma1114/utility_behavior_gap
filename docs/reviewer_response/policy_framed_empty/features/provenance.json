@@ -1,0 +1,53 @@
+{
+  "protocol": {
+    "contrast": "policy_low_vs_framed_empty",
+    "left_label": "Low policy",
+    "right_label": "Framed empty",
+    "seed": 20261114,
+    "sample_per_task": 120,
+    "coder": "google/gemini-2.5-flash",
+    "temperature": 0.0,
+    "initial_max_tokens": 1400,
+    "truncated_response_max_tokens": 5600,
+    "threshold": 0.25,
+    "inputs": {
+      "/Users/christopherackerman/repos/Utility-Behavior-Gap/docs/reviewer_response/policy_framed_empty/pair_outcomes.csv": "1c6c16cd05c25857ce4ef9fd5f7a88ce44569e0e396ac962ebd5ce909eaa40c0",
+      "/Users/christopherackerman/repos/Utility-Behavior-Gap/docs/reviewer_response/policy_framed_empty/pair_accounting.csv": "47306d6bfc7271d00b14da13e63ce00b50b3180f3135d182c9221e06a3a1f562",
+      "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/api/policy_low_framed_empty_2026-11-14/sources.jsonl.gz": "04ed93d70120570f66d9ddcdf6c4e4ba784949217223696f2d8aa58568f42281",
+      "/Users/christopherackerman/repos/Utility-Behavior-Gap/CURRENT_PAPER/features/moral_low_vs_framed_empty_rubric_coding/rubric_feature_codes.jsonl": "66fa71999a5eb9efe775f7950fc0be8a3f2f91a02393e8a303b5f814a97d4cff",
+      "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/analysis/final_text_analysis_by_output.csv": "7e93156069c748b519f83f1eea9947de995ad85c96993ca52337b52e2116af24"
+    }
+  },
+  "files": {
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/api/policy_low_framed_empty_features/protocol.jsonl": "c8daf9fe8761a38a1d5d1a9167671db49006779c6a9473d1156fde50c684ca2a",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/api/policy_low_framed_empty_features/rubric_responses.jsonl": "0b52aa1320155398547158d4f7c2c701fab2a4c78958221c280665ac892662e1",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/api/policy_low_framed_empty_features/events.jsonl": "ba355c4dd9fd06dd1392a81d919416df19e5a77490cc1c06c4c7e1d59b829f68",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/outputs/api/policy_low_framed_empty_features/rubric_requests.jsonl.gz": "5d1705c721ecb946b6da9a53fc5ee5653464a3c44ec1bfdd8a14882e0f9f4e27",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/run_screened_pair_features.py": "e82e166e3eac837b70b1b062cdcbffe6fa425d4a0794458603b53d8f1c0de818",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/request_batch.py": "3de2cf7fd899051ae91298e888015c1798d36073e90e4c7930bfff1bbaf0fdfe",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/complete_policy_baseline_analysis.py": "3180fd2852381ca6684862b32207f043da3d0bae84f857c46d3371fa3b2d2260",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/analyze_policy_baseline_features.py": "6752623b6cdbccbe9143ce673c153a57fbe1154bf3d38201efda1251401ca5aa",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/analyze_length_controlled_feature_selection.py": "7fbe36c8766a3a81d9a31379d2ee6633b8c12bd10e287622ee85521a2866689f",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/make_moral_low_framed_empty_feature_table.py": "624bceb5b786435824cc58969a1105226b2743b526550e88fd7469c348769720",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/run_task_rubric_pilot.py": "c0f8a95187b08744a27022780ae668bf8905bbc2297d230f8ff40383f978941a",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/src/utility_behavior_gap/scripts/run_task_rubric_feature_coding.py": "1332a32fdbb45995dc373ed35db62176a2e06b869f2bb21d3c321802f277d92a",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/tests/test_screened_pair_features.py": "55d76094e828a564f8054a85b2d5f9eba56eaa2f84fd4a7cfdb89186a9801b1c",
+    "/Users/christopherackerman/repos/Utility-Behavior-Gap/analysis_specs/feature_definitions.yaml": "e3e1d825045a8c1ae9a253fd22bf9de092dd516e115dfe782bae3d413518fcee"
+  },
+  "outputs": {
+    "pair_features.csv": "06a5ddf9909ecd556ac57781bab6623c3489e441f9db380d49776a68d86b20b3",
+    "feature_table.tex": "a93ccc7bb10864b0230a5e8ddcbb407faddc59ae3ded27f8928b808b7e1e9196",
+    "harmful_and_low_policy_feature_table.tex": "7f4ed1e7650dd968c0170df161ac3c54aa23f969317f5cbbee18d95fe215c7da",
+    "rubric_scores.csv": "79953bc7dc58fab234ecbfc06f87a3c3842403406a4d704fba553812f6971d8f",
+    "feature_table.csv": "e58f161b6da1c97b6fdec7d7ee17a7a403634519dfcb69d584c0d8e1558f3a9a",
+    "README.md": "7875b9cd2ef4b59341de28b5eccb0573e84aef7fe7918cfc4a5ec9f6150d1e0f",
+    "rubric_sample.csv": "c0f8ab6b628e1d2532facc3af66ffcd45c05f2212e0975edb8045e580379afe6",
+    "feature_results.csv": "84e25323b6c0d6b4ef1e08e6dbd43cd3282034a196f606891374b105c5bef028",
+    "findings.md": "702cc44f9d647d799cc2033ecc2db50398036e3f993be023a43e60f6930c2dc9",
+    "all_features.md": "66a875eb0eba82549f1b2072a69e0ee783419610b9e5b1cd1c78de47d8105b28",
+    "harmful_and_low_policy_feature_table.csv": "c6aebbec332b21cb5187fd4c9bb4138764d58e79d5c9bc8d4636a79504babaec",
+    "feature_table_selected_detail.csv": "6764222768a1e70bbbc7c7e3e32aa79cc08b2b0fc133df53e005024041017d2d",
+    "harmful_and_low_policy_feature_table.md": "d9f6ed58daa41c4b72c2fd17a9d54bed49982b9a4909df17a05d31f6a8841b8a"
+  },
+  "recorded_cost_usd": 0.90085607
+}

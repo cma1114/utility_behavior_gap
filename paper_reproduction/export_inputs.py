@@ -31,13 +31,60 @@ def digest(path: Path) -> str:
         return hashlib.file_digest(handle, "sha256").hexdigest()
 
 
+def export_policy_framed_empty(source: Path, dest: Path) -> None:
+    """Lossless JSON evidence plus small paired measurements, never raw archives."""
+    panel = source / "outputs/api/policy_low_framed_empty_2026-11-14"
+    features = source / "outputs/api/policy_low_framed_empty_features"
+    inputs = {"panel/" + name: panel / name for name in (
+        "sources.jsonl.gz", "pairs.jsonl.gz", "pair_accounting.jsonl.gz", "reference_votes.jsonl.gz",
+        "judge_requests.jsonl.gz", "judge_responses.jsonl", "screen_requests.jsonl.gz",
+        "screen_responses.jsonl", "manual_review.json", "archive_audit.json", "input_snapshot.json")}
+    inputs.update({"features/" + name: features / name for name in (
+        "protocol.jsonl", "rubric_requests.jsonl.gz", "rubric_responses.jsonl")})
+    inputs["features/pair_measurements.csv"] = source / "docs/reviewer_response/policy_framed_empty/features/pair_features.csv"
+    for name in ("run_policy_framed_empty", "run_screened_pair_features", "complete_policy_baseline_analysis",
+                 "analyze_policy_baseline_features", "run_task_rubric_pilot", "run_task_rubric_feature_coding"):
+        inputs[f"collection_code/{name}.py"] = source / f"src/utility_behavior_gap/scripts/{name}.py"
+    inputs["collection_code/request_batch.py"] = source / "src/utility_behavior_gap/request_batch.py"
+    target = dest / "policy_framed_empty.jsonl.gz"
+    provenance_path = dest / "policy_framed_empty_provenance.json"
+    if target.exists() or provenance_path.exists():
+        raise FileExistsError("Policy export already exists; preserve it rather than silently replacing evidence")
+    records = []
+    with target.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as zipped:
+        for key, path in inputs.items():
+            count = 0
+            if path.suffix == ".csv":
+                rows = pd.read_csv(path).to_dict("records")
+            elif path.suffix == ".py":
+                rows = [{"source_text": path.read_text()}]
+            elif path.suffix == ".json":
+                rows = [json.loads(path.read_text())]
+            else:
+                opener = gzip.open if path.suffix == ".gz" else open
+                with opener(path, "rt") as handle:
+                    rows = [json.loads(line) for line in handle if line.strip()]
+            for row in rows:
+                zipped.write((json.dumps({"file": key, "row": row}, ensure_ascii=False, separators=(",", ":")) + "\n").encode())
+                count += 1
+            records.append(dict(member=key, source=str(path.relative_to(source)), source_sha256=digest(path), rows=count))
+    provenance_path.write_text(json.dumps(dict(path=str(target.relative_to(ROOT)), sha256=digest(target),
+        sources=records, transformation="JSON objects preserved; CSV measurements parsed without filtering; collection source text preserved",
+        excluded="No credentials, account-credit records, or unrelated raw run archives"), indent=2) + "\n")
+    print(f"Exported policy evidence: {target.stat().st_size / 1024**2:.2f} MiB")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--research-root", type=Path, required=True)
+    parser.add_argument("--supplement", choices=["policy_framed_empty"])
     args = parser.parse_args()
     source = args.research_root.resolve()
     dest = ROOT / "data" / "processed"
     dest.mkdir(parents=True, exist_ok=True)
+    if args.supplement == "policy_framed_empty":
+        export_policy_framed_empty(source, dest)
+        return
     records = []
 
     def export(path: Path, name: str, frame: pd.DataFrame | None = None) -> None:
